@@ -3,15 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Bangla Empire | Minecraft Server</title>
+<title>Lavamc | Minecraft Server</title>
 <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg1:#0a0905; --bg2:#1a1405;
+    --bg1:#0a0905; --bg2:#1a1405; --acr:250,204,21; --ac2r:245,158,11; --bgr:10,9,5;
     --accent:#facc15;
     --accent2:#f59e0b;
     --card:rgba(255,255,255,.06);
-    --border:rgba(250,204,21,.25);
+    --border:rgba(var(--acr),.25);
     --text:#fff8dc;
     --muted:#c9b97a;
   }
@@ -51,9 +51,9 @@
     background:radial-gradient(circle at center,#1f1803,#050402);
     animation:splashOut .8s ease 3.6s forwards;
   }
-  .splash img{width:150px;height:150px;object-fit:contain;animation:logoIn 1.1s cubic-bezier(.2,1.4,.4,1) both;filter:drop-shadow(0 0 30px rgba(250,204,21,.7))}
-  .splash h2{font-size:clamp(2rem,9vw,3.8rem);font-weight:800;color:var(--accent);text-shadow:0 0 25px rgba(250,204,21,.5)}
-  .splash .bar{width:200px;height:4px;border-radius:4px;background:rgba(250,204,21,.18);overflow:hidden}
+  .splash img{width:150px;height:150px;object-fit:contain;animation:logoIn 1.1s cubic-bezier(.2,1.4,.4,1) both;filter:drop-shadow(0 0 30px rgba(var(--acr),.7))}
+  .splash h2{font-size:clamp(2rem,9vw,3.8rem);font-weight:800;color:var(--accent);text-shadow:0 0 25px rgba(var(--acr),.5)}
+  .splash .bar{width:200px;height:4px;border-radius:4px;background:rgba(var(--acr),.18);overflow:hidden}
   .splash .bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--accent),var(--accent2));animation:load 3s ease .3s forwards}
   @keyframes logoIn{from{transform:scale(0) rotate(-180deg);opacity:0}to{transform:scale(1) rotate(0);opacity:1}}
   @keyframes load{to{width:100%}}
@@ -74,24 +74,37 @@
     position:absolute;inset:0;display:flex;flex-direction:column;
     align-items:center;justify-content:center;line-height:1;
     font-size:clamp(3.8rem,17vw,13rem);font-weight:800;
-    color:rgba(250,204,21,.14);
-    text-shadow:0 0 40px rgba(250,204,21,.25);
+    color:rgba(var(--acr),.14);
+    text-shadow:0 0 40px rgba(var(--acr),.25);
   }
-  .marquee{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:space-around;opacity:.04}
+  .marquee{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:space-around;opacity:var(--mqo,.04)}
   .marquee div{
     white-space:nowrap;font-family:'Poppins',sans-serif;
     font-size:clamp(2.5rem,7vw,5.5rem);font-weight:700;color:var(--accent);
-    animation:slide 40s linear infinite;
+    animation:slide calc(40s * var(--mqs,1)) linear infinite;
   }
-  .marquee div:nth-child(even){animation-direction:reverse;animation-duration:55s}
+  .marquee div:nth-child(even){animation-direction:reverse;animation-duration:calc(55s * var(--mqs,1))}
+  .marquee.mq-left div,.marquee.mq-left div:nth-child(even){animation-direction:normal}
+  .marquee.mq-right div,.marquee.mq-right div:nth-child(even){animation-direction:reverse}
+  .marquee.mq-rise div{animation:mqUp calc(14s * var(--mqs,1)) ease-in-out infinite;animation-delay:calc(var(--r) * -2.8s);text-align:center;overflow:hidden}
+  .marquee.mq-pulse div{animation:mqPulse calc(6s * var(--mqs,1)) ease-in-out infinite;animation-delay:calc(var(--r) * -1.2s);text-align:center;overflow:hidden}
+  .marquee.mq-wave div{animation:slide calc(40s * var(--mqs,1)) linear infinite,mqWave 6s ease-in-out infinite;animation-delay:0s,calc(var(--r) * -1.1s)}
+  .marquee.mq-zoom div{animation:slide calc(40s * var(--mqs,1)) linear infinite,mqZoom 8s ease-in-out infinite;animation-delay:0s,calc(var(--r) * -1.6s)}
+  .marquee.mq-diag{transform:rotate(-14deg) scale(1.5)}
+  .marquee.mq-blink div{animation:slide calc(40s * var(--mqs,1)) linear infinite,mqBlink 3s steps(2,jump-none) infinite;animation-delay:0s,calc(var(--r) * -.6s)}
   @keyframes slide{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+  @keyframes mqUp{0%{transform:translateY(40px);opacity:0}30%,70%{opacity:1}100%{transform:translateY(-40px);opacity:0}}
+  @keyframes mqPulse{0%,100%{opacity:.1}50%{opacity:1}}
+  @keyframes mqWave{0%,100%{translate:0 -14px}50%{translate:0 14px}}
+  @keyframes mqZoom{0%,100%{scale:.8}50%{scale:1.15}}
+  @keyframes mqBlink{0%{opacity:1}100%{opacity:.15}}
 
   /* ===== হেডার ===== */
   header{
     position:fixed;top:0;left:0;right:0;z-index:20;
     display:flex;align-items:center;justify-content:space-between;
     padding:12px 22px;backdrop-filter:blur(10px);
-    background:rgba(10,9,5,.5);border-bottom:1px solid var(--border);
+    background:rgba(var(--bgr),.5);border-bottom:1px solid var(--border);
   }
   .logo{display:flex;align-items:center;gap:10px;font-weight:700;font-size:1.15rem;text-decoration:none;color:var(--text)}
   .logo img{width:42px;height:42px;object-fit:contain;border-radius:10px}
@@ -101,7 +114,7 @@
     background:var(--card);cursor:pointer;display:flex;flex-direction:column;
     align-items:center;justify-content:center;gap:5px;transition:.25s;
   }
-  .menu-btn:hover{background:rgba(250,204,21,.15);transform:scale(1.06)}
+  .menu-btn:hover{background:rgba(var(--acr),.15);transform:scale(1.06)}
   .menu-btn i{display:block;width:20px;height:2px;background:var(--accent);border-radius:2px;transition:.3s}
   .menu-btn.open i:nth-child(1){transform:translateY(7px) rotate(45deg)}
   .menu-btn.open i:nth-child(2){opacity:0}
@@ -120,7 +133,7 @@
     color:var(--text);text-decoration:none;font-weight:500;background:var(--card);
     border:1px solid transparent;transition:.25s;
   }
-  .drawer a:hover{border-color:var(--accent);transform:translateX(-4px);background:rgba(250,204,21,.1)}
+  .drawer a:hover{border-color:var(--accent);transform:translateX(-4px);background:rgba(var(--acr),.1)}
   .drawer a.adminlink{border-color:var(--accent);color:var(--accent);font-weight:700}
   .overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:12;opacity:0;pointer-events:none;transition:.3s}
   .overlay.show{opacity:1;pointer-events:auto}
@@ -148,7 +161,7 @@
     width:100%;padding:10px 12px;border:none;border-radius:10px;cursor:pointer;text-align:left;
     font-family:inherit;font-weight:600;color:var(--text);background:transparent;
   }
-  .usermenu button:hover{background:rgba(250,204,21,.12)}
+  .usermenu button:hover{background:rgba(var(--acr),.12)}
   .modal-bg{
     position:fixed;inset:0;z-index:60;display:none;align-items:center;justify-content:center;padding:18px;
     background:rgba(0,0,0,.65);backdrop-filter:blur(4px);
@@ -191,7 +204,7 @@
   .server-logo{
     width:110px;height:110px;border-radius:22px;object-fit:cover;image-rendering:auto;
     background:#000;border:3px solid var(--accent);
-    box-shadow:0 0 35px rgba(250,204,21,.45);
+    box-shadow:0 0 35px rgba(var(--acr),.45);
   }
   .status-col{display:flex;flex-direction:column;gap:10px}
   .pill{
@@ -203,7 +216,7 @@
   .dot{width:11px;height:11px;border-radius:50%;background:#facc15;animation:pulse 1.6s infinite}
   .dot.on{background:#22c55e;animation-name:pulseOn}
   .dot.off{background:#ef4444;animation-name:pulseOff}
-  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(250,204,21,.6)}70%{box-shadow:0 0 0 10px rgba(250,204,21,0)}}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(var(--acr),.6)}70%{box-shadow:0 0 0 10px rgba(var(--acr),0)}}
   @keyframes pulseOn{0%{box-shadow:0 0 0 0 rgba(34,197,94,.6)}70%{box-shadow:0 0 0 10px rgba(34,197,94,0)}}
   @keyframes pulseOff{0%{box-shadow:0 0 0 0 rgba(239,68,68,.6)}70%{box-shadow:0 0 0 10px rgba(239,68,68,0)}}
 
@@ -212,11 +225,11 @@
     display:inline-flex;align-items:center;gap:8px;padding:8px 20px;border-radius:999px;
     font-family:'Poppins',sans-serif;font-weight:700;font-size:clamp(.85rem,3.4vw,1.05rem);
     color:#1a1200;background:linear-gradient(90deg,var(--accent),var(--accent2));
-    box-shadow:0 6px 24px rgba(250,204,21,.3);
+    box-shadow:0 6px 24px rgba(var(--acr),.3);
   }
   .title h1{
     font-size:clamp(2.4rem,8vw,4.4rem);font-weight:800;line-height:1.2;color:var(--accent);
-    text-shadow:0 0 30px rgba(250,204,21,.35);
+    text-shadow:0 0 30px rgba(var(--acr),.35);
   }
   .title p{color:var(--muted)}
 
@@ -227,7 +240,7 @@
     background:var(--card);border:1px solid var(--border);backdrop-filter:blur(8px);
     transition:transform .25s ease,border-color .25s,box-shadow .25s;
   }
-  .ip:hover{transform:scale(1.07);border-color:var(--accent);box-shadow:0 10px 35px rgba(250,204,21,.2)}
+  .ip:hover{transform:scale(1.07);border-color:var(--accent);box-shadow:0 10px 35px rgba(var(--acr),.2)}
   .ip small{display:block;color:var(--muted);font-size:.78rem;margin-bottom:2px}
   .ip b{font-size:1.15rem;word-break:break-all}
   .copy{
@@ -244,7 +257,7 @@
     background:var(--card);border:1px solid var(--border);backdrop-filter:blur(8px);
     transition:transform .25s ease,border-color .25s,box-shadow .25s;
   }
-  .voteitem:hover{transform:scale(1.05);border-color:var(--accent);box-shadow:0 10px 35px rgba(250,204,21,.2)}
+  .voteitem:hover{transform:scale(1.05);border-color:var(--accent);box-shadow:0 10px 35px rgba(var(--acr),.2)}
   .voteitem .num{
     width:46px;height:46px;border-radius:14px;flex:0 0 auto;
     display:flex;align-items:center;justify-content:center;
@@ -269,7 +282,7 @@
   .rules-wrap{display:flex;flex-direction:column;gap:16px;width:100%;max-width:640px}
   .welcome{
     padding:20px 22px;border-radius:18px;line-height:1.7;
-    background:rgba(250,204,21,.08);border:1px solid var(--border);border-left:5px solid var(--accent);
+    background:rgba(var(--acr),.08);border:1px solid var(--border);border-left:5px solid var(--accent);
   }
   .welcome b{display:block;color:var(--accent);font-size:1.15rem;margin-bottom:4px}
   .rulecard{
@@ -316,7 +329,7 @@
     background:var(--card);border:1px solid var(--border);backdrop-filter:blur(8px);
     transition:transform .25s,border-color .25s,box-shadow .25s;
   }
-  .rankcard:hover{transform:translateY(-4px);border-color:var(--accent);box-shadow:0 12px 35px rgba(250,204,21,.18)}
+  .rankcard:hover{transform:translateY(-4px);border-color:var(--accent);box-shadow:0 12px 35px rgba(var(--acr),.18)}
   .rankimg{width:100%;display:block;cursor:zoom-in;background:#000}
   .rankbody{padding:16px 18px;display:flex;flex-direction:column;gap:8px}
   .rankname{font-family:'Poppins','Hind Siliguri',sans-serif;font-size:1.25rem;font-weight:800;color:var(--accent)}
@@ -333,6 +346,59 @@
     background:rgba(88,101,242,.12);border:1px solid rgba(88,101,242,.45);
   }
   .buynote b{color:#a5b0ff}
+
+  /* ===== Buy Now / Verify ===== */
+  .buybtn{
+    border:none;cursor:pointer;margin-top:6px;padding:12px;border-radius:12px;font-family:inherit;font-weight:800;font-size:1rem;
+    background:linear-gradient(90deg,var(--accent),var(--accent2));color:#1a1200;transition:.2s;
+  }
+  .buybtn:hover{transform:translateY(-2px)}
+  .buybtn:active{transform:scale(.97)}
+  .buybox{max-height:92vh;overflow:auto;text-align:left}
+  .buybox h3{text-align:center;margin-bottom:4px}
+  .buybox > label{display:block;color:var(--muted);font-size:.85rem;font-weight:600;margin:14px 0 6px}
+  .buybox input[type=text]{margin:0;text-align:left}
+  .planlist{display:flex;flex-direction:column;gap:8px}
+  .planopt{
+    display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:12px;cursor:pointer;font-weight:600;
+    border:1.5px solid var(--border);background:rgba(0,0,0,.35);transition:.2s;
+  }
+  .planopt.on{border-color:var(--accent);background:rgba(var(--acr),.14)}
+  .planopt .rd{width:18px;height:18px;border-radius:50%;border:2px solid var(--accent);flex:none;position:relative}
+  .planopt.on .rd::after{content:"";position:absolute;inset:3px;border-radius:50%;background:var(--accent)}
+  .paymeth{display:flex;gap:8px;margin-bottom:8px}
+  .paymeth button{
+    flex:1;padding:11px;border-radius:12px;cursor:pointer;font-family:inherit;font-weight:700;font-size:.95rem;
+    border:1.5px solid var(--border);background:rgba(0,0,0,.35);color:var(--text);
+  }
+  .paymeth button.on{border-color:var(--accent);background:rgba(var(--acr),.18);color:var(--accent)}
+  .paybox{padding:14px;border-radius:14px;line-height:1.7;font-size:.92rem;background:rgba(var(--acr),.08);border:1px dashed var(--border)}
+  .paynum{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:6px 0;font-size:1.25rem;letter-spacing:1px}
+  .vfy{
+    position:fixed;inset:0;z-index:120;display:none;align-items:center;justify-content:center;padding:18px;
+    background:rgba(0,0,0,.72);backdrop-filter:blur(5px);
+  }
+  .vfy.show{display:flex}
+  .vfybox{
+    width:100%;max-width:340px;padding:30px 24px;border-radius:24px;text-align:center;line-height:1.6;
+    background:rgba(20,15,4,.98);border:1px solid var(--border);box-shadow:0 20px 60px rgba(0,0,0,.6);
+  }
+  .vfybox p{color:var(--muted);margin:6px 0 16px}
+  .vfybox h4{font-size:1.2rem;margin-bottom:4px}
+  .spin{width:64px;height:64px;margin:4px auto 16px;border-radius:50%;border:5px solid rgba(var(--acr),.2);border-top-color:var(--accent);animation:spin .9s linear infinite}
+  .vicon{
+    width:76px;height:76px;margin:0 auto 14px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+    font-size:2.4rem;font-weight:800;color:#fff;animation:vpop .5s cubic-bezier(.2,1.5,.4,1) both;
+  }
+  .vicon.ok{background:#22c55e;box-shadow:0 0 40px rgba(34,197,94,.55)}
+  .vicon.no{background:#ef4444;box-shadow:0 0 40px rgba(239,68,68,.55)}
+  @keyframes vpop{from{transform:scale(0) rotate(-90deg);opacity:0}to{transform:none;opacity:1}}
+  .vfybox button{
+    width:100%;padding:12px;border:none;border-radius:12px;cursor:pointer;font-family:inherit;font-weight:800;font-size:1rem;
+    background:linear-gradient(90deg,var(--accent),var(--accent2));color:#1a1200;
+  }
+  .ptag{font-size:.75rem;padding:3px 10px;border-radius:999px;color:#fff;font-weight:700;white-space:nowrap}
+  .ptag.u{background:#1a8f5a}.ptag.n{background:#b7791f}
   .light-bg{
     position:fixed;inset:0;z-index:70;display:none;align-items:center;justify-content:center;padding:16px;
     background:rgba(0,0,0,.85);cursor:zoom-out;
@@ -373,7 +439,7 @@
     padding:13px;border-radius:14px;border:1.5px dashed var(--accent);background:transparent;
     color:var(--accent);font-family:inherit;font-weight:700;font-size:1rem;cursor:pointer;transition:.2s;
   }
-  .aadd:hover{background:rgba(250,204,21,.12)}
+  .aadd:hover{background:rgba(var(--acr),.12)}
   .imgprev{width:100%;max-height:240px;object-fit:contain;border-radius:12px;background:#000;border:1px solid var(--border)}
   .note{font-size:.9rem;color:var(--muted);line-height:1.8}
   .note b{color:var(--accent)}
@@ -419,7 +485,7 @@
     position:relative;display:block;width:100%;aspect-ratio:16/9;border-radius:20px;overflow:hidden;
     border:2px solid var(--border);background:#000;transition:.25s;
   }
-  .yt-video:hover{transform:translateY(-3px);border-color:var(--accent);box-shadow:0 12px 35px rgba(250,204,21,.2)}
+  .yt-video:hover{transform:translateY(-3px);border-color:var(--accent);box-shadow:0 12px 35px rgba(var(--acr),.2)}
   .yt-video img{width:100%;height:100%;object-fit:cover;display:block}
   .yt-play{
     position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:68px;height:48px;border-radius:14px;
@@ -459,6 +525,111 @@
   .site-foot a.foot-ch{color:#ef4444;text-decoration:underline;font-weight:600}
   .site-foot a.foot-ch:hover{color:#f87171}
 
+  .season-pill{align-self:center;padding:6px 16px;border-radius:999px;border:1px solid var(--accent);color:var(--accent);font-weight:700;font-size:.85rem;background:rgba(0,0,0,.25)}
+  .notice-bar{width:100%;max-width:680px;padding:14px 18px;border-radius:16px;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#1a1200;font-weight:600;text-align:center;white-space:pre-line}
+  .motd{margin-top:8px;padding:10px 14px;border-radius:12px;background:rgba(0,0,0,.35);font-family:monospace;font-size:.9rem;white-space:pre-wrap;text-align:center;color:#ddd}
+  .acard select{width:100%;padding:12px;margin-top:6px;border-radius:12px;background:rgba(255,255,255,.06);color:var(--text);border:1px solid var(--border);font:inherit}
+  .acard select option{color:#000}
+  #maintOv{display:none;position:fixed;inset:0;z-index:59;background:#0a0a0a;align-items:center;justify-content:center;flex-direction:column;gap:14px;text-align:center;padding:24px}
+  #maintOv a{font-size:.8rem;color:var(--muted);text-decoration:underline}
+
+  .ibody{width:100%;max-width:680px;display:flex;flex-direction:column;gap:12px}
+  .isec{font-size:1.1rem;color:var(--accent);margin-top:10px}
+  .icard{padding:14px 16px;border-radius:16px;background:var(--card);border:1px solid var(--border);display:flex;flex-direction:column;gap:6px;white-space:pre-line}
+  .icard b{font-size:1rem}.icard small{color:var(--muted)}
+  .icard code{font-family:monospace;color:var(--accent)}
+  .icard img{width:100%;border-radius:12px;display:block}
+  .ibtns{display:flex;flex-wrap:wrap;gap:10px}
+  .ibtn{padding:12px 18px;border-radius:999px;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#1a1200;font-weight:700;text-decoration:none}
+  .iempty{color:var(--muted);text-align:center;padding:30px 0}
+  #annBox{position:relative;max-height:80vh;overflow:auto;white-space:pre-line;display:flex;flex-direction:column;gap:8px;padding-top:44px}
+  #annBox img{width:100%;border-radius:12px}#annBox small{color:var(--muted)}
+  .annx{position:absolute;top:10px;right:10px;width:34px;height:34px;border-radius:50%;border:1px solid var(--border);background:rgba(0,0,0,.5);color:#fff;cursor:pointer}
+  .ibody input,.ibody textarea,.ibody select{width:100%;padding:12px;border-radius:12px;background:rgba(255,255,255,.06);color:var(--text);border:1px solid var(--border);font:inherit;margin-top:6px}
+  .ibody select option{color:#000}.ibody label{display:block;color:var(--muted);font-size:.9rem}
+  #adminTabs{display:none}
+  body.admin-home .admin-actions{display:none}
+  .alist{display:grid;gap:10px}
+  .aitem{padding:16px;border-radius:16px;background:var(--card);border:1px solid var(--border);color:var(--text);font:inherit;font-weight:600;text-align:left;cursor:pointer}
+  .aitem:hover{border-color:var(--accent)}
+  .aback{align-self:flex-start;padding:10px 14px;border-radius:999px;background:transparent;border:1px solid var(--border);color:var(--text);font:inherit;cursor:pointer;margin-bottom:8px}
+  .rvstars{display:flex;gap:4px}.rvstars button{font-size:1.9rem;background:none;border:0;color:#666;cursor:pointer;padding:0 2px}.rvstars button.on{color:var(--accent)}
+  .msglist{display:flex;flex-direction:column;gap:8px;max-height:55vh;overflow:auto;padding:2px}
+  .msg{padding:10px 12px;border-radius:14px;background:var(--card);border:1px solid var(--border)}
+  .mhead{display:flex;gap:8px;align-items:baseline;flex-wrap:wrap}.mhead small{color:var(--muted)}
+  .mbody{white-space:pre-wrap;word-break:break-word}
+  .msg img{max-width:100%;border-radius:10px;margin-top:6px;display:block}
+  .macts{display:flex;gap:6px;margin-top:6px;flex-wrap:wrap}
+  .macts button{background:none;border:1px solid var(--border);color:var(--text);border-radius:8px;padding:3px 9px;cursor:pointer;font-size:.8rem}
+  .chatbar{display:flex;gap:8px;align-items:flex-end;margin-top:8px}
+  .chatbar textarea{flex:1;margin:0;resize:none}
+  .plus,.send{flex:none;width:46px;height:46px;border-radius:50%;border:0;font-size:1.3rem;cursor:pointer}
+  .send{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#1a1200}
+  .plus{background:rgba(255,255,255,.12);color:var(--text)}
+  #msgBar select{margin-top:8px}
+  .msg{-webkit-touch-callout:none;user-select:none}
+  .sheet{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:70;display:none;align-items:flex-end;justify-content:center}
+  .sheet.show{display:flex}
+  .sheetbox{width:100%;max-width:480px;background:#141414;border-radius:20px 20px 0 0;padding:16px;display:flex;flex-direction:column;gap:10px}
+  .sheetbox button{padding:14px;border-radius:14px;border:1px solid var(--border);background:rgba(255,255,255,.06);color:var(--text);font:inherit;cursor:pointer}
+  .perms{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:10px}.pchk{font-size:.85rem;color:var(--text)}
+  .hint{text-align:center;color:var(--muted);font-size:.8rem;margin-top:4px}
+  .splash{background:radial-gradient(circle at center,var(--bg2),var(--bg1))}
+  .ldwrap{position:relative;width:170px;height:170px;display:flex;align-items:center;justify-content:center}
+  .ldfx{position:absolute;inset:0;pointer-events:none}
+  .splash .pct{font-weight:700;color:var(--accent);min-height:1.2em}
+  .splash.ld-classic .ldfx{display:none}
+  .splash.ld-orbit .ldfx{inset:-22px;border-radius:50%;border:3px dashed rgba(var(--acr),.55);animation:spin 7s linear infinite}
+  .splash.ld-orbit .ldfx::after{content:'';position:absolute;top:-9px;left:50%;margin-left:-8px;width:16px;height:16px;border-radius:50%;background:var(--accent);box-shadow:0 0 18px var(--accent)}
+  .splash.ld-glow .ldfx{inset:-45px;border-radius:50%;background:radial-gradient(circle,rgba(var(--acr),.5),transparent 68%);animation:glowPulse 1.6s ease-in-out infinite}
+  .splash.ld-glow .bar,.splash.ld-portal .bar{display:none}
+  .splash.ld-blocks .ldfx{animation:spin 14s linear infinite}
+  .splash.ld-blocks .ldfx i{position:absolute;left:50%;top:50%;width:16px;height:16px;margin:-8px;border:2px solid var(--accent);background:rgba(var(--acr),.18);animation:blockIn 1.8s cubic-bezier(.2,1.2,.4,1) both;animation-delay:calc(var(--k) * .12s)}
+  .splash.ld-bar .bar{width:min(300px,70vw);height:12px;border-radius:12px}
+  .splash.ld-portal .ldfx,.splash.ld-portal .ldfx::before,.splash.ld-portal .ldfx::after{border-radius:50%;border:2px solid rgba(var(--acr),.7);animation:portalRing 2.2s ease-out infinite}
+  .splash.ld-portal .ldfx::before,.splash.ld-portal .ldfx::after{content:'';position:absolute;inset:-2px}
+  .splash.ld-portal .ldfx::before{animation-delay:.7s}.splash.ld-portal .ldfx::after{animation-delay:1.4s}
+  .splash.preview{z-index:130}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  @keyframes glowPulse{0%,100%{transform:scale(.85);opacity:.6}50%{transform:scale(1.15);opacity:1}}
+  @keyframes portalRing{from{transform:scale(.6);opacity:.9}to{transform:scale(2.6);opacity:0}}
+  @keyframes blockIn{from{transform:rotate(calc(var(--k) * 30deg)) translateY(-420px) scale(.3);opacity:0}to{transform:rotate(calc(var(--k) * 30deg)) translateY(-105px) scale(1);opacity:1}}
+  .letters.once.an-fade span{transform:none;animation-name:letterFade}
+  .letters.once.an-typewriter span{transform:none;animation:letterFade .01s steps(1) forwards;animation-delay:calc(var(--i) * .14s + .7s)}
+  .letters.once.an-drop span{transform:translateY(-90px);animation-name:letterDrop}
+  .letters.once.an-zoom span{transform:scale(3);animation-name:letterZoom}
+  .letters.once.an-flip span{transform:rotateX(90deg);animation-name:letterFlip}
+  .letters.once.an-glitch span{transform:translateX(-18px) skewX(30deg);animation-name:letterGlitch}
+  .letters.once.an-bounce span{transform:translateY(60px);animation-name:letterBounce}
+  @keyframes letterFade{to{opacity:1}}
+  @keyframes letterDrop{60%{opacity:1;transform:translateY(8px)}80%{transform:translateY(-4px)}to{opacity:1;transform:none}}
+  @keyframes letterZoom{to{opacity:1;transform:none}}
+  @keyframes letterFlip{to{opacity:1;transform:none}}
+  @keyframes letterGlitch{30%{opacity:1;transform:translateX(10px) skewX(-20deg);color:#fff}60%{transform:translateX(-6px)}to{opacity:1;transform:none}}
+  @keyframes letterBounce{40%{opacity:1;transform:translateY(-22px)}65%{transform:translateY(6px)}85%{transform:translateY(-6px)}to{opacity:1;transform:none}}
+  .mbox{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+  .mbox button{padding:6px 12px;border-radius:999px;border:1px solid var(--border);background:rgba(255,255,255,.08);color:var(--text);font:inherit;font-size:.85rem;cursor:pointer}
+  .mention{color:var(--accent);font-weight:600}.mention.me{background:rgba(var(--acr),.25);border-radius:6px;padding:0 4px}
+  .hdr-right{display:flex;align-items:center;gap:8px}
+  .bell{position:relative;background:none;border:1px solid var(--border);color:var(--text);border-radius:12px;width:40px;height:40px;cursor:pointer;font-size:1rem}
+  .bell b{position:absolute;top:-7px;right:-7px;background:#ef4444;color:#fff;border-radius:999px;font-size:.7rem;padding:1px 6px;font-weight:700}
+  .acard input[type=color]{height:48px;padding:3px;width:100%}
+  .ldprev{display:flex;justify-content:center;padding:12px}.ldprev img{width:110px;height:110px;object-fit:contain}
+  .yt-list{display:flex;flex-direction:column;gap:16px}
+  .yt-list.multi{flex-direction:row;overflow-x:auto;scroll-snap-type:x mandatory;gap:12px;padding-bottom:6px}
+  .yt-list.multi .yt-video{flex:0 0 86%;width:86%;scroll-snap-align:center}
+  .site-foot .foot-red{color:#ef4444;text-decoration:underline;font-weight:600}
+  .site-foot .foot-gold{color:var(--accent);font-weight:700;text-decoration:none}
+  .motd{min-width:0;max-width:100%;overflow:hidden}
+  .server-card,.status-col{min-width:0;max-width:100%}
+  .motd .mline{white-space:pre-wrap;max-width:100%}
+  .motd.mm-wrap .mi{display:inline}
+  .motd.mm-slide .mline,.motd.mm-bounce .mline,.motd.mm-fit .mline{white-space:nowrap;overflow:hidden}
+  .motd .mi{display:inline-block}
+  .motd .mi.go{padding-left:100%;animation:motdSlide var(--dur,12s) linear infinite}
+  .motd .mi.bn{animation:motdBounce var(--dur,6s) ease-in-out infinite alternate}
+  @keyframes motdSlide{to{transform:translateX(-100%)}}
+  @keyframes motdBounce{from{transform:translateX(0)}to{transform:translateX(var(--ov))}}
   /* ===== বড় Discord বাটন ===== */
   .discord{padding:18px 30px;font-size:1.15rem;gap:12px;right:22px;bottom:22px}
   .discord svg{width:32px;height:32px}
@@ -467,9 +638,117 @@
     .discord svg{width:38px;height:38px}
     .yt-btn{display:none}
   }
+
+  /* ===== ওয়ালেট স্টাইলিং ও এমওটিডি স্ক্রলিং ===== */
+  .net-banner {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 9999;
+    background: #dc2626; color: #fff; text-align: center;
+    padding: 10px 14px; font-weight: 700; font-size: .92rem;
+    box-shadow: 0 4px 12px rgba(0,0,0,.5);
+    animation: slideDown .3s ease;
+  }
+  @keyframes slideDown { from { transform: translateY(-100%); } to { transform: translateY(0); } }
+
+  .wallet-btn {
+    display: inline-flex; align-items: center; gap: 7px;
+    padding: 7px 14px; border-radius: 999px;
+    background: linear-gradient(135deg, rgba(250,204,21,.18), rgba(245,158,11,.1));
+    border: 1px solid rgba(var(--acr), .5); color: var(--accent);
+    font-family: inherit; font-weight: 700; font-size: .92rem;
+    cursor: pointer; transition: all .25s ease;
+    box-shadow: 0 2px 8px rgba(0,0,0,.25);
+  }
+  .wallet-btn:hover {
+    background: linear-gradient(135deg, rgba(250,204,21,.3), rgba(245,158,11,.2));
+    transform: translateY(-1px); border-color: var(--accent);
+    box-shadow: 0 4px 14px rgba(var(--acr), .25);
+  }
+  .wallet-btn:active { transform: scale(.96); }
+  .wallet-btn .wallet-icon { font-size: 1.15rem; line-height: 1; }
+
+  .walletbox {
+    max-width: 440px !important; text-align: left !important;
+  }
+  .walletbox h3 {
+    text-align: center; margin-bottom: 14px; color: var(--accent);
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+  }
+  .wallet-steps {
+    display: flex; justify-content: space-between; margin-bottom: 18px;
+    background: rgba(0,0,0,.35); padding: 6px; border-radius: 12px;
+    border: 1px solid var(--border);
+  }
+  .w-step {
+    flex: 1; text-align: center; font-size: .8rem; font-weight: 600;
+    color: var(--muted); padding: 6px 4px; border-radius: 8px; transition: .2s;
+  }
+  .w-step.active {
+    background: var(--accent); color: #1a1200; font-weight: 700;
+  }
+  .w-step.done {
+    color: var(--accent);
+  }
+
+  .amt-pills {
+    display: flex; flex-wrap: wrap; gap: 8px; margin: 10px 0 16px;
+  }
+  .amt-pill {
+    flex: 1 1 calc(33.33% - 8px); min-width: 70px;
+    padding: 9px 8px; border-radius: 10px;
+    background: rgba(255,255,255,.06); border: 1px solid var(--border);
+    color: var(--text); font-family: inherit; font-size: .95rem; font-weight: 700;
+    cursor: pointer; transition: .2s; text-align: center;
+  }
+  .amt-pill:hover, .amt-pill.active {
+    background: rgba(var(--acr), .2); border-color: var(--accent);
+    color: var(--accent); transform: translateY(-1px);
+  }
+
+  .wallet-bal-card {
+    background: rgba(0,0,0,.45); border: 1px solid var(--border);
+    border-radius: 14px; padding: 14px 16px; margin-bottom: 16px;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .wallet-bal-card .w-label { color: var(--muted); font-size: .9rem; }
+  .wallet-bal-card .w-amt { font-size: 1.35rem; color: var(--accent); font-weight: 800; }
+
+  .walletpaybox {
+    background: rgba(250,204,21,.08) !important;
+    border: 1px dashed rgba(var(--acr), .4) !important;
+    padding: 14px 16px; border-radius: 14px; margin: 12px 0;
+  }
+
+  /* MOTD বক্স: default মোডে ড্র্যাগ করে পড়ার স্ক্রল-বক্স। slide/bounce/fit মোড নিজের নিয়মে চলবে */
+  .motd{
+    margin-top:10px;padding:14px 18px;border-radius:14px;
+    background:rgba(0,0,0,.55);border:1px solid rgba(var(--acr),.3);
+    font-family:'Poppins',monospace;font-size:.95rem;color:#e5e7eb;
+  }
+  .motd.mm-wrap{
+    overflow-x:auto;overflow-y:hidden;white-space:nowrap;
+    -webkit-overflow-scrolling:touch;scrollbar-width:thin;
+    scrollbar-color:rgba(var(--acr),.45) rgba(0,0,0,.25);
+    cursor:grab;user-select:text;
+  }
+  .motd.mm-wrap:active{cursor:grabbing}
+  .motd.mm-wrap::-webkit-scrollbar{height:6px}
+  .motd.mm-wrap::-webkit-scrollbar-track{background:rgba(0,0,0,.25);border-radius:4px}
+  .motd.mm-wrap::-webkit-scrollbar-thumb{background:rgba(var(--acr),.45);border-radius:4px}
+  .motd.mm-wrap::-webkit-scrollbar-thumb:hover{background:var(--accent)}
+  .motd.mm-wrap .mline{
+    white-space:nowrap;display:block;min-width:max-content;width:max-content;
+    margin:0 auto;line-height:1.6;padding:2px 8px;
+  }
+  .motd-hint {
+    display: block; text-align: center; font-size: .75rem;
+    color: var(--muted); margin-top: 4px; opacity: .8;
+  }
+
 </style>
 </head>
 <body>
+<div id="htmlNetBar" class="net-banner" style="display:none">⚠️ ইন্টারনেট সংযোগ নেই — অনুগ্রহ করে ইন্টারনেট কানেক্ট করুন</div>
+
 
 <div class="splash" id="splash">
   <img class="beLogo" alt="Bangla Empire">
@@ -485,33 +764,47 @@
 
 <header>
   <div class="hleft">
-    <a class="logo" href="#home"><img class="beLogo" id="headLogo" alt="logo"><span class="eng">Bangla Empire</span></a>
+    <a class="logo" href="#home"><img class="beLogo" id="headLogo" alt="logo"><span class="eng">Lavamc</span></a>
+    <button class="wallet-btn" id="headerWalletBtn" type="button" title="ওয়ালেট ব্যালেন্স">
+      <span class="wallet-icon">👛</span>
+      <span>৳<span id="headerWalletBal">0</span></span>
+    </button>
     <div class="userbox">
       <button class="loginbtn" id="loginBtn">🔑 Login</button>
       <button class="userchip" id="userChip"><img id="userHead" alt="skin"><span id="userName"></span></button>
       <div class="usermenu" id="userMenu"><button id="logoutBtn">🚪 Logout</button></div>
     </div>
   </div>
-  <button class="menu-btn" id="menuBtn" aria-label="Menu"><i></i><i></i><i></i></button>
+  <div class="hdr-right"><button class="bell" id="bellBtn" style="display:none" aria-label="Notifications">🔔<b id="bellN"></b></button><button class="menu-btn" id="menuBtn" aria-label="Menu"><i></i><i></i><i></i></button></div>
 </header>
 
 <div class="overlay" id="overlay"></div>
 <nav class="drawer" id="drawer">
   <h3>মেনু</h3>
+  <a href="javascript:void(0)" id="drawerWalletLink" style="border-color:rgba(var(--acr),.4);background:rgba(var(--acr),.08);margin-bottom:12px">
+    <span style="font-size:1.25rem">👛</span>
+    <div>
+      <b style="color:var(--accent)">ওয়ালেট রিচার্জ (Wallet)</b>
+      <div style="font-size:.8rem;color:var(--muted)">ব্যালেন্স: ৳<span id="drawerWalletBal">0</span></div>
+    </div>
+  </a>
   <a href="#home">🏠 হোম</a>
   <a href="#rules">🛡️ Server Rules</a>
   <a href="#store">🛒 Store</a>
   <a href="#vote">🗳️ ভোট লিংক</a>
+  <div id="infoLinks" style="display:contents"></div>
   <a class="adminlink" id="adminLink" href="#admin" style="display:none">⚙️ Admin Panel</a>
 </nav>
 
 <!-- ===== প্রথম পেজ ===== -->
 <main class="page" id="homePage">
+  <div class="season-pill" id="seasonPill" style="display:none"></div>
   <div class="server-card">
     <div class="card-top">
       <img class="server-logo" id="serverLogo" alt="Server Logo">
       <div class="status-col">
         <div class="pill"><span class="dot" id="dot"></span><span id="statusText">চেক হচ্ছে...</span></div>
+        <div class="motd" id="motd" style="display:none"></div>
         <div class="pill">👥 <span id="players">--</span> জন অনলাইন</div>
         <div class="pill edition" id="edition"></div>
       </div>
@@ -539,14 +832,9 @@
     </div>
   </div>
 
-  <section class="yt-block">
-    <h2>🎬 সার্ভারে কীভাবে জয়েন করবে</h2>
-    <a class="yt-video" id="ytVideo" target="_blank" rel="noopener">
-      <img id="ytThumb" alt="Join video">
-      <span class="yt-play">▶</span>
-      <span class="yt-badge"><span class="yt-logo" id="ytLogoA"></span><b id="ytTitle"></b></span>
-    </a>
-
+  <section class="yt-block" id="ytBlock">
+    <h2 id="ytHead"></h2>
+    <div class="yt-list" id="ytList"></div>
     <a class="yt-channel" id="ytChannel" target="_blank" rel="noopener">
       <span class="yt-logo big" id="ytLogoB"></span>
       <span class="yt-info"><b id="ytName"></b><small id="ytHandle"></small></span>
@@ -554,28 +842,24 @@
     </a>
   </section>
 
-  <footer class="site-foot">
-    <span>Powered by <b>OBS95GAMER</b></span>
-    <span class="dotsep">•</span>
-    <a href="#" id="privacyLink">Privacy Policy</a>
-    <div class="foot-line2"><a class="foot-ch" href="https://www.youtube.com/@OBS95GAMER" target="_blank" rel="noopener">OBS-95 YouTube Channel</a></div>
-  </footer>
+  <footer class="site-foot" id="siteFoot"></footer>
 </main>
 
 <!-- ===== প্রাইভেসি পলিসি ===== -->
 <div class="modal-bg" id="privacyBg">
   <div class="modal">
     <h3>🔒 Privacy Policy</h3>
-    <p>
-      • We only store your Minecraft username, in your own browser.<br>
-      • We never collect passwords, emails or personal data.<br>
-      • YouTube and Discord are third-party services.
-    </p>
+    <p id="privacyText"></p>
     <div class="row"><button class="ok" id="privacyClose">OK</button></div>
   </div>
 </div>
 
 <!-- ===== ভোট পেজ ===== -->
+<section class="page" id="infoPage" style="display:none"></section>
+
+<div class="sheet" id="msgSheet"></div>
+<div class="modal-bg" id="annPop"><div class="modal" id="annBox"></div></div>
+
 <section class="page" id="votePage">
   <div class="title">
     <div class="badge">🗳️ Vote</div>
@@ -604,7 +888,7 @@
     <p>কোন Rank-এ কী কী পাওয়া যায় নিচে দেখো। ছবিতে চাপলে বড় হবে।</p>
   </div>
   <div class="rankgrid" id="storeWrap"></div>
-  <div class="buynote">
+  <div class="buynote" id="buyNote">
     💬 <b>Rank কিনতে হলে আমাদের Discord সার্ভারে যেতে হবে।</b><br>
     এই ওয়েবসাইট থেকে কেনা যায় না।
     <div style="margin-top:12px"><a class="backbtn" id="buyDiscord" href="#" target="_blank" rel="noopener">Join Discord</a></div>
@@ -623,12 +907,27 @@
     <button class="tabbtn" data-tab="rules">🛡️ Rules</button>
     <button class="tabbtn" data-tab="server">🌐 Server IP</button>
     <button class="tabbtn" data-tab="ranks">🛒 Rank (Store)</button>
-    <button class="tabbtn" data-tab="publish">🚀 সবার জন্য চালু</button>
+    <button class="tabbtn" data-tab="pay">💳 Payment</button>
+    <button class="tabbtn" data-tab="ann">📢 Announcements</button>
+    <button class="tabbtn" data-tab="home">🏠 Home</button>
+    <button class="tabbtn" data-tab="season">🎨 Season</button>
+    <button class="tabbtn" data-tab="reviews">⭐ Reviews</button>
+    <button class="tabbtn" data-tab="chat">💬 Chat</button>
+    <button class="tabbtn" data-tab="report">🚩 Report</button>
+    <button class="tabbtn" data-tab="aimgr">🤖 AI Management</button>
+    <button class="tabbtn" data-tab="members">🧑‍🤝‍🧑 Members</button>
+    <button class="tabbtn" data-tab="staff">👥 Staff</button>
+    <button class="tabbtn" data-tab="links">🔗 Links</button>
+    <button class="tabbtn" data-tab="help">📖 Help</button>
+    <button class="tabbtn" data-tab="siteinfo">⚙️ Site Settings</button>
+    <button class="tabbtn" data-tab="events">📅 Events</button>
+    <button class="tabbtn" data-tab="community">⭐ Community</button>
+    <button class="tabbtn" data-tab="backup">💾 Backup</button>
   </div>
   <div class="admin-wrap" id="adminBody"></div>
   <div class="admin-actions">
     <button class="save" id="adminSave">💾 Save</button>
-    <button class="reset" id="adminReset">↩️ বাতিল</button>
+    <button class="reset" id="adminReset">↩️ Cancel</button>
     <a class="backbtn" href="#home">← হোম</a>
   </div>
 </section>
@@ -641,9 +940,11 @@
 <!-- ===== লগইন বক্স ===== -->
 <div class="modal-bg" id="modalBg">
   <div class="modal">
-    <h3>🔑 লগইন</h3>
-    <p>তোমার Minecraft username লেখো।<br>প্রিমিয়াম নাম দিলে তোমার স্কিনের মাথা দেখাবে।</p>
+    <h3 id="loginTitle">🔑 লগইন</h3>
+    <p id="loginNote">তোমার Minecraft username লেখো।<br>প্রিমিয়াম নাম দিলে তোমার স্কিনের মাথা দেখাবে।</p>
     <input id="nameInput" type="text" maxlength="17" placeholder="Minecraft username" autocomplete="off" spellcheck="false">
+    <input id="loginPw" type="password" placeholder="পাসওয়ার্ড" autocomplete="off" style="display:none;margin-top:10px">
+    <input id="loginPw2" type="password" placeholder="আবার পাসওয়ার্ড দাও" autocomplete="off" style="display:none;margin-top:10px">
     <div class="err" id="nameErr"></div>
     <div class="row">
       <button class="cancel" id="cancelBtn">বাতিল</button>
@@ -652,36 +953,29 @@
   </div>
 </div>
 
-<!-- ===== পাসওয়ার্ড বক্স (Save করার সময়) ===== -->
-<div class="modal-bg" id="pwBg">
-  <div class="modal">
-    <h3>🔐 পাসওয়ার্ড দাও</h3>
-    <p>বদল সেভ করতে এডমিন পাসওয়ার্ড লাগবে।</p>
-    <input id="pwInput" type="password" placeholder="পাসওয়ার্ড" autocomplete="off">
-    <div class="err" id="pwErr"></div>
-    <div class="row">
-      <button class="cancel" id="pwCancel">বাতিল</button>
-      <button class="ok" id="pwOk">নিশ্চিত করো</button>
-    </div>
-  </div>
-</div>
-
 <!-- ছবি বড় করে দেখার বক্স -->
 <div class="light-bg" id="lightBg"><img id="lightImg" alt=""></div>
+
+<!-- ===== ওয়ালেট রিচার্জ মডাল ===== -->
+<div class="modal-bg" id="walletBg">
+  <div class="modal walletbox" id="walletBox"></div>
+</div>
+
+<!-- ===== Buy Now বক্স ও Verify পপআপ ===== -->
+<div class="modal-bg" id="buyBg"><div class="modal buybox" id="buyBox"></div></div>
+<div class="vfy" id="vfy"><div class="vfybox" id="vfyBox"></div></div>
 <input type="file" id="imgPick" accept="image/*" style="display:none">
 
 <div class="toast" id="toast"></div>
 
 <script>
-// এই লাইনটা সবার আগে থাকতে হবে। নতুন index.html বানানোর সময় এটা কাজে লাগে।
-const ORIGINAL_HTML = '<!DOCTYPE html>\n' + document.documentElement.outerHTML;
 
 /* =========================================================
    ★ এখানে শুধু এই তথ্যগুলো বদলাও ★
    (IP, Rules আর Rank এডমিন প্যানেল থেকেও বদলানো যায়)
    ========================================================= */
 const CONFIG = {
-  SERVER_NAME : "Bangla Empire",
+  SERVER_NAME : "Lavamc",
 
   // তোমার লোগোর ফাইল। ছবিটা index.html এর পাশের ফোল্ডারে রাখো, যেমন "logo.png"
   LOGO        : "",
@@ -705,13 +999,13 @@ const CONFIG = {
     { name: "ভোট 4", url: "https://topg.org/minecraft-servers/server-686008" }
   ],
 
-  // এই নামগুলো দিয়ে লগইন করলে মেনুতে "Admin Panel" আসবে
-  ADMINS      : ["OBS95GAMER", "HamZa_PlayX", "NarutoYt"],
+  // এই নামগুলো দিয়ে লগইন করতে পাসওয়ার্ড লাগবে (প্রথমবার নিজে বানাবে)। তারপর মেনুতে "Admin Panel" আসবে
+  ADMINS      : ["OBS95GAMER", "HamZa_PlayX"],
 
   // Supabase (ডাটাবেস) তথ্য। এগুলো পাবলিক Key, সুরক্ষা রুলস দিয়ে করা আছে
   SUPABASE_URL: "https://ekdyylbwgapxwsldaeoh.supabase.co",
   SUPABASE_KEY: "sb_publishable_l2b_NxYHtwZTlg5Dg_mScQ_l5Gvjj96",
-  ADMIN_EMAIL : "admin@banglaempire.fun"
+  ADMIN_DOMAIN: "banglaempire.fun"   // এডমিনের ইমেইল হয় নাম@এই-ডোমেইন, যেমন obs95gamer@banglaempire.fun
 };
 
 /*DATA_START*/
@@ -842,27 +1136,6 @@ document.querySelectorAll('.beLogo').forEach(i => {
 document.title = CONFIG.SERVER_NAME + " | Minecraft Server";
 $('discordBtn').href = CONFIG.DISCORD;
 
-// ইউটিউব ভিডিও, চ্যানেল আর প্রাইভেসি
-(function(){
-  $('ytVideo').href = 'https://youtu.be/' + CONFIG.JOIN_VIDEO_ID;
-  $('ytThumb').src = 'https://img.youtube.com/vi/' + CONFIG.JOIN_VIDEO_ID + '/hqdefault.jpg';
-  $('ytTitle').textContent = CONFIG.JOIN_VIDEO_TITLE;
-  $('ytChannel').href = CONFIG.CHANNEL_URL;
-  $('ytName').textContent = CONFIG.CHANNEL_NAME;
-  $('ytHandle').textContent = CONFIG.CHANNEL_HANDLE;
-  ['ytLogoA', 'ytLogoB'].forEach(id => {
-    const el = $(id), first = (CONFIG.CHANNEL_NAME || 'H').charAt(0).toUpperCase();
-    el.textContent = first;
-    if(CONFIG.CHANNEL_LOGO){
-      const im = new Image();
-      im.onload = () => { el.textContent = ''; el.appendChild(im); };
-      im.src = CONFIG.CHANNEL_LOGO;
-    }
-  });
-  $('privacyLink').onclick = e => { e.preventDefault(); $('privacyBg').classList.add('show'); };
-  $('privacyClose').onclick = () => $('privacyBg').classList.remove('show');
-  $('privacyBg').addEventListener('click', e => { if(e.target === $('privacyBg')) $('privacyBg').classList.remove('show'); });
-})();
 $('buyDiscord').href = CONFIG.DISCORD;
 
 // ===== সাইটের ডেটা (IP, Rules, Rank) =====
@@ -883,6 +1156,54 @@ function normalize(d){
   R.important = R.important || '';
   d.ranks = Array.isArray(d.ranks) ? d.ranks : [];
   d.ranks.forEach(r => { r.name = r.name || ''; r.price = r.price || ''; r.image = r.image || ''; r.perks = Array.isArray(r.perks) ? r.perks : []; });
+  const L = (a, keys) => (Array.isArray(a) ? a : []).map(x => { x = x || {}; keys.forEach(k => { x[k] = x[k] || ''; }); return x; });
+  const T = v => v || '';
+  d.staff = L(d.staff, ['name', 'role']).map(x => { x.access = x.access === 'admin' ? 'admin' : 'mod'; x.perms = Array.isArray(x.perms) ? x.perms.filter(p => secs()[p]) : []; return x; });
+  d.links = d.links || {}; d.links.vote = Array.isArray(d.links.vote) ? L(d.links.vote, ['name', 'url']) : L(clone(CONFIG.VOTE_LINKS), ['name', 'url']);
+  d.links.apply = T(d.links.apply); d.links.report = T(d.links.report); d.links.appeal = T(d.links.appeal);
+  d.help = d.help || {}; d.help.videoUrl = T(d.help.videoUrl); d.help.steps = Array.isArray(d.help.steps) ? d.help.steps : [];
+  d.help.commands = L(d.help.commands, ['cmd', 'desc']); d.help.guides = L(d.help.guides, ['title', 'text', 'video']); d.help.faq = L(d.help.faq, ['q', 'a']);
+  d.site = d.site || {}; d.site.name = T(d.site.name); d.site.tagline = T(d.site.tagline); d.site.version = T(d.site.version);
+  d.site.platform = T(d.site.platform); d.site.modes = Array.isArray(d.site.modes) ? d.site.modes : []; d.site.features = L(d.site.features, ['icon', 'title', 'text']);
+  const LD = (d.site.loader && typeof d.site.loader === 'object') ? d.site.loader : {};
+  d.site.loader = { style: loaderStyles().some(x => x[0] === LD.style) ? LD.style : 'classic', anim: loaderAnims().some(x => x[0] === LD.anim) ? LD.anim : 'rise',
+    name: typeof LD.name === 'string' ? LD.name.slice(0, 40) : CONFIG.SERVER_NAME, image: /^(data:image\/|https?:\/\/)/i.test(LD.image || '') ? LD.image : '', seconds: Math.min(8, Math.max(2, parseFloat(LD.seconds) || 3.6)) };
+  const BGS = (d.site.bg && typeof d.site.bg === 'object') ? d.site.bg : {};
+  d.site.bg = { texts: Array.isArray(BGS.texts) ? BGS.texts.map(String).slice(0, 12) : [CONFIG.SERVER_NAME],
+    anim: ['slide', 'left', 'right', 'rise', 'pulse', 'wave', 'zoom', 'diag', 'blink'].indexOf(BGS.anim) >= 0 ? BGS.anim : 'slide',
+    speed: ['slow', 'normal', 'fast'].indexOf(BGS.speed) >= 0 ? BGS.speed : 'normal', strength: ['faint', 'normal', 'bold'].indexOf(BGS.strength) >= 0 ? BGS.strength : 'faint' };
+  d.events = d.events || {}; d.events.list = L(d.events.list, ['title', 'date', 'text']); d.events.updates = L(d.events.updates, ['date', 'title', 'text']);
+  d.events.cdOn = !!d.events.cdOn; d.events.cdTitle = T(d.events.cdTitle); d.events.cdDate = T(d.events.cdDate);
+  d.community = d.community || {}; d.community.reviews = L(d.community.reviews, ['name', 'text']);
+  d.community.gallery = L(d.community.gallery, ['url', 'caption']); d.community.winners = L(d.community.winners, ['name', 'title', 'note']);
+  d.ann = (Array.isArray(d.ann) ? d.ann : []).map(p => { p = p || {}; return { by: T(p.by), title: T(p.title), date: T(p.date), popup: !!p.popup, start: T(p.start), end: T(p.end),
+    blocks: (Array.isArray(p.blocks) ? p.blocks : []).map(b => { b = b || {}; return { type: b.type === 'image' ? 'image' : 'text', text: T(b.text), img: T(b.img) }; }) }; });
+  d.home = d.home || {};
+  const HD = { videoUrl: 'https://youtu.be/' + CONFIG.JOIN_VIDEO_ID, videoTitle: CONFIG.JOIN_VIDEO_TITLE, channelUrl: CONFIG.CHANNEL_URL, channelName: CONFIG.CHANNEL_NAME, channelHandle: CONFIG.CHANNEL_HANDLE };
+  Object.keys(HD).forEach(k => { d.home[k] = T(d.home[k]); if(!d.home.init && !d.home[k]) d.home[k] = HD[k]; });
+  if(!d.home.siteName) d.home.siteName = CONFIG.SERVER_NAME;
+  if(typeof d.home.bgWord !== 'string') d.home.bgWord = CONFIG.SERVER_NAME;
+  d.home.init = true;
+  if(!Array.isArray(d.home.videos)) d.home.videos = d.home.videoUrl ? [{ title: d.home.videoTitle || '', url: d.home.videoUrl }] : [];
+  d.home.videos = d.home.videos.slice(0, 12).map(v => ({ title: T(v && v.title), url: T(v && v.url) }));
+  d.home.videoHeading = typeof d.home.videoHeading === 'string' ? d.home.videoHeading : '🎬 সার্ভারে কীভাবে জয়েন করবে';
+  d.home.channelLogo = /^(data:image\/|https?:\/\/)/i.test(d.home.channelLogo || '') ? d.home.channelLogo : '';
+  d.home.motdMode = ['wrap', 'slide', 'bounce', 'fit'].indexOf(d.home.motdMode) >= 0 ? d.home.motdMode : 'wrap';
+  d.home.motdSpeed = ['slow', 'normal', 'fast'].indexOf(d.home.motdSpeed) >= 0 ? d.home.motdSpeed : 'normal';
+  if(!Array.isArray(d.home.footer)) d.home.footer = [{ text: 'Powered by OBS95GAMER', url: '', color: '', brk: false }, { text: 'Privacy Policy', url: 'privacy', color: '', brk: false }, { text: 'OBS-95 YouTube Channel', url: 'https://www.youtube.com/@OBS95GAMER', color: 'red', brk: true }];
+  d.home.footer = d.home.footer.slice(0, 12).map(f => ({ text: T(f && f.text), url: T(f && f.url), color: (f && ['gold', 'red'].indexOf(f.color) >= 0) ? f.color : '', brk: !!(f && f.brk) }));
+  d.home.privacy = Array.isArray(d.home.privacy) ? d.home.privacy.map(String).slice(0, 12) : ['We store your Minecraft name and a password (kept scrambled, we cannot read it) so you can log in.', 'Chat messages, reviews and reports can be seen by everyone on the site.', 'Chat messages may be checked by an AI to keep the chat safe.', 'We never collect your email or other personal data.', 'YouTube, Discord and Google are third-party services.'];
+  d.menu = (d.menu && typeof d.menu === 'object') ? d.menu : {};
+  d.pay = (d.pay && typeof d.pay === 'object') ? d.pay : {};
+  d.pay.bkash = String(T(d.pay.bkash)).trim(); d.pay.nagad = String(T(d.pay.nagad)).trim(); d.pay.note = String(T(d.pay.note));
+  d.log =Array.isArray(d.log) ? d.log.slice(-30) : [];
+  d.season = d.season || {}; d.season.name = d.season.name || '';
+  d.season.theme = (themeList().some(t => t[0] === d.season.theme) || d.season.theme === 'custom') ? d.season.theme : 'gold';
+  d.season.anim = animList().some(t => t[0] === d.season.anim) ? d.season.anim : 'blocks';
+  d.season.tone = toneList().some(t => t[0] === d.season.tone) ? d.season.tone : 'auto';
+  d.season.c1 = /^#[0-9a-f]{6}$/i.test(d.season.c1 || '') ? d.season.c1 : '#facc15'; d.season.c2 = /^#[0-9a-f]{6}$/i.test(d.season.c2 || '') ? d.season.c2 : '#f59e0b';
+  d.notice = d.notice || {}; d.notice.on = !!d.notice.on; d.notice.text = d.notice.text || ''; d.notice.start = d.notice.start || ''; d.notice.end = d.notice.end || '';
+  d.maint = d.maint || {}; d.maint.on = !!d.maint.on; d.maint.text = d.maint.text || '';
   return d;
 }
 function loadData(){
@@ -890,51 +1211,455 @@ function loadData(){
   return normalize(clone(SITE_DATA));
 }
 let D = loadData();
+var canvasReady, animMode, siteTheme;
+function hexRgb(h){ h = /^#[0-9a-f]{6}$/i.test(h || '') ? h : '#facc15'; return [parseInt(h.slice(1, 3), 16), parseInt(h.slice(3, 5), 16), parseInt(h.slice(5, 7), 16)]; }
+function mixRgb(a, b, t){ return a.map((v, i) => Math.round(v + (b[i] - v) * t)); }
+function rgbHex(a){ return '#' + a.map(v => ('0' + v.toString(16)).slice(-2)).join(''); }
+function themeList(){ return [
+  ['gold', 'Gold (default)', '#facc15', '#f59e0b'], ['amber', 'Amber', '#fbbf24', '#d97706'], ['orange', 'Orange', '#fb923c', '#ea580c'], ['fire', 'Fire', '#fb923c', '#ef4444'],
+  ['red', 'Red', '#f87171', '#dc2626'], ['crimson', 'Crimson', '#fb7185', '#be123c'], ['rose', 'Rose', '#fda4af', '#f43f5e'], ['pink', 'Pink', '#f472b6', '#db2777'],
+  ['magenta', 'Magenta', '#e879f9', '#c026d3'], ['purple', 'Purple', '#c084fc', '#9333ea'], ['night', 'Night purple', '#a78bfa', '#8b5cf6'], ['indigo', 'Indigo', '#818cf8', '#4f46e5'],
+  ['blue', 'Blue', '#60a5fa', '#2563eb'], ['ice', 'Ice blue', '#38bdf8', '#0ea5e9'], ['cyan', 'Cyan', '#22d3ee', '#0891b2'], ['teal', 'Teal', '#2dd4bf', '#0d9488'],
+  ['emerald', 'Emerald', '#34d399', '#059669'], ['jungle', 'Jungle green', '#4ade80', '#22c55e'], ['lime', 'Lime', '#a3e635', '#65a30d'], ['yellow', 'Yellow', '#fde047', '#eab308'],
+  ['silver', 'Silver', '#e5e7eb', '#9ca3af'], ['sunset', 'Sunset', '#fb923c', '#ec4899'], ['ocean', 'Ocean', '#22d3ee', '#3b82f6'], ['mint', 'Mint', '#6ee7b7', '#38bdf8'], ['neon', 'Neon', '#a3e635', '#22d3ee']
+]; }
+function toneList(){ return [
+  ['auto', 'Match the color (default)', ''], ['black', 'Black', '#050505,#121212'], ['navy', 'Deep blue', '#050a1a,#0b1a3a'], ['plum', 'Deep purple', '#0d0616,#24103a'],
+  ['forest', 'Deep green', '#04100a,#0b2a17'], ['wine', 'Deep red', '#14050a,#3a0f1c'], ['slate', 'Slate gray', '#0b0f14,#1b2430'], ['coffee', 'Coffee brown', '#0e0805,#2a1a10']
+]; }
+function animList(){ return [
+  ['blocks', 'Floating blocks (default)'], ['snow', 'Snow'], ['embers', 'Embers'], ['stars', 'Stars'], ['rain', 'Rain'], ['matrix', 'Digital rain'], ['bubbles', 'Bubbles'],
+  ['fireflies', 'Fireflies'], ['leaves', 'Falling leaves'], ['confetti', 'Confetti'], ['hearts', 'Hearts'], ['meteors', 'Shooting stars'], ['sparkles', 'Sparkles'], ['pixels', 'Pixels'], ['none', 'None']
+]; }
+function siteThemes(){ const o = {}; themeList().forEach(t => { o[t[0]] = { a1: t[2], a2: t[3], c1: hexRgb(t[2]).join(','), c2: hexRgb(t[3]).join(',') }; }); return o; }
+function applyTheme(s){
+  let a1, a2;
+  if(s.theme === 'custom'){ a1 = s.c1; a2 = s.c2; } else { const T = siteThemes()[s.theme] || siteThemes().gold; a1 = T.a1; a2 = T.a2; }
+  const r1 = hexRgb(a1), r2 = hexRgb(a2), st = document.documentElement.style;
+  const tone = toneList().find(t => t[0] === s.tone) || toneList()[0];
+  let bg1, bg2;
+  if(tone[2]){ const p = tone[2].split(','); bg1 = p[0]; bg2 = p[1]; } else { bg1 = rgbHex(mixRgb([0, 0, 0], r1, .04)); bg2 = rgbHex(mixRgb([0, 0, 0], r1, .10)); }
+  st.setProperty('--accent', rgbHex(r1)); st.setProperty('--accent2', rgbHex(r2));
+  st.setProperty('--acr', r1.join(',')); st.setProperty('--ac2r', r2.join(','));
+  st.setProperty('--bg1', bg1); st.setProperty('--bg2', bg2); st.setProperty('--bgr', hexRgb(bg1).join(','));
+  st.setProperty('--text', rgbHex(mixRgb([255, 255, 255], r1, .12))); st.setProperty('--muted', rgbHex(mixRgb([200, 200, 200], r1, .35)));
+  siteTheme = { a1: rgbHex(r1), a2: rgbHex(r2), c1: r1.join(','), c2: r2.join(',') };
+}
+function infoPages(){ return {
+  ann: ['📢', 'Announcements'], reviews: ['⭐', 'Reviews'], chat: ['💬', 'Chat'], report: ['🚩', 'Report'], staff: ['👥', 'Staff Team'], links: ['🔗', 'Links'], help: ['📖', 'Help'],
+  siteinfo: ['⚙️', 'Server Info'], events: ['📅', 'Events'], community: ['⭐', 'Community']
+}; }
+function pageOn(k){ return k === 'ann' ? D.ann.length > 0 : !!D.menu[k]; }
+function safeImg(u){ return /^(data:image\/|https?:\/\/)/i.test(u || ''); }
+function annPost(p){
+  return '<b>' + esc(p.title) + '</b>' + (p.date ? '<small>' + esc(p.date) + '</small>' : '') +
+    p.blocks.map(b => b.type === 'image' ? (safeImg(b.img) ? '<img loading="lazy" src="' + esc(b.img) + '" alt="">' : '') : '<div>' + esc(b.text) + '</div>').join('');
+}
+var popTried = false, remoteDone = false;
+function tryPopup(){
+  if(popTried || location.hash === '#admin') return;
+  popTried = true;
+  const now = Date.now();
+  const p = D.ann.find(x => { const a = x.start ? new Date(x.start.replace(' ', 'T')).getTime() : 0, z = x.end ? new Date(x.end.replace(' ', 'T')).getTime() : 0;
+    return x.popup && (!a || isNaN(a) || now >= a) && (!z || isNaN(z) || now <= z); });
+  if(!p) return;
+  $('annBox').innerHTML = '<button class="annx" id="annX">✕</button>' + annPost(p);
+  $('annPop').classList.add('show');
+}
+function safeUrl(u){ return /^https?:\/\//i.test(u || '') ? u : ''; }
+var RV = { rows: [], stars: 0, mine: null, text: undefined };
+function starsText(n){ return '★'.repeat(n) + '☆'.repeat(5 - n); }
+async function renderReviews(){
+  $('infoPage').innerHTML = '<div class="title"><div class="badge">⭐ Reviews</div><h1>Reviews</h1></div><div class="ibody" id="rvBody"><div class="iempty">Loading...</div></div>';
+  try{
+    if(SB.hasSession()) await SB.ensure();
+    RV.rows = await SB.rows('reviews?select=uid,name,stars,comment,updated_at&order=updated_at.desc&limit=200');
+  }catch(e){ $('rvBody').innerHTML = '<div class="iempty">Could not load reviews. Try again later.</div>'; return; }
+  const me = SB.hasSession() ? SB.sub() : '';
+  RV.mine = RV.rows.find(r => r.uid === me) || null; RV.stars = RV.mine ? RV.mine.stars : 0; RV.text = undefined;
+  drawReviews();
+}
+function drawReviews(){
+  const e = esc, rows = RV.rows, me = SB.hasSession() ? SB.sub() : '', mod = isAdmin() || isStaff();
+  const avg = rows.length ? (rows.reduce((t, r) => t + r.stars, 0) / rows.length).toFixed(1) : '-';
+  let h = '<div class="icard" style="text-align:center"><b style="font-size:1.6rem">' + avg + ' ★</b><small>' + rows.length + (rows.length === 1 ? ' review' : ' reviews') + '</small></div>';
+  if(getUser() && SB.hasSession()){
+    const txt = RV.text !== undefined ? RV.text : (RV.mine ? RV.mine.comment : '');
+    h += '<div class="icard"><b>' + (RV.mine ? 'Your review' : 'Write a review') + '</b><div class="rvstars">' + [1, 2, 3, 4, 5].map(n => '<button data-rv="star" data-n="' + n + '" class="' + (n <= RV.stars ? 'on' : '') + '">★</button>').join('') + '</div>' +
+      '<textarea id="rvText" rows="3" maxlength="500" placeholder="What did you like? (optional)">' + e(txt) + '</textarea><div class="ibtns"><button class="ibtn" data-rv="save">' + (RV.mine ? 'Update' : 'Submit') + '</button>' +
+      (RV.mine ? '<button class="ibtn" data-rv="mydel">🗑️ Delete mine</button>' : '') + '</div></div>';
+  }else h += '<div class="icard" style="text-align:center">Log in to write a review.<div class="ibtns" style="justify-content:center"><button class="ibtn" data-rv="login">Log in</button></div></div>';
+  h += rows.map(r => '<div class="icard"><b>' + e(r.name) + '</b><span style="color:var(--accent)">' + starsText(r.stars) + '</span>' + (r.comment ? '<div>' + e(r.comment) + '</div>' : '') +
+    '<small>' + e(new Date(r.updated_at).toLocaleDateString()) + '</small>' + (mod && r.uid !== me ? '<button class="ibtn" data-rv="del" data-uid="' + e(r.uid) + '">🗑️ Delete</button>' : '') + '</div>').join('');
+  $('rvBody').innerHTML = h;
+}
+$('infoPage').addEventListener('click', async e => {
+  const b = e.target.closest('[data-rv]'); if(!b) return;
+  const op = b.dataset.rv;
+  if(op === 'star'){ const t = $('rvText'); if(t) RV.text = t.value; RV.stars = +b.dataset.n; drawReviews(); }
+  else if(op === 'login') openLogin();
+  else if(op === 'save'){
+    if(!RV.stars){ showToast('Pick your stars first'); return; }
+    if(!(await SB.ensure())){ showToast('🔒 Session ended. Log in again'); return; }
+    b.disabled = true;
+    try{
+      await SB.send('POST', 'reviews?on_conflict=uid', { name: getUser(), stars: RV.stars, comment: $('rvText').value.trim().slice(0, 500), updated_at: new Date().toISOString() }, 'resolution=merge-duplicates,return=minimal');
+      showToast('✅ Thanks for your review!'); renderReviews();
+    }catch(err){ showToast('⚠️ Could not save your review'); b.disabled = false; }
+  }
+  else if(op === 'mydel' || op === 'del'){
+    if(!confirm('Delete this review?')) return;
+    if(!(await SB.ensure())){ showToast('🔒 Session ended. Log in again'); return; }
+    try{ await SB.send('DELETE', 'reviews?uid=eq.' + encodeURIComponent(op === 'del' ? b.dataset.uid : SB.sub())); showToast('🗑️ Deleted'); renderReviews(); }
+    catch(err){ showToast('⚠️ Could not delete'); }
+  }
+});
+// ===== Chat ও Report =====
+const CHAT_RED = ['HamZa_PlayX'];   // এই নামগুলো চ্যাটে লাল দেখাবে
+var ROOM = { name: '', rows: [], muted: [], myMuted: false, sig: '', img: null }, roomTimer = 0, barKey = '';
+function nameColor(n){
+  const l = n.toLowerCase();
+  if(l === 'ai') return '#22d3ee';
+  if(CHAT_RED.some(x => x.toLowerCase() === l)) return '#ef4444';
+  if(D.staff.some(x => x.name.toLowerCase() === l)) return '#4ade80';
+  return '#fff';
+}
+function imgUrl(p){ return CONFIG.SUPABASE_URL + '/storage/v1/object/public/chat-images/' + encodeURI(p); }
+async function renderRoom(room){
+  loadMentionNames();
+  const P = infoPages()[room];
+  ROOM = { name: room, rows: [], muted: [], myMuted: false, sig: '', img: null }; barKey = '';
+  $('infoPage').innerHTML = '<div class="title"><div class="badge">' + P[0] + ' ' + P[1] + '</div><h1>' + P[1] + '</h1>' +
+    (room === 'report' ? '<p>Tell us about a bug or a problem. Everyone can see and reply.</p>' : '') + '</div>' +
+    '<div class="ibody"><div id="mutedBox"></div><div id="msgList" class="msglist"><div class="iempty">Loading...</div></div><div class="hint">Press and hold a message for options</div><div id="msgBar"></div></div>';
+  await loadRoom(true);
+  clearInterval(roomTimer);
+  roomTimer = setInterval(() => { if(location.hash === '#p-' + room) loadRoom(false); else clearInterval(roomTimer); }, 1800);
+}
+async function loadRoom(first){
+  const room = ROOM.name; if(!room) return;
+  try{
+    if(SB.hasSession()) await SB.ensure();
+    const rows = (await SB.rows('messages?room=eq.' + room + '&select=id,uid,name,body,image_path,created_at,edited_at&order=created_at.desc&limit=100')).reverse();
+    let muted = [];
+    if(SB.hasSession()){ try{ muted = (await SB.rows('muted?select=name_lc,until', true)).filter(m => !m.until || new Date(m.until).getTime() > Date.now()); }catch(e){} }
+    const mod = isAdmin() || isStaff(), me = getUser().toLowerCase();
+    const sig = rows.map(r => r.id + ':' + (r.edited_at || '')).join(',') + '|' + muted.map(m => m.name_lc).join(',') + '|' + (SB.hasSession() ? 1 : 0);
+    if(sig === ROOM.sig && !first) return;
+    ROOM.sig = sig; ROOM.rows = rows; ROOM.muted = muted; ROOM.myMuted = !mod && muted.some(m => m.name_lc === me);
+    drawRoom(first);
+    drawBar();
+  }catch(e){ if(first && $('msgList')) $('msgList').innerHTML = '<div class="iempty">Could not load. Try again later.</div>'; }
+}
+function drawRoom(first){
+  const e = esc, list = $('msgList'); if(!list) return;
+  const near = first || list.scrollHeight - list.scrollTop - list.clientHeight < 80;
+  list.innerHTML = ROOM.rows.length ? ROOM.rows.map(r => {
+    const when = new Date(r.created_at).toLocaleString([], { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
+    return '<div class="msg" data-id="' + r.id + '"><div class="mhead"><b style="color:' + nameColor(r.name) + '">' + e(r.name === 'AI' ? '🤖 AI' : r.name) + '</b><small>' + e(when) + (r.edited_at ? ' · edited' : '') + '</small></div>' +
+      (r.body ? '<div class="mbody">' + mentionHtml(r.body) + '</div>' : '') +
+      (r.image_path ? '<a href="' + e(imgUrl(r.image_path)) + '" target="_blank" rel="noopener"><img loading="lazy" src="' + e(imgUrl(r.image_path)) + '" alt=""></a>' : '') + '</div>';
+  }).join('') : '<div class="iempty">No messages yet.</div>';
+  if(near) list.scrollTop = list.scrollHeight;
+  const mod = isAdmin() || isStaff();
+  $('mutedBox').innerHTML = (mod && ROOM.muted.length) ? '<div class="icard"><b>🔇 Muted</b>' + ROOM.muted.map(m => '<div>' + e(m.name_lc) + (m.until ? ' <small>until ' + e(new Date(m.until).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })) + '</small>' : '') + ' <button class="ibtn" data-rm="unmute" data-name="' + e(m.name_lc) + '">Unmute</button></div>').join('') + '</div>' : '';
+}
+function showMsgSheet(id){
+  const m = ROOM.rows.find(r => String(r.id) === String(id)); if(!m) return;
+  const mod = isAdmin() || isStaff(), me = getUser().toLowerCase(), own = SB.hasSession() && m.name.toLowerCase() === me;
+  const isAd = CONFIG.ADMINS.some(a => a.toLowerCase() === m.name.toLowerCase());
+  let h = '';
+  if((own || mod) && m.body && m.name !== 'AI') h += '<button data-rm="edit" data-id="' + m.id + '">✏️ Edit</button>';
+  if(own || mod) h += '<button data-rm="del" data-id="' + m.id + '">🗑️ Delete</button>';
+  if(mod && !own && !isAd && m.name !== 'AI') h += '<button data-rm="mute" data-name="' + esc(m.name) + '">🔇 Mute</button>';
+  if(!h) return;
+  $('msgSheet').innerHTML = '<div class="sheetbox"><b>' + esc(m.name) + '</b>' + h + '<button data-rm="close">Cancel</button></div>';
+  $('msgSheet').classList.add('show');
+}
+var lpTimer = 0, lpStart = null;
+function lpCancel(){ clearTimeout(lpTimer); }
+$('infoPage').addEventListener('pointerdown', e => { const m = e.target.closest('.msg'); if(!m || e.target.closest('a')) return; lpStart = { x: e.clientX, y: e.clientY }; lpTimer = setTimeout(() => showMsgSheet(m.dataset.id), 500); });
+['pointerup', 'pointercancel'].forEach(t => $('infoPage').addEventListener(t, lpCancel));
+$('infoPage').addEventListener('pointermove', e => { if(lpStart && Math.hypot(e.clientX - lpStart.x, e.clientY - lpStart.y) > 10) lpCancel(); });
+$('infoPage').addEventListener('scroll', lpCancel, true);
+$('infoPage').addEventListener('contextmenu', e => { const m = e.target.closest('.msg'); if(m){ e.preventDefault(); showMsgSheet(m.dataset.id); } });
+function drawBar(){
+  const bar = $('msgBar'); if(!bar) return;
+  const key = (getUser() && SB.hasSession() ? 'in' : 'out') + (ROOM.myMuted ? 'm' : '');
+  if(key === barKey) return; barKey = key;
+  if(key === 'out') bar.innerHTML = '<div class="icard" style="text-align:center">Log in to write.<div class="ibtns" style="justify-content:center"><button class="ibtn" data-rm="login">Log in</button></div></div>';
+  else if(ROOM.myMuted) bar.innerHTML = '<div class="icard" style="text-align:center">🔇 You are muted. You can read, but not write.</div>';
+  else bar.innerHTML = (ROOM.name === 'report' ? '<select id="rtype"><option>Bug</option><option>Player Report</option><option>Other</option></select>' : '') +
+    '<div id="imgChip"></div><div id="mentionBox" class="mbox"></div><div class="chatbar"><button class="plus" data-rm="plus" title="Add image">＋</button><textarea id="msgText" rows="1" maxlength="500" placeholder="Message..."></textarea><button class="send" data-rm="send">➤</button></div>';
+}
+function chip(){ const c = $('imgChip'); if(c) c.innerHTML = ROOM.img ? '<div class="icard"><img src="' + esc(ROOM.img) + '" alt="" style="max-height:120px;width:auto"><button class="ibtn" data-rm="chipx">✕ Remove image</button></div>' : ''; }
+$('infoPage').addEventListener('keydown', e => { if(e.target.id === 'msgText' && e.key === 'Enter' && !e.shiftKey){ e.preventDefault(); const s = document.querySelector('[data-rm=send]'); if(s) s.click(); } });
+async function onRoomClick(e){
+  if(e.target.id === 'msgSheet'){ $('msgSheet').classList.remove('show'); return; }
+  const b = e.target.closest('[data-rm]'); if(!b) return;
+  if(b.closest('#msgSheet')) $('msgSheet').classList.remove('show');
+  const op = b.dataset.rm, room = ROOM.name, id = b.dataset.id;
+  const again = () => { ROOM.sig = ''; return loadRoom(false); };
+  if(op === 'nt'){ try{ if(await SB.ensure()) await SB.send('PATCH', 'notifications?id=eq.' + id, { read: true }); }catch(err){} location.hash = '#p-' + b.dataset.room; pollNotifs(); }
+  else if(op === 'ntall'){ try{ if(await SB.ensure()) await SB.send('PATCH', 'notifications?read=eq.false', { read: true }); }catch(err){} pollNotifs(); }
+  else if(op === 'login') openLogin();
+  else if(op === 'plus'){
+    const inp = document.createElement('input'); inp.type = 'file'; inp.accept = 'image/*';
+    inp.onchange = () => { const f = inp.files[0]; if(f) processImage(f, d => { ROOM.img = d; chip(); }); };
+    inp.click();
+  }
+  else if(op === 'chipx'){ ROOM.img = null; chip(); }
+  else if(op === 'send'){
+    const t = $('msgText').value.trim();
+    if(!t && !ROOM.img) return;
+    if(!(await SB.ensure())){ showToast('🔒 Session ended. Log in again'); return; }
+    b.disabled = true;
+    try{
+      let path = null;
+      if(ROOM.img){ path = SB.sub() + '/' + Date.now() + '.jpg'; await SB.upload(path, ROOM.img); }
+      const pre = (room === 'report' && t) ? '[' + $('rtype').value + '] ' : '';
+      const sentBody = (pre + t).slice(0, 500);
+      // Fast Chat: Optimistic UI message display
+      ROOM.rows.push({
+        id: 'opt_' + Date.now(),
+        name: getUser(),
+        body: sentBody,
+        image_path: path,
+        created_at: new Date().toISOString()
+      });
+      drawRoom(false);
+      $('msgText').value = ''; ROOM.img = null; chip();
+      await SB.send('POST', 'messages', { room: room, name: getUser(), body: sentBody, image_path: path });
+      await again();
+    }catch(err){ showToast(err.status === 403 || err.status === 400 || err.status === 401 ? '⚠️ Could not send. Wait a moment, or you may be muted' : '⚠️ Could not send. Try again'); }
+    b.disabled = false;
+  }
+  else if(op === 'edit'){
+    const m = ROOM.rows.find(r => String(r.id) === id); if(!m) return;
+    const v = prompt('Edit your message', m.body); if(v === null || !v.trim()) return;
+    if(!(await SB.ensure())) return;
+    try{ await SB.send('PATCH', 'messages?id=eq.' + id, { body: v.trim().slice(0, 500), edited_at: new Date().toISOString() }); await again(); }catch(err){ showToast('⚠️ Could not edit'); }
+  }
+  else if(op === 'del'){
+    if(!confirm('Delete this message?')) return;
+    if(!(await SB.ensure())) return;
+    const m = ROOM.rows.find(r => String(r.id) === id);
+    try{ await SB.send('DELETE', 'messages?id=eq.' + id); if(m && m.image_path) SB.removeObject(m.image_path); await again(); }catch(err){ showToast('⚠️ Could not delete'); }
+  }
+  else if(op === 'mute'){
+    const v = prompt('Mute ' + b.dataset.name + ' for how many minutes? Leave empty to mute until you unmute.', '30'); if(v === null) return;
+    if(await muteUser(b.dataset.name.toLowerCase(), parseInt(v, 10) || 0)) await again();
+  }
+  else if(op === 'unmute'){ if(await unmuteUser(b.dataset.name)) await again(); }
+}
+$('infoPage').addEventListener('click', onRoomClick);
+$('msgSheet').addEventListener('click', onRoomClick);
+
+function renderInfo(k){
+  if(k === 'reviews'){ renderReviews(); return; }
+  if(k === 'chat' || k === 'report'){ renderRoom(k); return; }
+  const P = infoPages()[k], M = {}, e = esc;
+  const card = h => '<div class="icard">' + h + '</div>';
+  const sec = t => '<h2 class="isec">' + t + '</h2>';
+  const btn = (name, url) => safeUrl(url) ? '<a class="ibtn" href="' + e(safeUrl(url)) + '" target="_blank" rel="noopener">' + e(name) + '</a>' : '';
+  const list = (arr, fn) => arr.map(fn).join('');
+  let h = '';
+  if(k === 'ann') h = D.ann.map(p => card(annPost(p))).join('');
+  if(k === 'staff') h = list(D.staff, x => card('<b>' + e(x.name) + '</b><small>' + e(x.role) + '</small>'));
+  if(k === 'links'){
+    const L = D.links;
+    h = '<div class="ibtns">' + list(L.vote, x => btn('🗳️ ' + x.name, x.url)) + btn('📨 Apply for Staff', L.apply) + btn('🚩 Report Player', L.report) + btn('⚖️ Ban Appeal', L.appeal) + '</div>';
+  }
+  if(k === 'help'){
+    const H = D.help;
+    h = (H.videoUrl || H.steps.length ? sec('How to Join') + card('<div class="ibtns">' + btn('▶ Watch video', H.videoUrl) + '</div>' + H.steps.map((t, i) => (i + 1) + '. ' + e(t)).join('\n')) : '') +
+      (H.commands.length ? sec('Commands') + list(H.commands, x => card('<code>' + e(x.cmd) + '</code>' + e(x.desc))) : '') +
+      (H.guides.length ? sec('Guides') + list(H.guides, x => card('<b>' + e(x.title) + '</b>' + e(x.text) + '<div class="ibtns">' + btn('▶ Watch video', x.video) + '</div>')) : '') +
+      (H.faq.length ? sec('FAQ') + list(H.faq, x => card('<b>' + e(x.q) + '</b>' + e(x.a))) : '');
+  }
+  if(k === 'siteinfo'){
+    const S = D.site;
+    h = (S.name || S.tagline || S.version || S.platform || S.modes.length ? card((S.name ? '<b>' + e(S.name) + '</b>' : '') + e(S.tagline) +
+      (S.version ? '<small>Version: ' + e(S.version) + '</small>' : '') + (S.platform ? '<small>' + e(S.platform) + '</small>' : '') +
+      (S.modes.length ? '<small>Game modes: ' + e(S.modes.join(', ')) + '</small>' : '')) : '') +
+      list(S.features, x => card('<b>' + e(x.icon) + ' ' + e(x.title) + '</b>' + e(x.text)));
+  }
+  if(k === 'events'){
+    const V = D.events; let cd = '';
+    if(V.cdOn && V.cdDate){
+      const ms = new Date(V.cdDate.replace(' ', 'T')).getTime() - Date.now();
+      if(!isNaN(ms)) cd = card('<b>⏳ ' + e(V.cdTitle) + '</b>' + (ms <= 0 ? 'Started!' : Math.floor(ms / 864e5) + 'd ' + Math.floor(ms % 864e5 / 36e5) + 'h ' + Math.floor(ms % 36e5 / 6e4) + 'm left'));
+    }
+    h = cd + (V.list.length ? sec('Events') + list(V.list, x => card('<b>' + e(x.title) + '</b><small>' + e(x.date) + '</small>' + e(x.text))) : '') +
+      (V.updates.length ? sec('Updates') + list(V.updates, x => card('<b>' + e(x.title) + '</b><small>' + e(x.date) + '</small>' + e(x.text))) : '');
+  }
+  if(k === 'community'){
+    const C = D.community;
+    h = (C.winners.length ? sec('Winners') + list(C.winners, x => card('<b>🏆 ' + e(x.name) + '</b><small>' + e(x.title) + '</small>' + e(x.note))) : '') +
+      (C.gallery.length ? sec('Gallery') + list(C.gallery, x => safeUrl(x.url) ? card('<img loading="lazy" src="' + e(safeUrl(x.url)) + '" alt="' + e(x.caption) + '">' + (x.caption ? '<small>' + e(x.caption) + '</small>' : '')) : '') : '');
+  }
+  $('infoPage').innerHTML = '<div class="title"><div class="badge">' + P[0] + ' ' + P[1] + '</div><h1>' + P[1] + '</h1></div><div class="ibody">' +
+    (h.trim() ? h : '<div class="iempty">Nothing here yet.</div>') + '</div>';
+}
+setInterval(() => { if(location.hash === '#p-events'){ try{ renderInfo('events'); }catch(e){} } }, 30000);
+function applySite(){
+  try{ buildNames(); }catch(e){}
+  try{
+    const lj = JSON.stringify(effLoader(D.site.loader));
+    if(splashStartedAt && lj !== curLoaderJson){
+      try{ localStorage.setItem('bsLoader', JSON.stringify(D.site.loader)); }catch(e){}
+      if($('splash') && Date.now() - splashStartedAt < 1800) startLoader(D.site.loader); else curLoaderJson = lj;
+    }
+  }catch(e){}
+  const il = $('infoLinks'), IP = infoPages();
+  il.innerHTML = Object.keys(IP).filter(k => pageOn(k)).map(k => '<a href="#p-' + k + '">' + IP[k][0] + ' ' + IP[k][1] + '</a>').join('');
+  if(location.hash.indexOf('#p-') === 0){ const k = location.hash.slice(3); if(IP[k] && ['reviews', 'chat', 'report'].indexOf(k) < 0 && (pageOn(k) || isAdmin())) renderInfo(k); }
+  const s = D.season; applyTheme(s); animMode = s.anim || 'blocks';
+  if(canvasReady) seedParticles();
+  const sp = $('seasonPill'); sp.textContent = s.name ? '🏆 ' + s.name : ''; sp.style.display = s.name ? '' : 'none';
+  renderVote();
+  renderHome(); renderFooter();
+  try{ drawMotd(); }catch(e){}
+}
 
 // ===== Supabase সংযোগ (সবার জন্য ডাটা সেভ ও লোড) =====
 const SB = {
   token: '', exp: 0,
+  hdr(extra){ return Object.assign({ 'apikey': CONFIG.SUPABASE_KEY, 'Content-Type': 'application/json' }, extra || {}); },
   valid(){ return !!SB.token && Date.now() < SB.exp - 60000; },
-  async login(password){
+  hasSession(){ try{ return !!localStorage.getItem('sbRefresh'); }catch(e){ return false; } },
+  setSession(j){
+    SB.token = j.access_token;
+    SB.exp = Date.now() + (j.expires_in || 3600) * 1000;
+    try{ if(j.refresh_token) localStorage.setItem('sbRefresh', j.refresh_token); }catch(e){}
+  },
+  clear(){ SB.token = ''; SB.exp = 0; try{ localStorage.removeItem('sbRefresh'); }catch(e){} },
+
+  // পাসওয়ার্ড দিয়ে লগইন
+  async signIn(email, password){
     try{
       const r = await fetch(CONFIG.SUPABASE_URL + '/auth/v1/token?grant_type=password', {
-        method: 'POST',
-        headers: { 'apikey': CONFIG.SUPABASE_KEY, 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: CONFIG.ADMIN_EMAIL, password: password })
+        method: 'POST', headers: SB.hdr(), body: JSON.stringify({ email: email, password: password })
       });
       const j = await r.json().catch(() => ({}));
-      if(r.ok && j.access_token){
-        SB.token = j.access_token;
-        SB.exp = Date.now() + (j.expires_in || 3600) * 1000;
-        return { ok: true };
-      }
+      if(r.ok && j.access_token){ SB.setSession(j); return { ok: true }; }
       return { ok: false, wrong: true };
     }catch(e){ return { ok: false, net: true }; }
   },
+  // প্রথমবার: নতুন পাসওয়ার্ড দিয়ে অ্যাকাউন্ট খোলা
+  async signUp(email, password){
+    try{
+      const r = await fetch(CONFIG.SUPABASE_URL + '/auth/v1/signup', {
+        method: 'POST', headers: SB.hdr(), body: JSON.stringify({ email: email, password: password })
+      });
+      const j = await r.json().catch(() => ({}));
+      if(r.ok){
+        if(j.access_token){ SB.setSession(j); return { ok: true }; }
+        return { ok: false, needConfirm: true };
+      }
+      const m = ((j.error_code || '') + ' ' + (j.msg || j.message || '')).toLowerCase();
+      if(m.indexOf('already') >= 0 || m.indexOf('exists') >= 0) return { ok: false, exists: true };
+      if(m.indexOf('signup') >= 0 && m.indexOf('disabled') >= 0) return { ok: false, disabled: true };
+      if(m.indexOf('password') >= 0) return { ok: false, weak: true };
+      return { ok: false, other: true };
+    }catch(e){ return { ok: false, net: true }; }
+  },
+  // সেশন ঠিক আছে কি না দেখা, দরকার হলে নিজে নতুন করে নেওয়া (পাসওয়ার্ড আর চাইবে না)
+  async ensure(){
+    if(SB.valid()) return true;
+    let rt = '';
+    try{ rt = localStorage.getItem('sbRefresh') || ''; }catch(e){}
+    if(!rt) return false;
+    try{
+      const r = await fetch(CONFIG.SUPABASE_URL + '/auth/v1/token?grant_type=refresh_token', {
+        method: 'POST', headers: SB.hdr(), body: JSON.stringify({ refresh_token: rt })
+      });
+      const j = await r.json().catch(() => ({}));
+      if(r.ok && j.access_token){ SB.setSession(j); return true; }
+      if(r.status === 400 || r.status === 401 || r.status === 403) SB.clear();
+    }catch(e){}
+    return false;
+  },
+  // কোন এডমিন আগে পাসওয়ার্ড বানিয়েছে তার তালিকা
+  async getAdmins(){
+    const r = await fetch(CONFIG.SUPABASE_URL + '/rest/v1/site_data?id=eq.admins&select=data', {
+      headers: { 'apikey': CONFIG.SUPABASE_KEY }, cache: 'no-store'
+    });
+    if(!r.ok) throw new Error('admins ' + r.status);
+    const rows = await r.json();
+    return (rows && rows[0] && rows[0].data) || {};
+  },
+  async markAdmin(name){
+    let cur = {};
+    try{ cur = await SB.getAdmins(); }catch(e){}
+    cur[name.toLowerCase()] = true;
+    await SB.write('admins', cur);
+  },
+  async write(id, data){
+    const r = await fetch(CONFIG.SUPABASE_URL + '/rest/v1/site_data?on_conflict=id', {
+      method: 'POST',
+      headers: SB.hdr({ 'Authorization': 'Bearer ' + SB.token, 'Prefer': 'resolution=merge-duplicates,return=minimal' }),
+      body: JSON.stringify({ id: id, data: data, updated_at: new Date().toISOString() })
+    });
+    if(!r.ok){
+      if(r.status === 401 || r.status === 403){ SB.token = ''; SB.exp = 0; }
+      const e = new Error('write ' + r.status); e.status = r.status; throw e;
+    }
+  },
   async load(){
     const r = await fetch(CONFIG.SUPABASE_URL + '/rest/v1/site_data?id=eq.main&select=data', {
-      headers: { 'apikey': CONFIG.SUPABASE_KEY },
-      cache: 'no-store'
+      headers: { 'apikey': CONFIG.SUPABASE_KEY }, cache: 'no-store'
     });
     if(!r.ok) throw new Error('load ' + r.status);
     const rows = await r.json();
     return rows && rows[0] ? rows[0].data : null;
   },
-  async save(data){
-    const r = await fetch(CONFIG.SUPABASE_URL + '/rest/v1/site_data?on_conflict=id', {
-      method: 'POST',
-      headers: {
-        'apikey': CONFIG.SUPABASE_KEY,
-        'Authorization': 'Bearer ' + SB.token,
-        'Content-Type': 'application/json',
-        'Prefer': 'resolution=merge-duplicates,return=minimal'
-      },
-      body: JSON.stringify({ id: 'main', data: data, updated_at: new Date().toISOString() })
-    });
-    if(!r.ok){
-      if(r.status === 401 || r.status === 403){ SB.token = ''; SB.exp = 0; }
-      const e = new Error('save ' + r.status); e.status = r.status; throw e;
-    }
+  async get(id){
+    const r = await fetch(CONFIG.SUPABASE_URL + '/rest/v1/site_data?id=eq.' + id + '&select=data', { headers: { 'apikey': CONFIG.SUPABASE_KEY }, cache: 'no-store' });
+    if(!r.ok) throw new Error('get ' + r.status);
+    const rows = await r.json();
+    return rows && rows[0] ? rows[0].data : null;
+  },
+  async save(data){ await SB.write('main', data); },
+  sub(){ try{ return JSON.parse(atob(SB.token.split('.')[1].replace(/-/g, '+').replace(/_/g, '/'))).sub || ''; }catch(e){ return ''; } },
+  async rows(path, auth){
+    const r = await fetch(CONFIG.SUPABASE_URL + '/rest/v1/' + path, { headers: auth ? { 'apikey': CONFIG.SUPABASE_KEY, 'Authorization': 'Bearer ' + SB.token } : { 'apikey': CONFIG.SUPABASE_KEY }, cache: 'no-store' });
+    if(!r.ok) throw new Error('rows ' + r.status);
+    return r.json();
+  },
+  async upload(path, dataUrl){
+    const blob = await (await fetch(dataUrl)).blob();
+    const r = await fetch(CONFIG.SUPABASE_URL + '/storage/v1/object/chat-images/' + path, { method: 'POST', headers: { 'apikey': CONFIG.SUPABASE_KEY, 'Authorization': 'Bearer ' + SB.token, 'Content-Type': 'image/jpeg' }, body: blob });
+    if(!r.ok){ const e = new Error('upload ' + r.status); e.status = r.status; throw e; }
+  },
+  async removeObject(path){
+    try{ await fetch(CONFIG.SUPABASE_URL + '/storage/v1/object/chat-images/' + path, { method: 'DELETE', headers: { 'apikey': CONFIG.SUPABASE_KEY, 'Authorization': 'Bearer ' + SB.token } }); }catch(e){}
+  },
+  async send(method, path, body, prefer){
+    const r = await fetch(CONFIG.SUPABASE_URL + '/rest/v1/' + path, { method: method, headers: SB.hdr({ 'Authorization': 'Bearer ' + SB.token, 'Prefer': prefer || 'return=minimal' }), body: body ? JSON.stringify(body) : undefined });
+    if(!r.ok){ const e = new Error(method + ' ' + r.status); e.status = r.status; throw e; }
+  },
+  // সব ইউজারের অ্যাকাউন্ট: আছে কি না দেখা
+  async lookupName(nameLc){
+    const r = await fetch(CONFIG.SUPABASE_URL + '/rest/v1/profiles?name_lc=eq.' + encodeURIComponent(nameLc) + '&select=name_lc', { headers: { 'apikey': CONFIG.SUPABASE_KEY }, cache: 'no-store' });
+    if(!r.ok) throw new Error('lookup ' + r.status);
+    return (await r.json()).length > 0;
+  },
+  // লগইনের পর: প্রোফাইল না থাকলে বানানো, আর শেষ লগইনের সময় লেখা
+  async afterLogin(name){
+    const h = SB.hdr({ 'Authorization': 'Bearer ' + SB.token });
+    try{
+      let has = true;
+      try{ has = await SB.lookupName(name.toLowerCase()); }catch(e){}
+      if(!has) await fetch(CONFIG.SUPABASE_URL + '/rest/v1/profiles', { method: 'POST', headers: Object.assign({}, h, { 'Prefer': 'return=minimal' }),
+        body: JSON.stringify({ name: name, name_lc: name.toLowerCase() }) });
+      await fetch(CONFIG.SUPABASE_URL + '/rest/v1/rpc/touch_login', { method: 'POST', headers: h, body: '{}' });
+    }catch(e){}
+  },
+  async rpc(fn, body){
+    const r = await fetch(CONFIG.SUPABASE_URL + '/rest/v1/rpc/' + fn, { method: 'POST', headers: SB.hdr({ 'Authorization': 'Bearer ' + SB.token }), body: JSON.stringify(body || {}) });
+    if(!r.ok){ const e = new Error(fn + ' ' + r.status); e.status = r.status; try{ e.detail = (await r.json()).message; }catch(x){} throw e; }
+    return r.json().catch(() => null);
   }
 };
 async function loadRemote(){
@@ -985,6 +1710,7 @@ function buildRules(){
 // ===== স্টোর (Rank) পেজ বানানো =====
 function buildStore(){
   const w = $('storeWrap');
+  const bn = $('buyNote'); if(bn) bn.style.display = payOn() ? 'none' : '';
   if(!D.ranks.length){
     w.innerHTML = '<div class="empty" style="grid-column:1/-1">🛠️ Rank শীঘ্রই আসছে...</div>';
     return;
@@ -996,11 +1722,14 @@ function buildStore(){
         '<div class="rankname">' + esc(r.name) + '</div>' +
         (r.price ? '<div class="rankprice">' + esc(r.price) + '</div>' : '') +
         (r.perks.length ? '<ul>' + r.perks.map(p => '<li>' + esc(p) + '</li>').join('') + '</ul>' : '') +
+        (payOn() ? '<button class="buybtn" data-buy="' + i + '">🛒 Buy Now</button>' : '') +
       '</div>' +
     '</div>'
   ).join('');
 }
 $('storeWrap').addEventListener('click', e => {
+  const bb = e.target.closest('[data-buy]');
+  if(bb){ openBuy(+bb.dataset.buy); return; }
   const im = e.target.closest('[data-zoom]');
   if(!im) return;
   $('lightImg').src = D.ranks[+im.dataset.zoom].image;
@@ -1008,27 +1737,448 @@ $('storeWrap').addEventListener('click', e => {
 });
 $('lightBg').addEventListener('click', () => $('lightBg').classList.remove('show'));
 
+// ===== Buy Now: Rank কেনা ও ভেরিফাই =====
+// পেমেন্ট নাম্বার (অ্যাডমিন > Payment) দেওয়া থাকলে তবেই Buy Now বাটন আসে
+function payOn(){ return !!(D.pay && (D.pay.bkash || D.pay.nagad)); }
+function bnToEn(s){ return String(s == null ? '' : s).replace(/[০-৯]/g, function(c){ return '০১২৩৪৫৬৭৮৯'.indexOf(c); }); }
+// Rank-এর দামের লেখা থেকে অপশনগুলো বের করা। ডাটাবেসের gw_buy ঠিক এই নিয়মেই মেলায়:
+// অপশন "•" দিয়ে আলাদা, প্রতিটায় ৳সংখ্যা। ৳ না থাকলে লেখার প্রথম সংখ্যাটাই দাম।
+function rankPlans(price){
+  const raw = String(price == null ? '' : price), plans = [];
+  raw.split('•').forEach(function(seg){
+    const m = bnToEn(seg).match(/৳\s*([0-9][0-9,]*(?:\.[0-9]+)?)/);
+    if(!m) return;
+    const amt = parseFloat(m[1].replace(/,/g, ''));
+    if(amt > 0) plans.push({ amount: amt, label: seg.replace(/[‎‏]/g, '').trim() });
+  });
+  if(!plans.length && raw.indexOf('৳') < 0){
+    const m = bnToEn(raw).match(/[0-9][0-9,]*(?:\.[0-9]+)?/);
+    const amt = m ? parseFloat(m[0].replace(/,/g, '')) : 0;
+    if(amt > 0) plans.push({ amount: amt, label: raw.replace(/[‎‏]/g, '').trim().slice(0, 60) });
+  }
+  return plans;
+}
+// ===== ওয়ালেট ব্যালেন্স (সার্ভারে থাকে, ব্রাউজারে নয়) =====
+// আগের ভার্সনের localStorage ব্যালেন্স জাল করা যেত, তাই ওগুলো মুছে ফেলা হচ্ছে
+try{ Object.keys(localStorage).filter(function(k){ return k.indexOf('be_wallet_') === 0; }).forEach(function(k){ localStorage.removeItem(k); }); }catch(e){}
+var WBAL = { v: 0, ok: false };
+function getWalletBal(){ return WBAL.v; }
+function fmtMoney(n){ return String(Math.round((Number(n) || 0) * 100) / 100); }
+function updateWalletUi(){
+  const t = fmtMoney(WBAL.v);
+  const e1 = $('headerWalletBal'); if(e1) e1.textContent = t;
+  const e2 = $('drawerWalletBal'); if(e2) e2.textContent = t;
+  const e3 = $('walletCurrentBal'); if(e3) e3.textContent = t;
+}
+async function refreshWallet(){
+  if(!getUser() || !SB.hasSession()){ WBAL.v = 0; WBAL.ok = false; updateWalletUi(); return; }
+  try{
+    if(!(await SB.ensure())) return;
+    const rows = await SB.rows('wallets?select=balance', true);
+    WBAL.v = rows && rows[0] ? Number(rows[0].balance) : 0; WBAL.ok = true;
+    updateWalletUi();
+  }catch(e){}
+}
+async function walletRpc(fn, body){
+  const resp = await fetch(CONFIG.SUPABASE_URL + '/rest/v1/rpc/' + fn, {
+    method: 'POST', headers: SB.hdr({ 'Authorization': 'Bearer ' + SB.token }), body: JSON.stringify(body)
+  });
+  const j = await resp.json().catch(function(){ return null; });
+  return (resp.ok && j && typeof j.ok === 'boolean') ? j : { ok: false, err: 'server' };
+}
+
+// ===== ওয়ালেট রিচার্জ (Add Money) মডাল =====
+var WALLET = {
+  step: 1, // 1: Amount, 2: Method & Send Money, 3: TrxID & Verify
+  amount: 20,
+  method: 'bkash',
+  trx: '',
+  busy: false,
+  err: ''
+};
+
+function openWallet(prefillAmt){
+  if(!getUser() || !SB.hasSession()){ showToast('🔑 ওয়ালেট ব্যবহার করতে আগে লগইন করো'); openLogin(); return; }
+  refreshWallet();
+  WALLET.step = 1;
+  WALLET.amount = Math.max(20, parseFloat(prefillAmt) || 20);
+  WALLET.method = (D.pay && D.pay.bkash) ? 'bkash' : ((D.pay && D.pay.nagad) ? 'nagad' : 'bkash');
+  WALLET.trx = '';
+  WALLET.busy = false;
+  WALLET.err = '';
+  drawWallet();
+  $('walletBg').classList.add('show');
+}
+function closeWallet(){
+  $('walletBg').classList.remove('show');
+}
+
+function drawWallet(){
+  const box = $('walletBox'); if(!box) return;
+  const P = D.pay || {};
+  const currentBal = getWalletBal();
+  const nums = [['bkash', 'bKash (বিকাশ)', P.bkash], ['nagad', 'Nagad (নগদ)', P.nagad]].filter(function(x){ return x[2]; });
+  const curNum = nums.find(function(x){ return x[0] === WALLET.method; }) || nums[0] || ['bkash', 'bKash', ''];
+
+  let h = '<h3>👛 ওয়ালেট রিচার্জ (Add Money)</h3>';
+  
+  // ধাপ নির্দেশিকা (Step Tracker)
+  h += '<div class="wallet-steps">' +
+    '<div class="w-step' + (WALLET.step === 1 ? ' active' : (WALLET.step > 1 ? ' done' : '')) + '">১. অ্যামাউন্ট</div>' +
+    '<div class="w-step' + (WALLET.step === 2 ? ' active' : (WALLET.step > 2 ? ' done' : '')) + '">২. সেন্ড মানি</div>' +
+    '<div class="w-step' + (WALLET.step === 3 ? ' active' : '') + '">৩. ভেরিফাই</div>' +
+  '</div>';
+
+  h += '<div class="wallet-bal-card">' +
+    '<div><div class="w-label">বর্তমান ওয়ালেট ব্যালেন্স</div><div class="w-amt">৳' + currentBal + '</div></div>' +
+    '<div style="font-size:1.8rem">💳</div>' +
+  '</div>';
+
+  if(WALLET.step === 1){
+    h += '<label>কত টাকা যোগ করতে চান? (সর্বনিম্ন ২০ টাকা)</label>';
+    h += '<input type="number" id="wInpAmount" min="20" placeholder="টাকার পরিমাণ (যেমন ৫০)" value="' + WALLET.amount + '" style="font-size:1.2rem;font-weight:700;text-align:center">';
+    h += '<div class="amt-pills">' +
+      [20, 50, 100, 200, 500].map(function(a){
+        return '<button type="button" class="amt-pill' + (WALLET.amount === a ? ' active' : '') + '" data-w="setAmt" data-a="' + a + '">+৳' + a + '</button>';
+      }).join('') +
+    '</div>';
+    h += '<div class="err" id="walletErr">' + esc(WALLET.err) + '</div>';
+    h += '<div class="row" style="margin-top:14px"><button class="cancel" data-w="close">বাতিল</button><button class="ok" data-w="toStep2">পরবর্তী ধাপ (Next) →</button></div>';
+  } else if(WALLET.step === 2){
+    h += '<label>১) কোন মাধ্যমে টাকা পাঠাবেন?</label>';
+    if(nums.length > 1){
+      h += '<div class="paymeth">' + nums.map(function(x){
+        return '<button type="button" class="' + (x[0] === WALLET.method ? 'on' : '') + '" data-w="meth" data-m="' + x[0] + '">' + x[1] + '</button>';
+      }).join('') + '</div>';
+    }
+    if(curNum[2]){
+      h += '<div class="paybox">এই ' + curNum[1] + ' নাম্বারে <b>Send Money</b> করুন:<div class="paynum"><b>' + esc(curNum[2]) + '</b><button type="button" class="copy" data-w="copy">Copy</button></div>আপনি যত টাকা পাঠাবেন, ভেরিফাই হলে ঠিক তত টাকাই ওয়ালেটে যোগ হবে। (পাঠানোর কথা: <b>৳' + WALLET.amount + '</b>)</div>';
+    } else {
+      h += '<div class="paybox">অ্যাডমিন প্যানেল থেকে Payment নাম্বার এখনো সেট করা হয়নি। Discord-এ যোগাযোগ করুন।</div>';
+    }
+    h += '<p style="font-size:.85rem;color:var(--muted);margin:8px 0 14px">টাকা পাঠানোর পর বিকাশ বা নগদ থেকে আসা SMS-এর <b>TrxID</b> কপি করে পরের ধাপে ভেরিফাই করুন।</p>';
+    h += '<div class="err" id="walletErr">' + esc(WALLET.err) + '</div>';
+    h += '<div class="row"><button class="cancel" data-w="toStep1">← পেছনে</button><button class="ok" data-w="toStep3">টাকা পাঠিয়েছি, Next →</button></div>';
+  } else if(WALLET.step === 3){
+    h += '<div class="paybox" style="margin-bottom:12px">নির্বাচিত মাধ্যম: <b>' + curNum[1] + '</b> · পাঠানোর কথা: <b>৳' + WALLET.amount + '</b></div>';
+    h += '<label>Transaction ID (TrxID) দিন</label>';
+    h += '<input type="text" id="wInpTrx" maxlength="14" placeholder="যেমন 69875G5965" autocomplete="off" spellcheck="false" style="text-transform:uppercase;font-size:1.1rem;text-align:center" value="' + esc(WALLET.trx) + '">';
+    h += '<p style="font-size:.85rem;color:var(--muted);margin:6px 0 14px">কোন ইউজারনেম দেওয়ার প্রয়োজন নেই, শুধু TrxID দিয়ে Verify চাপুন।</p>';
+    h += '<div class="err" id="walletErr">' + esc(WALLET.err) + '</div>';
+    h += '<div class="row"><button class="cancel" data-w="toStep2">← পেছনে</button><button class="ok" data-w="verify">✅ ভেরিফাই করুন</button></div>';
+  }
+
+  box.innerHTML = h;
+}
+
+$('walletBox').addEventListener('click', function(e){
+  const b = e.target.closest('[data-w]'); if(!b) return;
+  const op = b.dataset.w;
+  if(op === 'close'){ closeWallet(); }
+  else if(op === 'setAmt'){ WALLET.amount = +b.dataset.a; drawWallet(); }
+  else if(op === 'toStep1'){ WALLET.step = 1; WALLET.err = ''; drawWallet(); }
+  else if(op === 'toStep2'){
+    const amt = parseFloat($('wInpAmount') ? $('wInpAmount').value : WALLET.amount);
+    if(isNaN(amt) || amt < 20){
+      WALLET.err = '⚠️ সর্বনিম্ন ২০ টাকার নিচে ওয়ালেট অ্যাড করা যাবে না।';
+      drawWallet(); return;
+    }
+    WALLET.amount = amt;
+    WALLET.step = 2;
+    WALLET.err = '';
+    drawWallet();
+  }
+  else if(op === 'meth'){ WALLET.method = b.dataset.m; drawWallet(); }
+  else if(op === 'copy'){
+    copyText(D.pay[WALLET.method]).then(function(ok){
+      showToast(ok ? '✅ নাম্বার কপি হয়েছে' : '⚠️ কপি হয়নি, হাতে লিখুন');
+    });
+  }
+  else if(op === 'toStep3'){
+    WALLET.step = 3;
+    WALLET.err = '';
+    drawWallet();
+  }
+  else if(op === 'verify'){
+    doWalletVerify();
+  }
+});
+
+$('walletBox').addEventListener('input', function(e){
+  if(e.target.id === 'wInpAmount'){
+    const v = parseFloat(e.target.value);
+    if(!isNaN(v)) WALLET.amount = v;
+  } else if(e.target.id === 'wInpTrx'){
+    WALLET.trx = e.target.value;
+  }
+});
+$('walletBg').addEventListener('click', function(e){
+  if(e.target === $('walletBg') && !WALLET.busy) closeWallet();
+});
+
+async function doWalletVerify(){
+  if(WALLET.busy) return;
+  const trx = (WALLET.trx || '').replace(/\s+/g, '').toUpperCase();
+  const errEl = $('walletErr');
+  if(!/^[A-Z0-9]{6,14}$/.test(trx)){
+    WALLET.err = '⚠️ সঠিক Transaction ID দিন (ইংরেজি অক্ষর ও সংখ্যা)';
+    if(errEl) errEl.textContent = WALLET.err;
+    return;
+  }
+  if(!(await SB.ensure())){ closeWallet(); showToast('🔒 সেশন শেষ। আবার লগইন করো'); openLogin(); return; }
+  WALLET.err = '';
+  WALLET.busy = true;
+  vfyShow('loading');
+  const t0 = Date.now();
+  let res;
+  try{ res = await walletRpc('wallet_topup', { p_trx: trx }); }
+  catch(ex){ res = { ok: false, err: 'net' }; }
+  const wait = 1300 - (Date.now() - t0);
+  if(wait > 0) await new Promise(function(x){ setTimeout(x, wait); });
+  WALLET.busy = false;
+
+  if(res.ok){
+    WBAL.v = Number(res.balance) || 0; updateWalletUi();
+    closeWallet();
+    vfyShow({ ok: true, topup: true, rank: 'ওয়ালেটে ৳' + fmtMoney(res.amount) + ' যোগ হয়েছে', plan: 'বর্তমান ব্যালেন্স: ৳' + fmtMoney(res.balance) });
+    refreshWallet();
+  } else {
+    vfyShow(res);
+  }
+}
+
+// ===== Buy Now: Rank কেনা ও ভেরিফাই =====
+var BUY = { i: -1, plans: [], plan: 0, method: 'bkash', name: '', trx: '', busy: false };
+function openBuy(i){
+  const r = D.ranks[i]; if(!r || !payOn()) return;
+  try{ refreshWallet().then(function(){ if($('buyBg').classList.contains('show') && D.ranks[BUY.i]) drawBuy(); }); }catch(e){}
+  const keep = BUY.i === i;
+  BUY = {
+    i: i, plans: rankPlans(r.price), plan: 0,
+    method: D.pay.bkash ? 'bkash' : (D.pay.nagad ? 'nagad' : 'wallet'),
+    name: (keep && BUY.name) || getUser() || '',
+    trx: keep ? BUY.trx : '', busy: false
+  };
+  drawBuy();
+  $('buyBg').classList.add('show');
+}
+function closeBuy(){ $('buyBg').classList.remove('show'); }
+
+function drawBuy(){
+  const r = D.ranks[BUY.i]; if(!r) return;
+  const P = D.pay, pl = BUY.plans, cur = pl[BUY.plan];
+  const walletBal = getWalletBal();
+  
+  // বিকাশ, নগদ এবং ওয়ালেট অপশন
+  const nums = [];
+  if(P && P.bkash) nums.push(['bkash', 'bKash', P.bkash]);
+  if(P && P.nagad) nums.push(['nagad', 'Nagad', P.nagad]);
+  nums.push(['wallet', '👛 ওয়ালেট', 'wallet']);
+
+  if(!nums.some(function(x){ return x[0] === BUY.method; })) BUY.method = nums[0][0];
+  const num = nums.find(function(x){ return x[0] === BUY.method; }) || nums[0];
+  let h = '<h3>🛒 ' + esc(r.name.trim()) + '</h3>';
+  if(!pl.length){
+    h += '<p>এই Rank-এর দাম এখনো ঠিকভাবে সেট করা নেই। Discord-এ যোগাযোগ করো।</p><div class="row"><button class="cancel" data-b="close">বন্ধ</button></div>';
+    $('buyBox').innerHTML = h; return;
+  }
+  h += '<label>১) কোন প্যাকেজ নেবে? (যে প্যাকেজটি কিনতে চান বাছুন)</label><div class="planlist">' +
+    pl.map(function(p, k){ return '<div class="planopt' + (k === BUY.plan ? ' on' : '') + '" data-b="plan" data-k="' + k + '"><i class="rd"></i><span>' + esc(p.label) + '</span></div>'; }).join('') + '</div>';
+  
+  h += '<label>২) কোথা থেকে টাকা পরিশোধ করবেন?</label>';
+  h += '<div class="paymeth">' + nums.map(function(x){ return '<button type="button" class="' + (x[0] === BUY.method ? 'on' : '') + '" data-b="meth" data-m="' + x[0] + '">' + x[1] + '</button>'; }).join('') + '</div>';
+  
+  if(BUY.method === 'wallet'){
+    // ওয়ালেট পেমেন্ট বক্স
+    const hasEnough = walletBal >= cur.amount;
+    h += '<div class="paybox walletpaybox">' +
+      '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px"><span>👛 ওয়ালেট ব্যালেন্স:</span><b style="color:var(--accent);font-size:1.2rem">৳' + walletBal + '</b></div>' +
+      '<div style="display:flex;justify-content:space-between;align-items:center"><span>প্যাকেজের মূল্য:</span><b style="font-size:1.1rem">৳' + cur.amount + '</b></div>' +
+    '</div>';
+    
+    h += '<label>৩) তোমার Minecraft নাম (পরিবর্তন করতে পারো)</label><input type="text" id="buyName" maxlength="24" placeholder="Minecraft username" autocomplete="off" spellcheck="false" value="' + esc(BUY.name) + '">';
+    
+    if(hasEnough){
+      h += '<div class="err" id="buyErr"></div><div class="row"><button class="cancel" data-b="close">বাতিল</button><button class="ok" data-b="walletPay">💳 ওয়ালেট দিয়ে কিনুন (৳' + cur.amount + ')</button></div>';
+    } else {
+      h += '<div class="err" id="buyErr" style="display:block;margin:10px 0">⚠️ অপর্যাপ্ত ব্যালেন্স! প্রয়োজন ৳' + cur.amount + ', ওয়ালেটে আছে ৳' + walletBal + '</div>';
+      h += '<div class="row"><button class="cancel" data-b="close">বাতিল</button><button class="ok" data-b="openRecharge">➕ ওয়ালেট রিচার্জ করুন</button></div>';
+    }
+  } else {
+    // বিকাশ বা নগদ পেমেন্ট বক্স
+    h += '<div class="paybox">এই ' + num[1] + ' নাম্বারে <b>Send Money</b> করো:<div class="paynum"><b>' + esc(num[2]) + '</b><button type="button" class="copy" data-b="copy">Copy</button></div>ঠিক <b>৳' + cur.amount + '</b> পাঠাবে। কম বা বেশি হলে ভেরিফাই হবে না।</div>';
+    h += '<label>৩) তোমার Minecraft নাম</label><input type="text" id="buyName" maxlength="24" placeholder="Minecraft username" autocomplete="off" spellcheck="false" value="' + esc(BUY.name) + '">';
+    h += '<label>৪) Transaction ID (TrxID)</label><input type="text" id="buyTrx" maxlength="14" placeholder="যেমন 69875G5965" autocomplete="off" spellcheck="false" style="text-transform:uppercase" value="' + esc(BUY.trx) + '">';
+    h += '<div class="err" id="buyErr"></div><div class="row"><button class="cancel" data-b="close">বাতিল</button><button class="ok" data-b="verify">✅ Verify</button></div>';
+  }
+
+  $('buyBox').innerHTML = h;
+}
+
+$('buyBox').addEventListener('click', function(e){
+  const b = e.target.closest('[data-b]'); if(!b) return;
+  const op = b.dataset.b;
+  if(op === 'close') closeBuy();
+  else if(op === 'plan'){ BUY.plan = +b.dataset.k; drawBuy(); }
+  else if(op === 'meth'){ BUY.method = b.dataset.m; drawBuy(); }
+  else if(op === 'copy'){ copyText(D.pay[BUY.method]).then(function(ok){ showToast(ok ? '✅ নাম্বার কপি হয়েছে' : '⚠️ কপি হয়নি, হাতে লেখো'); }); }
+  else if(op === 'verify') doVerify();
+  else if(op === 'openRecharge'){
+    const r = D.ranks[BUY.i], cur = BUY.plans[BUY.plan];
+    const diff = (cur ? cur.amount : 20) - getWalletBal();
+    closeBuy();
+    openWallet(Math.max(20, diff));
+  }
+  else if(op === 'walletPay') doWalletPay();
+});
+
+async function doWalletPay(){
+  if(BUY.busy) return;
+  const r = D.ranks[BUY.i], cur = BUY.plans[BUY.plan], err = $('buyErr');
+  if(!r || !cur) return;
+  const name = BUY.name.trim();
+  if(!/^[A-Za-z0-9_. -]{3,24}$/.test(name)){
+    if(err) err.textContent = '⚠️ Minecraft নাম ঠিক দাও (৩-২৪ অক্ষর)';
+    return;
+  }
+  if(!(await SB.ensure())){
+    if(err) err.textContent = '🔒 সেশন শেষ। আবার লগইন করো';
+    return;
+  }
+  if(err) err.textContent = '';
+  BUY.busy = true;
+  vfyShow('loading');
+  const t0 = Date.now();
+  let res;
+  try{ res = await walletRpc('wallet_buy', { p_rank: r.name, p_amount: cur.amount, p_player: name }); }
+  catch(ex){ res = { ok: false, err: 'net' }; }
+  const wait = 900 - (Date.now() - t0);
+  if(wait > 0) await new Promise(function(x){ setTimeout(x, wait); });
+  BUY.busy = false;
+
+  if(res.ok){
+    WBAL.v = Number(res.balance) || 0; updateWalletUi();
+    vfyShow({ ok: true, rank: r.name, plan: 'প্যাকেজ: ' + cur.label + ' · ওয়ালেট থেকে ৳' + fmtMoney(cur.amount) + ' কাটা হয়েছে। অবশিষ্ট ব্যালেন্স: ৳' + fmtMoney(res.balance) });
+  } else {
+    if(res.err === 'balance'){ WBAL.v = Number(res.balance) || 0; updateWalletUi(); }
+    vfyShow(res);
+  }
+  refreshWallet();
+}
+$('buyBox').addEventListener('input', function(e){
+  if(e.target.id === 'buyName') BUY.name = e.target.value;
+  else if(e.target.id === 'buyTrx') BUY.trx = e.target.value;
+});
+$('buyBg').addEventListener('click', function(e){ if(e.target === $('buyBg') && !BUY.busy) closeBuy(); });
+
+function vfyShow(st){
+  const box = $('vfyBox');
+  if(st === 'loading'){
+    box.innerHTML = '<div class="spin"></div><h4>ভেরিফাই হচ্ছে...</h4><p>একটু অপেক্ষা করো</p>';
+  }else if(st.ok){
+    const note = (D.pay.note || '').trim();
+    box.innerHTML = '<div class="vicon ok">✓</div><h4>সফল হয়েছে!</h4><p><b>' + esc(String(st.rank || '').trim()) + '</b>' + (st.plan ? '<br>' + esc(st.plan) : '') + (st.topup ? '' : '<br>Minecraft নাম: <b>' + esc(BUY.name.trim()) + '</b>' + (note ? '<br>' + esc(note) : '')) + '</p><button data-v="done">ঠিক আছে</button>';
+  }else{
+    const M = {
+      player: 'Minecraft নাম ঠিক নেই (৩-২৪ অক্ষর, ইংরেজি অক্ষর/সংখ্যা/_ চলবে)।',
+      price: 'এই Rank-এর দাম মেলেনি। অন্য প্যাকেজ বেছে আবার চেষ্টা করো, না হলে Discord-এ জানাও।',
+      notfound: 'এই Transaction ID পাওয়া যায়নি। ID ঠিক আছে কিনা দেখো, আর টাকা পাঠানোর এক-দুই মিনিট পর আবার চেষ্টা করো।',
+      used: 'এই Transaction ID আগেই ব্যবহার হয়ে গেছে।',
+      amount: 'তুমি যত টাকা পাঠিয়েছ আর যে প্যাকেজ বেছেছ তা মেলেনি। যত টাকা পাঠিয়েছ ঠিক সেই প্যাকেজটা বাছো।',
+      login: 'আগে লগইন করো, তারপর আবার চেষ্টা করো।',
+      balance: 'ওয়ালেটে পর্যাপ্ত ব্যালেন্স নেই। আগে রিচার্জ করো।',
+      server: 'সার্ভারে সমস্যা হচ্ছে। একটু পরে আবার চেষ্টা করো।',
+      net: 'ইন্টারনেট সংযোগে সমস্যা। আবার চেষ্টা করো।'
+    };
+    box.innerHTML = '<div class="vicon no">✕</div><h4>ব্যর্থ হয়েছে</h4><p>' + esc(M[st.err] || 'ভেরিফাই হয়নি। আবার চেষ্টা করো।') + '</p><button data-v="retry">আবার চেষ্টা করো</button>';
+  }
+  $('vfy').classList.add('show');
+}
+$('vfyBox').addEventListener('click', function(e){
+  const b = e.target.closest('[data-v]'); if(!b) return;
+  $('vfy').classList.remove('show');
+  if(b.dataset.v === 'done'){ closeBuy(); }
+});
+async function doVerify(){
+  if(BUY.busy) return;
+  const r = D.ranks[BUY.i], cur = BUY.plans[BUY.plan], err = $('buyErr');
+  if(!r || !cur) return;
+  const name = BUY.name.trim(), trx = BUY.trx.replace(/\s+/g, '').toUpperCase();
+  if(!/^[A-Za-z0-9_. -]{3,24}$/.test(name)){ err.textContent = '⚠️ Minecraft নাম ঠিক দাও (৩-২৪ অক্ষর)'; return; }
+  if(!/^[A-Z0-9]{6,14}$/.test(trx)){ err.textContent = '⚠️ Transaction ID ঠিক দাও (শুধু ইংরেজি অক্ষর আর সংখ্যা)'; return; }
+  err.textContent = '';
+  BUY.busy = true; vfyShow('loading');
+  const t0 = Date.now();
+  let res;
+  try{
+    // গুরুত্বপূর্ণ: ডাটাবেসের gw_buy ফাংশন ৪টা তথ্য চায়: p_trx, p_rank, p_player, p_amount
+    const resp = await fetch(CONFIG.SUPABASE_URL + '/rest/v1/rpc/gw_buy', {
+      method: 'POST', headers: SB.hdr(),
+      body: JSON.stringify({ p_trx: trx, p_rank: r.name, p_player: name, p_amount: cur.amount })
+    });
+    const j = await resp.json().catch(function(){ return null; });
+    res = (resp.ok && j && typeof j.ok === 'boolean') ? j : { ok: false, err: 'server' };
+  }catch(ex){ res = { ok: false, err: 'net' }; }
+  const wait = 1300 - (Date.now() - t0);
+  if(wait > 0) await new Promise(function(x){ setTimeout(x, wait); });
+  BUY.busy = false;
+  vfyShow(res);
+}
+
 function renderAll(){
+  try{ applySite(); }catch(e){}
   renderIps();
   buildRules();
   buildStore();
 }
 renderAll();
 
+// ওয়ালেট বাটন ক্লিকের ইভেন্ট লিসেনার
+if($('headerWalletBtn')) $('headerWalletBtn').onclick = function(){ openWallet(); };
+if($('drawerWalletLink')) $('drawerWalletLink').onclick = function(){ toggleMenu(false); openWallet(); };
+updateWalletUi();
+setInterval(refreshWallet, 60000);
+
+// ইন্টারনেট সংযোগ মনিটর
+function updateNetStatus(){
+  const netBar = $('htmlNetBar'); if(!netBar) return;
+  netBar.style.display = navigator.onLine ? 'none' : 'block';
+}
+window.addEventListener('online', updateNetStatus);
+window.addEventListener('offline', updateNetStatus);
+updateNetStatus();
+
+// MOTD ড্র্যাগ স্ক্রোলিং সাপোর্ট
+(function(){
+  const motd = $('motd');
+  if(!motd) return;
+  let isDown = false, startX = 0, scrollLeft = 0;
+  motd.addEventListener('mousedown', function(e){
+    isDown = true; startX = e.pageX - motd.offsetLeft; scrollLeft = motd.scrollLeft;
+  });
+  motd.addEventListener('mouseleave', function(){ isDown = false; });
+  motd.addEventListener('mouseup', function(){ isDown = false; });
+  motd.addEventListener('mousemove', function(e){
+    if(!isDown) return;
+    e.preventDefault();
+    const x = e.pageX - motd.offsetLeft;
+    const walk = (x - startX) * 1.5;
+    motd.scrollLeft = scrollLeft - walk;
+  });
+})();
+
 // ===== ভোট পেজের লিংক সিরিয়ালে =====
-const voteList = $('voteList');
-CONFIG.VOTE_LINKS.forEach((v, i) => {
-  const a = document.createElement('a');
-  a.className = 'voteitem';
-  a.href = v.url;
-  a.target = '_blank';
-  a.rel = 'noopener';
-  a.innerHTML =
-    '<div class="num">' + (i + 1) + '</div>' +
-    '<div class="txt">' + esc(v.name || ('ভোট ' + (i + 1))) + '<small>ক্লিক করে ভোট দাও</small></div>' +
-    '<div class="go">→</div>';
-  voteList.appendChild(a);
-});
+function renderVote(){
+  const vl = $('voteList'); vl.innerHTML = '';
+  D.links.vote.forEach((v, i) => {
+    const a = document.createElement('a');
+    a.className = 'voteitem'; a.href = safeUrl(v.url) || '#'; a.target = '_blank'; a.rel = 'noopener';
+    a.innerHTML = '<div class="num">' + (i + 1) + '</div><div class="txt">' + esc(v.name || ('ভোট ' + (i + 1))) + '<small>ক্লিক করে ভোট দাও</small></div><div class="go">→</div>';
+    vl.appendChild(a);
+  });
+  if(!D.links.vote.length) vl.innerHTML = '<div class="iempty">No vote links yet.</div>';
+}
+renderVote();
 
 // ===== অক্ষর অ্যানিমেশন =====
 function makeLetters(parent, text, mode){
@@ -1043,23 +2193,56 @@ function makeLetters(parent, text, mode){
   });
   parent.appendChild(wrap);
 }
-makeLetters($('splashText'), CONFIG.SERVER_NAME, 'once');
-makeLetters($('heroText'), CONFIG.SERVER_NAME, 'loop');
-
-const bgword = $('bgword');
-CONFIG.SERVER_NAME.split(' ').forEach((w, wi) => {
-  const row = document.createElement('div');
-  makeLetters(row, w, 'loop');
-  if(wi > 0) row.querySelectorAll('.letters span').forEach(s => s.style.setProperty('--i', +s.style.getPropertyValue('--i') + 6));
-  bgword.appendChild(row);
-});
-
-const mq = $('marquee');
-for (let i = 0; i < 5; i++) {
-  const d = document.createElement('div');
-  d.textContent = (CONFIG.SERVER_NAME + "  ✦  ").repeat(14);
-  mq.appendChild(d);
+function loaderStyles(){ return [['classic', 'Classic'], ['orbit', 'Orbit ring'], ['glow', 'Glowing pulse'], ['blocks', 'Falling blocks'], ['bar', 'Progress bar'], ['portal', 'Portal rings']]; }
+function loaderAnims(){ return [['rise', 'Rise'], ['fade', 'Fade in'], ['typewriter', 'Typewriter'], ['drop', 'Drop'], ['zoom', 'Zoom'], ['flip', 'Flip'], ['glitch', 'Glitch'], ['bounce', 'Bounce']]; }
+function effLoader(c){
+  c = c || {};
+  return { style: loaderStyles().some(x => x[0] === c.style) ? c.style : 'classic', anim: loaderAnims().some(x => x[0] === c.anim) ? c.anim : 'rise',
+    name: (typeof c.name === 'string' && c.name.trim()) ? c.name.trim().slice(0, 40) : CONFIG.SERVER_NAME,
+    image: /^(data:image\/|https?:\/\/)/i.test(c.image || '') ? c.image : '', seconds: Math.min(8, Math.max(2, parseFloat(c.seconds) || 3.6)) };
 }
+var splashStartedAt = 0, curLoaderJson = '', splashTimer = 0;
+function cachedLoader(){ try{ return JSON.parse(localStorage.getItem('bsLoader') || 'null'); }catch(e){ return null; } }
+function startLoader(cfg, preview){
+  const c = effLoader(cfg), el = document.createElement('div');
+  el.className = 'splash ld-' + c.style + (preview ? ' preview' : '');
+  el.id = preview ? 'splashPrev' : 'splash';
+  el.innerHTML = '<div class="ldwrap"><div class="ldfx"></div><img class="ldLogo" alt=""></div><h2 class="eng"></h2><div class="bar"><i></i></div><div class="pct"></div>';
+  el.querySelector('.ldLogo').src = c.image || baseLogo;
+  const h2 = el.querySelector('h2'); makeLetters(h2, c.name, 'once'); h2.querySelector('.letters').classList.add('an-' + c.anim);
+  if(c.style === 'blocks'){ const fx = el.querySelector('.ldfx'); for(let k = 0; k < 12; k++){ const i = document.createElement('i'); i.style.setProperty('--k', k); fx.appendChild(i); } }
+  el.style.animationDelay = c.seconds + 's';
+  el.querySelector('.bar i').style.animationDuration = Math.max(1.5, c.seconds - 0.6) + 's';
+  if(c.style === 'bar'){
+    const pct = el.querySelector('.pct'), t0 = Date.now();
+    const iv = setInterval(() => { const p = Math.min(100, Math.round((Date.now() - t0) / ((c.seconds - .4) * 10))); pct.textContent = p + '%'; if(p >= 100 || !el.isConnected) clearInterval(iv); }, 80);
+  }
+  if(preview){ document.body.appendChild(el); el.addEventListener('click', () => el.remove()); setTimeout(() => el.remove(), (c.seconds + 1) * 1000); return; }
+  const old = $('splash'); if(old) old.replaceWith(el); else document.body.appendChild(el);
+  splashStartedAt = Date.now(); curLoaderJson = JSON.stringify(c);
+  clearTimeout(splashTimer); splashTimer = setTimeout(() => { const s = $('splash'); if(s) s.remove(); }, (c.seconds + 0.9) * 1000);
+}
+startLoader(cachedLoader());
+var curNames = '';
+function buildNames(){
+  const name = D.home.siteName || CONFIG.SERVER_NAME, bgw = typeof D.home.bgWord === 'string' ? D.home.bgWord : name;
+  const BG = D.site.bg, texts = BG.texts.map(t => t.trim()).filter(Boolean);
+  const key = [name, bgw, texts.join('|'), BG.anim, BG.speed, BG.strength].join('~'); if(key === curNames) return; curNames = key;
+  const hero = $('heroText'); hero.textContent = ''; makeLetters(hero, name, 'loop');
+  const bg = $('bgword'); bg.textContent = '';
+  bgw.split(' ').filter(Boolean).forEach((w, wi) => {
+    const row = document.createElement('div');
+    makeLetters(row, w, 'loop');
+    if(wi > 0) row.querySelectorAll('.letters span').forEach(sp => sp.style.setProperty('--i', +sp.style.getPropertyValue('--i') + 6));
+    bg.appendChild(row);
+  });
+  const mq = $('marquee'); mq.textContent = ''; mq.className = 'marquee mq-' + BG.anim;
+  mq.style.setProperty('--mqs', { slow: 1.8, normal: 1, fast: .45 }[BG.speed]); mq.style.setProperty('--mqo', { faint: .04, normal: .09, bold: .18 }[BG.strength]);
+  if(texts.length) for(let i = 0; i < 5; i++){ const d = document.createElement('div'); d.style.setProperty('--r', i); d.textContent = (texts[i % texts.length] + '  ✦  ').repeat(14); mq.appendChild(d); }
+  document.title = name + ' | Minecraft Server';
+  const hn = document.querySelector('.logo span.eng'); if(hn) hn.textContent = name;
+}
+buildNames();
 
 // ===== মেনু =====
 const btn = $('menuBtn'), drawer = $('drawer'), overlay = $('overlay');
@@ -1115,7 +2298,8 @@ async function checkServer(){
   const norm = d => ({
     online: !!d.online,
     players: d.players && d.players.online != null ? d.players.online : 0,
-    icon: d.icon || null
+    icon: d.icon || null,
+    motd: (d.motd && (Array.isArray(d.motd.raw) ? d.motd.raw.join('\n') : d.motd.raw)) || ''
   });
   const javaSrc = [
     () => getJSON('https://api.mcstatus.io/v2/status/java/' + jAddr).then(norm),
@@ -1135,6 +2319,7 @@ async function checkServer(){
     online: true,
     players: Math.max(j ? j.players : 0, b ? b.players : 0),
     icon: (j && j.icon) || (b && b.icon) || null,
+    motd: (j && j.motd) || (b && b.motd) || '',
     edition: (j && b) ? '🎮 Java + Bedrock' : (j ? '🎮 Java Edition' : '🎮 Bedrock Edition')
   };
 }
@@ -1155,7 +2340,7 @@ async function updateStatus(){
     dot.className = 'dot off';
     st.textContent = 'IP দেওয়া নেই';
     pl.textContent = '--';
-    ed.classList.remove('show');
+    ed.classList.remove('show'); setMotd('');
     return;
   }
   busy = true;
@@ -1167,7 +2352,7 @@ async function updateStatus(){
     dot.className = 'dot off';
     st.textContent = 'চেক করা যাচ্ছে না';
     pl.textContent = '--';
-    ed.classList.remove('show');
+    ed.classList.remove('show'); setMotd('');
     return;
   }
   if(res.online){
@@ -1175,6 +2360,7 @@ async function updateStatus(){
     st.textContent = 'সার্ভার অনলাইন';
     pl.textContent = res.players;
     ed.textContent = res.edition;
+    setMotd(res.motd);
     ed.classList.add('show');
     // নিজের লোগো দেওয়া থাকলে সেটাই থাকবে, নাহলে সার্ভারের আসল লোগো বসবে
     if(!USER_LOGO && res.icon){
@@ -1185,7 +2371,7 @@ async function updateStatus(){
     dot.className = 'dot off';
     st.textContent = 'সার্ভার অফলাইন';
     pl.textContent = 0;
-    ed.classList.remove('show');
+    ed.classList.remove('show'); setMotd('');
     setCardLogo(baseLogo);
   }
 }
@@ -1197,7 +2383,7 @@ const loginBtn = $('loginBtn'), userChip = $('userChip'), userHead = $('userHead
       userNameEl = $('userName'), userMenu = $('userMenu'), logoutBtn = $('logoutBtn'),
       modalBg = $('modalBg'), nameInput = $('nameInput'), nameErr = $('nameErr');
 
-function validName(n){ return /^\.?[A-Za-z0-9_]{3,16}$/.test(n); }
+function validName(n){ return /^\.?[A-Za-z0-9_]{3,16}$/.test(n) && n.toLowerCase().replace(/^\./, '') !== 'ai'; }
 function skinName(n){ return n.replace(/^\./,'').replace(/\s+/g,'_'); }
 function setHead(img, n){
   const s = encodeURIComponent(skinName(n));
@@ -1218,9 +2404,17 @@ function getUser(){
 }
 function isAdmin(){
   const u = getUser().toLowerCase();
-  return !!u && CONFIG.ADMINS.some(a => a.toLowerCase() === u);
+  return !!u && SB.hasSession() && CONFIG.ADMINS.some(a => a.toLowerCase() === u);
+}
+try{ if(localStorage.getItem('mcUser') && !SB.hasSession()) localStorage.removeItem('mcUser'); }catch(e){}   // পাসওয়ার্ড ছাড়া পুরনো লগইন বাতিল
+function isStaff(){
+  const u = getUser().toLowerCase();
+  return !!u && SB.hasSession() && !isAdmin() && D.staff.some(x => x.name.toLowerCase() === u);
 }
 function renderUser(){
+  try{ applySite(); }catch(e){}
+  try{ pollNotifs(); }catch(e){}
+  try{ refreshWallet(); }catch(e){}
   const n = getUser();
   if(n){
     loginBtn.style.display = 'none';
@@ -1232,76 +2426,123 @@ function renderUser(){
     userChip.style.display = 'none';
     userMenu.classList.remove('show');
   }
-  $('adminLink').style.display = isAdmin() ? '' : 'none';
+  $('adminLink').style.display = canPanel() ? '' : 'none';
+}
+let loginState = { mode: 'name', name: '' };
+function adminEmail(n){ return n.toLowerCase() + '@' + CONFIG.ADMIN_DOMAIN; }
+function adminCanon(n){ return CONFIG.ADMINS.find(a => a.toLowerCase() === n.toLowerCase()) || ''; }
+function applyLoginMode(){
+  const m = loginState.mode;
+  const isName = m === 'name';
+  nameInput.disabled = !isName;
+  $('loginPw').style.display = isName ? 'none' : '';
+  $('loginPw2').style.display = m === 'new' ? '' : 'none';
+  $('loginPw').value = ''; $('loginPw2').value = '';
+  $('loginPw').placeholder = m === 'new' ? 'নতুন পাসওয়ার্ড (কমপক্ষে ৮ অক্ষর)' : 'পাসওয়ার্ড';
+  if(m === 'pw'){
+    $('loginTitle').textContent = adminCanon(loginState.name) ? '🔐 এডমিন লগইন' : '🔑 লগইন';
+    $('loginNote').textContent = loginState.name + ', তোমার পাসওয়ার্ড দাও।';
+    $('goBtn').textContent = 'লগইন';
+  }else if(m === 'new'){
+    $('loginTitle').textContent = '🔐 নতুন পাসওয়ার্ড বানাও';
+    $('loginNote').textContent = 'প্রথমবার ঢুকছ। নিজের একটা পাসওয়ার্ড বানাও। এটা মনে রেখো, পরে শুধু এটা দিয়েই ঢুকবে।';
+    $('goBtn').textContent = 'সেট করো ও ঢোকো';
+  }else{
+    $('loginTitle').textContent = '🔑 লগইন';
+    $('loginNote').innerHTML = 'তোমার Minecraft username লেখো।<br>প্রিমিয়াম নাম দিলে তোমার স্কিনের মাথা দেখাবে।';
+    $('goBtn').textContent = 'লগইন';
+  }
+  nameErr.textContent = '';
+  setTimeout(() => (isName ? nameInput : $('loginPw')).focus(), 50);
 }
 function openLogin(){
-  nameErr.textContent = '';
+  loginState = { mode: 'name', name: '' };
   nameInput.value = '';
+  applyLoginMode();
   modalBg.classList.add('show');
-  setTimeout(() => nameInput.focus(), 50);
 }
 function closeLogin(){ modalBg.classList.remove('show'); }
-function doLogin(){
-  const n = nameInput.value.trim();
-  if(!validName(n)){
-    nameErr.textContent = 'নাম ৩ থেকে ১৬ অক্ষরের হতে হবে (ইংরেজি অক্ষর, সংখ্যা আর _ চলবে)';
-    return;
-  }
+function finishLogin(n){
   try{ localStorage.setItem('mcUser', n); }catch(e){}
   closeLogin();
   renderUser();
+  if(/^#p-(chat|report|reviews)$/.test(location.hash)) route();
   showToast(isAdmin() ? '⚙️ এডমিন হিসেবে ঢুকেছ, ' + n : '✅ স্বাগতম, ' + n + '!');
+}
+async function doLogin(){
+  const btn = $('goBtn');
+  if(btn.disabled) return;
+  if(loginState.mode === 'name'){
+    const n = nameInput.value.trim();
+    if(!validName(n)){
+      nameErr.textContent = 'নাম ৩ থেকে ১৬ অক্ষরের হতে হবে (ইংরেজি অক্ষর, সংখ্যা আর _ চলবে)';
+      return;
+    }
+    const admin = adminCanon(n);
+    btn.disabled = true; nameErr.textContent = '⏳ চেক করা হচ্ছে...';
+    let reg = false;
+    try{ if(admin){ const list = await SB.getAdmins(); reg = !!list[admin.toLowerCase()]; } else reg = await SB.lookupName(n.toLowerCase()); }
+    catch(e){ btn.disabled = false; nameErr.textContent = '⚠️ সংযোগে সমস্যা। আবার চেষ্টা করো।'; return; }
+    btn.disabled = false;
+    loginState = { mode: reg ? 'pw' : 'new', name: admin || n };
+    applyLoginMode();
+    return;
+  }
+  const name = loginState.name, email = adminEmail(name), p1 = $('loginPw').value;
+  if(loginState.mode === 'pw'){
+    if(!p1){ nameErr.textContent = 'পাসওয়ার্ড দাও'; return; }
+    btn.disabled = true; nameErr.textContent = '⏳ চেক করা হচ্ছে...';
+    const r = await SB.signIn(email, p1);
+    btn.disabled = false;
+    if(r.ok){ await SB.afterLogin(name); finishLogin(name); }
+    else{ nameErr.textContent = r.net ? '⚠️ সংযোগে সমস্যা। আবার চেষ্টা করো।' : '❌ পাসওয়ার্ড ভুল'; $('loginPw').value = ''; }
+    return;
+  }
+  // নতুন পাসওয়ার্ড বানানো
+  const p2 = $('loginPw2').value;
+  if(p1.length < 8){ nameErr.textContent = 'পাসওয়ার্ড কমপক্ষে ৮ অক্ষরের হতে হবে'; return; }
+  if(p1 !== p2){ nameErr.textContent = '❌ দুটো পাসওয়ার্ড মেলেনি'; return; }
+  btn.disabled = true; nameErr.textContent = '⏳ সেট হচ্ছে...';
+  const r = await SB.signUp(email, p1);
+  if(r.ok){
+    if(adminCanon(name)){ try{ await SB.markAdmin(name); }catch(e){} }
+    await SB.afterLogin(name);
+    btn.disabled = false;
+    finishLogin(name);
+    return;
+  }
+  btn.disabled = false;
+  if(r.exists){
+    loginState.mode = 'pw'; applyLoginMode();
+    nameErr.textContent = 'এই নামে আগেই অ্যাকাউন্ট আছে। পাসওয়ার্ড দিয়ে ঢোকো।';
+  }
+  else if(r.needConfirm) nameErr.textContent = '⚠️ Supabase-এ "Confirm email" বন্ধ করা হয়নি।';
+  else if(r.disabled) nameErr.textContent = '⚠️ Supabase-এ নতুন অ্যাকাউন্ট খোলা বন্ধ আছে।';
+  else if(r.weak) nameErr.textContent = '⚠️ পাসওয়ার্ডটা খুব সহজ। অক্ষর আর সংখ্যা মিলিয়ে বানাও।';
+  else if(r.net) nameErr.textContent = '⚠️ সংযোগে সমস্যা। আবার চেষ্টা করো।';
+  else nameErr.textContent = '⚠️ পাসওয়ার্ড সেট হয়নি। আবার চেষ্টা করো।';
 }
 loginBtn.onclick = openLogin;
 $('cancelBtn').onclick = closeLogin;
 $('goBtn').onclick = doLogin;
-nameInput.addEventListener('keydown', e => { if(e.key === 'Enter') doLogin(); });
+[nameInput, $('loginPw'), $('loginPw2')].forEach(el => el.addEventListener('keydown', e => { if(e.key === 'Enter') doLogin(); }));
 modalBg.addEventListener('click', e => { if(e.target === modalBg) closeLogin(); });
 userChip.onclick = e => { e.stopPropagation(); userMenu.classList.toggle('show'); };
 document.addEventListener('click', () => userMenu.classList.remove('show'));
 logoutBtn.onclick = () => {
   try{ localStorage.removeItem('mcUser'); }catch(e){}
+  SB.clear();
   renderUser();
+  if(/^#p-(chat|report|reviews)$/.test(location.hash)) route();
   if(location.hash === '#admin') location.hash = '#home';
   showToast('👋 লগআউট হয়েছে');
 };
 renderUser();
 
-// ===== পাসওয়ার্ড বক্স =====
-let pwCb = null;
-function askPassword(cb){
-  if(SB.valid()){ cb(); return; }   // একবার লগইন করলে কিছুক্ষণ আর চাইবে না
-  pwCb = cb;
-  $('pwErr').textContent = '';
-  $('pwInput').value = '';
-  $('pwBg').classList.add('show');
-  setTimeout(() => $('pwInput').focus(), 50);
-}
-function closePw(){ $('pwBg').classList.remove('show'); pwCb = null; }
-async function submitPw(){
-  const v = $('pwInput').value;
-  if(!v) return;
-  $('pwOk').disabled = true;
-  $('pwErr').textContent = '⏳ চেক করা হচ্ছে...';
-  const res = await SB.login(v);
-  $('pwOk').disabled = false;
-  if(res.ok){
-    const cb = pwCb;
-    closePw();
-    if(cb) cb();
-  }else{
-    $('pwErr').textContent = res.net ? '⚠️ ইন্টারনেট বা সংযোগে সমস্যা। আবার চেষ্টা করো।' : '❌ পাসওয়ার্ড ভুল। কিছু সেভ হয়নি।';
-    $('pwInput').value = '';
-  }
-}
-$('pwOk').onclick = submitPw;
-$('pwCancel').onclick = closePw;
-$('pwInput').addEventListener('keydown', e => { if(e.key === 'Enter') submitPw(); });
-$('pwBg').addEventListener('click', e => { if(e.target === $('pwBg')) closePw(); });
 
 // ===== এডমিন প্যানেল =====
 let A = null;              // এডিট করার কপি
-let adminTab = 'rules';
+let adminTab = '';
 let pendingImg = -1;
 
 function setPath(obj, path, val){
@@ -1357,6 +2598,8 @@ function tabRanks(){
       sb('upRank', i, '↑') + sb('downRank', i, '↓') + sb('delRank', i, '🗑️ মুছো', 'danger') + '</span></div>' +
       fld('Rank-এর নাম', 'ranks.' + i + '.name', r.name) +
       fld('দাম (ফাঁকা রাখা যাবে)', 'ranks.' + i + '.price', r.price) +
+      '<p class="note">Buy Now চালু রাখতে দাম এভাবে লেখো: <b>৳199 — Full Season • ৳99 — 1 Month</b> (প্রতিটা অপশনে ৳ থাকবে, অপশন আলাদা করতে •)। ' +
+        (rankPlans(r.price).length ? 'ধরা পড়েছে: <b>' + rankPlans(r.price).map(p => '৳' + p.amount).join(', ') + '</b>' : '⚠️ কোনো দাম ধরা পড়েনি, এই Rank-এ Buy কাজ করবে না।') + '</p>' +
       area('কী কী পাওয়া যায় (প্রতি লাইনে একটা, ফাঁকা রাখা যাবে)', 'ranks.' + i + '.perks', r.perks.join('\n'), 4, 'lines') +
       (r.image ? '<img class="imgprev" src="' + esc(r.image) + '" alt="">' : '<p class="note">ছবি দেওয়া হয়নি</p>') +
       '<div class="abtns">' + sb('pickImg', i, r.image ? '🖼️ ছবি বদলাও' : '🖼️ ছবি আপলোড') +
@@ -1366,22 +2609,591 @@ function tabRanks(){
   if(!A.ranks.length) h = '<p class="note" style="text-align:center">এখনও কোনো Rank নেই। নিচের বাটনে চেপে যোগ করো।</p>' + h;
   return h;
 }
-function tabPublish(){
-  return '<div class="acard"><h3>🚀 সবার জন্য চালু</h3>' +
-    '<p class="note">এখন <b>Save</b> চাপলেই বদলটা সরাসরি ডাটাবেসে চলে যায়। সাইটে যারা ঢোকে তারা সাথে সাথে নতুন Rules, IP আর Rank দেখে। আলাদা করে ফাইল আপলোড করা লাগে না।</p>' +
-    '<button class="aadd" data-act="reloadRemote">🔄 সার্ভার থেকে আবার লোড করো</button></div>' +
-    '<div class="acard"><h3>💾 ব্যাকআপ (দরকার হলে)</h3>' +
-    '<p class="note">চাইলে বর্তমান ডেটাসহ একটা index.html ডাউনলোড করে রেখে দিতে পারো।</p>' +
-    '<button class="aadd" data-act="dlFile">⬇️ index.html ডাউনলোড</button>' +
-    '<button class="aadd" data-act="copyCode">📋 পুরো কোড কপি করো</button></div>';
+
+function sel(label, path, val, opts, type){
+  const cur = type === 'bool' ? (val ? 'on' : 'off') : val;
+  return '<label>' + esc(label) + '<select data-path="' + path + '"' + (type ? ' data-type="' + type + '"' : '') + '>' +
+    opts.map(o => '<option value="' + o[0] + '"' + (o[0] === cur ? ' selected' : '') + '>' + esc(o[1]) + '</option>').join('') + '</select></label>';
+}
+const ONOFF = [['off', 'Off'], ['on', 'On']];
+function colorFld(label, path, val){ return '<label>' + esc(label) + '<input type="color" data-path="' + path + '" value="' + esc(val) + '"></label>'; }
+function processLogo(file, cb){
+  const rd = new FileReader();
+  rd.onload = () => { const im = new Image(); im.onload = () => { const k = Math.min(1, 320 / Math.max(im.width, im.height)), c = document.createElement('canvas'); c.width = Math.round(im.width * k); c.height = Math.round(im.height * k); c.getContext('2d').drawImage(im, 0, 0, c.width, c.height); cb(c.toDataURL('image/png')); }; im.src = rd.result; };
+  rd.readAsDataURL(file);
+}
+function getPath(o, path){ return path.split('.').reduce((a, k) => a && a[k], o); }
+function lb(act, key, i, text, cls){
+  return '<button class="sbtn' + (cls ? ' ' + cls : '') + '" data-act="' + act + '" data-key="' + key + '" data-i="' + i + '">' + text + '</button>';
+}
+const SAVED_NOTE = 'Turn on "Show this page in the side menu" at the top of this tab, then press Save.';
+function menuToggle(k){
+  return '<div class="acard"><h3>🧭 Side menu</h3>' + sel('Show this page in the side menu', 'menu.' + k, !!A.menu[k], ONOFF, 'bool') +
+    '<p class="note">On = a button appears in the side menu and opens this page for everyone.</p></div>';
+}
+function listCard(title, key, fields, addLabel, hint){
+  const arr = getPath(A, key) || [];
+  let h = '<div class="acard"><h3>' + title + '</h3><p class="note">' + (hint || SAVED_NOTE) + '</p>';
+  arr.forEach((it, i) => {
+    h += '<div class="acard" style="margin-top:10px"><div class="ahead"><b>#' + (i + 1) + '</b><span class="abtns">' +
+      lb('lUp', key, i, '↑') + lb('lDn', key, i, '↓') + lb('lDel', key, i, '🗑️ Delete', 'danger') + '</span></div>';
+    fields.forEach(f => { const p = key + '.' + i + '.' + f[0]; h += f[2] === 'area' ? area(f[1], p, it[f[0]], 3) : f[2] === 'color' ? sel(f[1], p, it[f[0]] || '', [['', 'Normal'], ['gold', 'Gold'], ['red', 'Red']]) : f[2] === 'brk' ? sel(f[1], p, !!it[f[0]], ONOFF, 'bool') : fld(f[1], p, it[f[0]]); });
+    h += '</div>';
+  });
+  return h + '<button class="aadd" data-act="lAdd" data-key="' + key + '" data-fields="' + fields.map(f => f[0]).join(',') + '">➕ ' + addLabel + '</button></div>';
+}
+// ===== রোল ও পারমিশন =====
+function secs(){ return {
+  rules: ['🛡️ Rules', ['rules']], server: ['🌐 Server IP', ['ip', 'javaPort', 'bedrockPort']], ranks: ['🛒 Rank (Store)', ['ranks']],
+  ann: ['📢 Announcements', ['ann']], home: ['🏠 Home', ['home']], season: ['🎨 Season', ['season']],
+  reviews: ['⭐ Reviews', ['menu']], chat: ['💬 Chat', ['menu']], report: ['🚩 Report', ['menu']],
+  links: ['🔗 Links', ['links']], help: ['📖 Help', ['help']], siteinfo: ['⚙️ Site Settings', ['site']],
+  events: ['📅 Events', ['events']], community: ['🌍 Community', ['community']]
+}; }
+function myStaff(){ const u = getUser().toLowerCase(); return (u && SB.hasSession() && !isAdmin()) ? (D.staff.find(x => x.name.toLowerCase() === u) || null) : null; }
+function canSection(id){ if(isAdmin()) return true; const m = myStaff(); return !!(m && secs()[id] && (m.access === 'admin' || (m.perms || []).indexOf(id) >= 0)); }
+function canPanel(){ return isAdmin() || Object.keys(secs()).some(canSection); }
+async function staffAdminSave(){
+  const btn = $('adminSave'); btn.disabled = true;
+  try{
+    if(!(await SB.ensure())){ showToast('🔒 Session ended. Log in again'); return; }
+    const keys = new Set(); Object.keys(secs()).forEach(id => { if(canSection(id)) secs()[id][1].forEach(k => keys.add(k)); });
+    const patch = {}; keys.forEach(k => { if(A[k] !== undefined && JSON.stringify(A[k]) !== JSON.stringify(D[k])) patch[k] = A[k]; });
+    if(!Object.keys(patch).length){ showToast('No changes to save'); return; }
+    showToast('⏳ Saving...');
+    await SB.rpc('staff_patch', { p: patch });
+    Object.keys(patch).forEach(k => { D[k] = clone(patch[k]); });
+    renderAll(); A = clone(D); renderAdmin();
+    showToast('✅ Saved. Everyone can see it now');
+  }catch(err){ showToast('⚠️ Not allowed: ' + (err && err.detail ? err.detail : 'try again')); }
+  finally{ btn.disabled = false; }
+}
+function tabStaff(){
+  const S = secs();
+  let h = '<div class="acard"><h3>👥 Staff</h3><p class="note">Add people here and choose what they can do. They log in with their own name and password, then see an "Admin Panel" button with only the sections you allow.<br><b>Moderator</b> = only the sections you tick. <b>Admin</b> = every section except this Staff page, Members and Backup.</p>' +
+    '<button class="aadd" data-act="lAdd" data-key="staff" data-fields="name,role">➕ Add staff member</button></div>';
+  A.staff.forEach((x, i) => {
+    h += '<div class="acard"><div class="ahead"><b>#' + (i + 1) + '</b><span class="abtns">' + lb('lUp', 'staff', i, '↑') + lb('lDn', 'staff', i, '↓') + lb('lDel', 'staff', i, '🗑️ Delete', 'danger') + '</span></div>' +
+      fld('Minecraft name', 'staff.' + i + '.name', x.name) + fld('Title (e.g. Moderator)', 'staff.' + i + '.role', x.role) +
+      sel('Access', 'staff.' + i + '.access', x.access === 'admin' ? 'admin' : 'mod', [['mod', 'Moderator (only ticked sections)'], ['admin', 'Admin (all sections)']]);
+    if(x.access !== 'admin') h += '<div class="perms">' + Object.keys(S).map(id => '<label class="pchk"><input type="checkbox" data-perm="' + i + ':' + id + '"' + ((x.perms || []).indexOf(id) >= 0 ? ' checked' : '') + '> ' + S[id][0] + '</label>').join('') + '</div>';
+    h += '</div>';
+  });
+  return h;
+}
+$('adminBody').addEventListener('change', e => {
+  const t = e.target; if(!t.dataset || !t.dataset.perm) return;
+  const p = t.dataset.perm.split(':'), st = A.staff[+p[0]]; st.perms = st.perms || [];
+  const at = st.perms.indexOf(p[1]);
+  if(t.checked && at < 0) st.perms.push(p[1]); if(!t.checked && at >= 0) st.perms.splice(at, 1);
+});
+
+// ===== Reviews / Chat / Report: আলাদা অ্যাডমিন পেজ =====
+function switchCard(title, key, note){
+  return '<div class="acard"><h3>' + title + '</h3>' + sel('Show in the side menu', 'menu.' + key, !!A.menu[key], ONOFF, 'bool') + '<p class="note">' + note + '</p></div>';
+}
+async function muteUser(name, mins){
+  if(!(await SB.ensure())){ showToast('🔒 Session ended. Log in again'); return false; }
+  try{
+    await SB.send('DELETE', 'muted?name_lc=eq.' + encodeURIComponent(name));
+    await SB.send('POST', 'muted', { name_lc: name, by: getUser(), until: mins ? new Date(Date.now() + mins * 60000).toISOString() : null });
+    showToast('🔇 Muted'); return true;
+  }catch(e){ showToast('⚠️ Could not mute'); return false; }
+}
+async function unmuteUser(name){
+  if(!(await SB.ensure())){ showToast('🔒 Session ended. Log in again'); return false; }
+  try{ await SB.send('DELETE', 'muted?name_lc=eq.' + encodeURIComponent(name)); showToast('🔊 Unmuted'); return true; }
+  catch(e){ showToast('⚠️ Could not unmute'); return false; }
+}
+function tabReviewsAdmin(){
+  setTimeout(loadReviewsAdmin, 0);
+  return switchCard('⭐ Reviews', 'reviews', 'On = a "Reviews" button appears in the side menu, and logged-in people can give stars and a comment. Off = the button disappears, but every review stays saved.') +
+    '<div class="acard"><h3>Latest reviews</h3><div id="rvAdmin" class="note">Loading...</div></div>';
+}
+async function loadReviewsAdmin(){
+  const box = $('rvAdmin'); if(!box) return;
+  try{
+    const rows = await SB.rows('reviews?select=uid,name,stars,comment,updated_at&order=updated_at.desc&limit=50');
+    box.innerHTML = rows.length ? rows.map(r => '<div class="icard" style="margin-top:8px"><b>' + esc(r.name) + '</b><span style="color:var(--accent)">' + starsText(r.stars) + '</span>' + (r.comment ? '<div>' + esc(r.comment) + '</div>' : '') +
+      '<button class="sbtn danger" data-act="admDelReview" data-uid="' + esc(r.uid) + '">🗑️ Delete</button></div>').join('') : 'No reviews yet.';
+  }catch(e){ box.textContent = 'Could not load.'; }
+}
+function tabReportAdmin(){
+  return switchCard('🚩 Report', 'report', 'On = a "Report" button appears in the side menu. Logged-in people can describe a bug or problem (with a picture) and everyone can see and reply. Off = the button disappears, but every report stays saved. Muting someone in Chat also mutes them here.');
+}
+function tabChat(){
+  setTimeout(loadPeople, 0);
+  return switchCard('💬 Chat', 'chat', 'On = a "Chat" button appears in the side menu. Everyone can read, logged-in people can write and send pictures. Off = the button disappears, but every message stays saved.') +
+    '<div class="acard"><h3>🔇 People in chat</h3><p class="note">Names only, no messages. Mute someone for a while, or until you unmute them. Muted people can read but cannot write (chat, report or reviews).</p><div id="chatPeople" class="note">Loading...</div></div>';
+}
+async function loadPeople(){
+  const box = $('chatPeople'); if(!box) return;
+  try{
+    if(!(await SB.ensure())) throw new Error('no session');
+    const res = await Promise.all([SB.rows('messages?room=eq.chat&select=name,created_at&order=created_at.desc&limit=1000'), SB.rows('muted?select=name_lc,until', true)]);
+    const ppl = {}, now = Date.now(), mm = {};
+    res[0].forEach(r => { const k = r.name.toLowerCase(); (ppl[k] = ppl[k] || { name: r.name, n: 0, last: r.created_at }).n++; });
+    res[1].forEach(m => { if(!m.until || new Date(m.until).getTime() > now) mm[m.name_lc] = m; });
+    Object.keys(mm).forEach(k => { if(!ppl[k]) ppl[k] = { name: k, n: 0, last: '' }; });
+    const list = Object.keys(ppl).map(k => ppl[k]).sort((a, b) => (b.last || '').localeCompare(a.last || ''));
+    box.innerHTML = list.length ? list.map((p, i) => {
+      const k = p.name.toLowerCase(), m = mm[k], ad = CONFIG.ADMINS.some(a => a.toLowerCase() === k);
+      return '<div class="icard" style="margin-top:8px"><b style="color:' + nameColor(p.name) + '">' + esc(p.name) + '</b><small>' + p.n + ' messages' + (p.last ? ' · last ' + esc(new Date(p.last).toLocaleString()) : '') + '</small>' +
+        (m ? '<small>🔇 Muted ' + (m.until ? 'until ' + esc(new Date(m.until).toLocaleString()) : 'until you unmute') + '</small><button class="sbtn" data-act="admUnmute" data-name="' + esc(k) + '">🔊 Unmute</button>'
+          : ad ? '<small>Owner, cannot be muted</small>'
+          : '<select id="mdur' + i + '"><option value="5">5 minutes</option><option value="30">30 minutes</option><option value="60">1 hour</option><option value="1440">1 day</option><option value="0">Until I unmute</option></select>' +
+            '<button class="sbtn danger" data-act="admMute" data-name="' + esc(k) + '" data-sel="mdur' + i + '">🔇 Mute</button>') + '</div>';
+    }).join('') : 'Nobody has written yet.';
+  }catch(e){ box.textContent = 'Could not load.'; }
 }
 
+// ===== মেনশন, নোটিফিকেশন =====
+var MN = { names: [], loaded: false };
+async function loadMentionNames(){
+  if(MN.loaded) return;
+  try{ MN.names = (await SB.rows('profiles?select=name&order=name&limit=1000')).map(r => r.name).filter(Boolean); MN.loaded = true; }catch(e){}
+}
+function mentionHtml(t){
+  const me = getUser().toLowerCase();
+  return esc(t).replace(/@([A-Za-z0-9_]{3,16})/g, (m, n) => '<span class="mention' + (n.toLowerCase() === me ? ' me' : '') + '">@' + n + '</span>');
+}
+$('infoPage').addEventListener('input', e => {
+  if(e.target.id !== 'msgText') return;
+  const ta = e.target, before = ta.value.slice(0, ta.selectionStart), box = $('mentionBox'); if(!box) return;
+  const m = before.match(/(^|\s)@([A-Za-z0-9_]{0,16})$/);
+  if(!m){ box.innerHTML = ''; return; }
+  const q = m[2].toLowerCase(), self = getUser().toLowerCase(), seen = {};
+  const list = ['AI'].concat(MN.names).filter(n => { const l = n.toLowerCase(); if(seen[l] || l === self || l.indexOf(q) !== 0) return false; seen[l] = 1; return true; }).slice(0, 6);
+  box.innerHTML = list.map(n => '<button type="button" data-mn="' + esc(n) + '">' + (n === 'AI' ? '🤖 AI' : '@' + esc(n)) + '</button>').join('');
+});
+$('infoPage').addEventListener('click', e => {
+  const b = e.target.closest('[data-mn]'); if(!b) return;
+  const ta = $('msgText'); if(!ta) return;
+  const pos = ta.selectionStart, before = ta.value.slice(0, pos).replace(/@[A-Za-z0-9_]{0,16}$/, '@' + b.dataset.mn + ' ');
+  ta.value = before + ta.value.slice(pos); ta.focus(); ta.selectionStart = ta.selectionEnd = before.length;
+  $('mentionBox').innerHTML = '';
+});
+var NT = { rows: [], seen: {}, ready: false };
+async function pollNotifs(){
+  if(typeof NT === 'undefined' || !NT) return;
+  const bell = $('bellBtn');
+  if(!SB.hasSession() || !getUser()){ bell.style.display = 'none'; NT.rows = []; return; }
+  try{
+    if(!(await SB.ensure())) return;
+    const rows = await SB.rows('notifications?select=id,from_name,room,body,created_at&read=eq.false&order=created_at.desc&limit=30', true);
+    NT.rows = rows; bell.style.display = ''; $('bellN').textContent = rows.length || '';
+    rows.forEach(r => { if(!NT.seen[r.id]){ NT.seen[r.id] = 1; if(NT.ready) showToast('🔔 ' + r.from_name + ' mentioned you'); } });
+    NT.ready = true;
+  }catch(e){}
+}
+function showBell(){
+  const rows = NT.rows;
+  $('msgSheet').innerHTML = '<div class="sheetbox"><b>🔔 Mentions</b>' + (rows.length ? rows.map(r => '<button data-rm="nt" data-id="' + r.id + '" data-room="' + esc(r.room) + '">' + esc(r.from_name) + ' in ' + esc(r.room) + ': ' + esc(String(r.body).slice(0, 60)) + '</button>').join('') + '<button data-rm="ntall">Mark all as read</button>' : '<div class="iempty">No new mentions.</div>') + '<button data-rm="close">Close</button></div>';
+  $('msgSheet').classList.add('show');
+}
+$('bellBtn').addEventListener('click', showBell);
+setInterval(pollNotifs, 20000);
+setTimeout(pollNotifs, 1500);
+
+// ===== AI Management (শুধু মালিকদের) =====
+var AIM = { st: null, hist: [], log: [], img: null, imgUrl: null, busy: false };
+async function aiFn(body){
+  if(!(await SB.ensure())) throw new Error('Session ended. Log in again');
+  const r = await fetch(CONFIG.SUPABASE_URL + '/functions/v1/ai', { method: 'POST', headers: SB.hdr({ 'Authorization': 'Bearer ' + SB.token }), body: JSON.stringify(body) });
+  const j = await r.json().catch(() => ({}));
+  if(!r.ok) throw new Error(j.error || ('Error ' + r.status));
+  return j;
+}
+function tabAIMgr(){
+  setTimeout(loadAIMgr, 0);
+  return '<div class="acard"><h3>🤖 AI settings</h3><div id="aiStatus" class="note">Loading...</div>' +
+    '<label>Gemini API key (paste to save or replace)<input id="aiKey" type="password" autocomplete="off" placeholder="Paste here. It is saved privately and never shown again"></label>' +
+    '<button class="aadd" data-ai="saveKey">💾 Save key</button>' +
+    '<label>Model<input id="aiModel" list="aiModels" placeholder="gemini-3.5-flash"></label><datalist id="aiModels"></datalist>' +
+    '<button class="aadd" data-ai="test">🔍 Test key and list models</button>' +
+    '<label>AI answers in chat when someone writes "@ai ..."<select id="aiChatOn"><option value="off">Off</option><option value="on">On</option></select></label>' +
+    '<label>AI removes bad language and mutes the person<select id="aiModOn"><option value="off">Off</option><option value="on">On</option></select></label>' +
+    '<label>Mute minutes: mild bad language<input id="aiMild" type="number" min="1" max="10080"></label>' +
+    '<label>Mute minutes: insulting someone<input id="aiSer" type="number" min="1" max="10080"></label>' +
+    '<label>Mute minutes: severe (threats, hate, sexual)<input id="aiSev" type="number" min="1" max="10080"></label>' +
+    '<button class="aadd" data-ai="saveSettings">💾 Save AI settings</button></div>' +
+    '<div class="acard"><h3>💬 Talk to the AI</h3><p class="note">Ask it to look at or change your website. Changes appear as proposals and only happen after you press Apply.</p>' +
+    '<div id="aiLog" class="msglist"></div><div id="aiChip"></div>' +
+    '<div class="chatbar"><button class="plus" data-ai="plus">＋</button><textarea id="aiText" rows="1" maxlength="1500" placeholder="Write to the AI..."></textarea><button class="send" data-ai="send">➤</button></div></div>';
+}
+async function loadAIMgr(){
+  const box = $('aiStatus'); if(!box) return;
+  try{ if(!(await SB.ensure())) throw new Error('x'); AIM.st = await SB.rpc('ai_get_settings'); }catch(e){ box.textContent = 'Could not load AI settings.'; return; }
+  const s = AIM.st; if(!s){ box.textContent = 'Could not load AI settings.'; return; }
+  box.innerHTML = s.has_key ? '✅ API key saved (' + esc(s.key_hint) + ')' : '⚠️ No API key yet. Paste it below.';
+  $('aiModel').value = s.model; $('aiChatOn').value = s.chat_enabled ? 'on' : 'off'; $('aiModOn').value = s.moderation_enabled ? 'on' : 'off';
+  $('aiMild').value = s.mute_mild; $('aiSer').value = s.mute_serious; $('aiSev').value = s.mute_severe;
+  drawAILog();
+}
+function drawAILog(){
+  const el = $('aiLog'); if(!el) return;
+  el.innerHTML = AIM.log.length ? AIM.log.map((m, i) => '<div class="msg"><div class="mhead"><b style="color:' + (m.who === 'ai' ? '#22d3ee' : '#fff') + '">' + (m.who === 'ai' ? '🤖 AI' : 'You') + '</b></div><div class="mbody">' + esc(m.text) + '</div>' +
+    (m.img ? '<img src="' + esc(m.img) + '" alt="">' : '') +
+    (m.proposals || []).map((p, j) => '<div class="icard" style="margin-top:8px"><b>Proposal</b><div>' + esc(p.summary) + '</div>' +
+      (p.state ? '<small>' + esc(p.state) + '</small>' : '<div class="ibtns"><button class="ibtn" data-ai="apply" data-i="' + i + '" data-j="' + j + '">✅ Apply</button><button class="ibtn" data-ai="reject" data-i="' + i + '" data-j="' + j + '">✖ Reject</button></div>') + '</div>').join('') + '</div>').join('')
+    : '<div class="iempty">Say hello to the AI.</div>';
+  el.scrollTop = el.scrollHeight;
+}
+$('adminBody').addEventListener('click', async e => {
+  const b = e.target.closest('[data-ai]'); if(!b) return;
+  const op = b.dataset.ai;
+  try{
+    if(op === 'saveKey'){
+      const k = $('aiKey').value.trim(); if(!k){ showToast('Paste the key first'); return; }
+      await SB.ensure(); await SB.rpc('ai_set_key', { p_key: k }); $('aiKey').value = ''; showToast('✅ Key saved'); loadAIMgr();
+    }else if(op === 'saveSettings'){
+      await SB.ensure();
+      await SB.rpc('ai_set_settings', { p: { model: $('aiModel').value.trim(), chat_enabled: $('aiChatOn').value === 'on', moderation_enabled: $('aiModOn').value === 'on', mute_mild: +$('aiMild').value || 5, mute_serious: +$('aiSer').value || 30, mute_severe: +$('aiSev').value || 1440 } });
+      showToast('✅ AI settings saved'); loadAIMgr();
+    }else if(op === 'test'){
+      showToast('⏳ Testing...'); const r = await aiFn({ mode: 'test' });
+      $('aiModels').innerHTML = r.models.map(m => '<option value="' + esc(m) + '">').join(''); showToast('✅ Key works. ' + r.models.length + ' models found');
+    }else if(op === 'plus'){
+      const inp = document.createElement('input'); inp.type = 'file'; inp.accept = 'image/*';
+      inp.onchange = () => { const f = inp.files[0]; if(f) processImage(f, d => { AIM.imgUrl = d; AIM.img = d.split(',')[1]; $('aiChip').innerHTML = '<div class="icard"><img src="' + esc(d) + '" alt="" style="max-height:110px;width:auto"><button class="ibtn" data-ai="chipx">✕ Remove image</button></div>'; }); };
+      inp.click();
+    }else if(op === 'chipx'){ AIM.img = null; AIM.imgUrl = null; $('aiChip').innerHTML = ''; }
+    else if(op === 'send'){
+      const t = $('aiText').value.trim(); if((!t && !AIM.img) || AIM.busy) return;
+      AIM.busy = true; b.disabled = true;
+      AIM.log.push({ who: 'me', text: t || '(image)', img: AIM.imgUrl });
+      AIM.hist.push({ role: 'user', text: t || '(see the image)', image: AIM.img || undefined });
+      $('aiText').value = ''; AIM.img = null; AIM.imgUrl = null; $('aiChip').innerHTML = ''; drawAILog();
+      try{
+        const hist = AIM.hist.slice(-12).map((h, i, a) => ({ role: h.role, text: h.text, image: i >= a.length - 2 ? h.image : undefined }));
+        const r = await aiFn({ mode: 'admin', history: hist });
+        AIM.hist.push({ role: 'model', text: r.reply }); AIM.log.push({ who: 'ai', text: r.reply, proposals: r.proposals || [] });
+      }catch(err){ AIM.log.push({ who: 'ai', text: '⚠️ ' + err.message }); }
+      AIM.busy = false; b.disabled = false; drawAILog();
+    }else if(op === 'apply' || op === 'reject'){
+      const p = AIM.log[+b.dataset.i].proposals[+b.dataset.j]; if(p.state) return;
+      if(op === 'reject'){ p.state = '✖ Rejected'; drawAILog(); return; }
+      b.disabled = true;
+      const r = await aiFn({ mode: 'apply', tool: p.tool, args: p.args });
+      p.state = r.ok ? '✅ Applied. ' + (r.message || '') : '⚠️ ' + (r.error || 'Failed'); drawAILog();
+      if(r.ok){ await loadRemote(); A = clone(D); }
+    }
+  }catch(err){ showToast('⚠️ ' + ((err && (err.detail || err.message)) || 'Failed')); }
+});
+
+// ===== Home: ভিডিও, চ্যানেল, ফুটার, MOTD =====
+function ytId(u){ const m = String(u || '').match(/(?:youtu\.be\/|v=|shorts\/|embed\/|live\/)([A-Za-z0-9_-]{11})/); return m ? m[1] : ''; }
+function setLogo(el, H){
+  el.textContent = (H.channelName || CONFIG.CHANNEL_NAME || 'H').charAt(0).toUpperCase();
+  const src = H.channelLogo ? String(H.channelLogo).replace(/=s\d+/, '=s176') : CONFIG.CHANNEL_LOGO;
+  if(!src) return;
+  const im = new Image(); im.alt = '';
+  im.onload = () => { el.textContent = ''; el.appendChild(im); };
+  im.onerror = () => { if(src !== CONFIG.CHANNEL_LOGO && CONFIG.CHANNEL_LOGO){ im.onerror = null; im.src = CONFIG.CHANNEL_LOGO; } };
+  im.src = src;
+}
+var homeKey = '';
+function renderHome(){
+  const H = D.home, vids = H.videos.filter(v => safeUrl(v.url)), chOk = safeUrl(H.channelUrl);
+  const key = JSON.stringify([vids, H.channelUrl, H.channelName, H.channelHandle, H.channelLogo, H.videoHeading]);
+  if(key === homeKey) return; homeKey = key;
+  $('ytHead').textContent = H.videoHeading; $('ytHead').style.display = (H.videoHeading && vids.length) ? '' : 'none';
+  const list = $('ytList'); list.textContent = ''; list.classList.toggle('multi', vids.length > 1);
+  vids.forEach(v => {
+    const a = document.createElement('a'); a.className = 'yt-video'; a.href = v.url; a.target = '_blank'; a.rel = 'noopener';
+    a.innerHTML = '<img alt="" loading="lazy"><span class="yt-play">▶</span><span class="yt-badge"><span class="yt-logo"></span><b></b></span>';
+    const id = ytId(v.url); if(id) a.querySelector('img').src = 'https://img.youtube.com/vi/' + id + '/hqdefault.jpg';
+    a.querySelector('b').textContent = v.title || '';
+    setLogo(a.querySelector('.yt-logo'), H);
+    list.appendChild(a);
+  });
+  $('ytChannel').style.display = chOk ? '' : 'none'; $('ytChannel').href = chOk || '#';
+  $('ytName').textContent = H.channelName; $('ytHandle').textContent = H.channelHandle; setLogo($('ytLogoB'), H);
+  $('ytBlock').style.display = (vids.length || chOk) ? '' : 'none';
+}
+var footKey = '';
+function renderFooter(){
+  const F = D.home.footer, key = JSON.stringify([F, D.home.privacy]); if(key === footKey) return; footKey = key;
+  const el = $('siteFoot'); el.textContent = '';
+  F.forEach(it => {
+    if(!String(it.text || '').trim()) return;
+    if(el.lastChild){
+      if(it.brk){ const d = document.createElement('div'); d.className = 'foot-line2'; el.appendChild(d); }
+      else if(!el.lastChild.classList.contains('foot-line2')){ const s = document.createElement('span'); s.className = 'dotsep'; s.textContent = '•'; el.appendChild(s); }
+    }
+    let x;
+    if(it.url === 'privacy'){ x = document.createElement('a'); x.href = '#'; x.setAttribute('data-privacy', '1'); }
+    else if(safeUrl(it.url)){ x = document.createElement('a'); x.href = it.url; x.target = '_blank'; x.rel = 'noopener'; }
+    else x = document.createElement('span');
+    x.textContent = it.text; if(it.color === 'red') x.classList.add('foot-red'); else if(it.color === 'gold') x.classList.add('foot-gold');
+    el.appendChild(x);
+  });
+  $('privacyText').innerHTML = D.home.privacy.map(l => '• ' + esc(l)).join('<br>');
+}
+var motdRaw = '', motdKey = '';
+function setMotd(raw){ motdRaw = raw || ''; motdKey = ''; drawMotd(); }
+function drawMotd(){
+  const el = $('motd'), mode = D.home.motdMode, speed = D.home.motdSpeed, key = mode + '|' + speed + '|' + motdRaw;
+  if(key === motdKey){ layoutMotd(); return; } motdKey = key;
+  el.textContent = ''; el.className = 'motd mm-' + mode;
+  if(!motdRaw){ el.style.display = 'none'; return; }
+  const C = { 0: '#777', 1: '#00a', 2: '#0a0', 3: '#0aa', 4: '#a00', 5: '#a0a', 6: '#fa0', 7: '#aaa', 8: '#555', 9: '#55f', a: '#5f5', b: '#5ff', c: '#f55', d: '#f5f', e: '#ff5', f: '#fff' };
+  const reset = () => ({ c: '', b: false, i: false, u: false });
+  let st = reset(), line = null;
+  const newLine = () => { const l = document.createElement('div'); l.className = 'mline'; const m = document.createElement('span'); m.className = 'mi'; l.appendChild(m); el.appendChild(l); line = m; };
+  newLine();
+  String(motdRaw).replace(/\r/g, '').split(/(§[0-9a-fk-or])/i).forEach(part => {
+    const m = part.match(/^§([0-9a-fk-or])$/i);
+    if(m){ const k = m[1].toLowerCase();
+      if(C[k]) st = { c: C[k], b: false, i: false, u: false }; else if(k === 'l') st.b = true; else if(k === 'o') st.i = true; else if(k === 'n') st.u = true; else if(k === 'r') st = reset();
+      return; }
+    part.split('\n').forEach((seg, si) => {
+      if(si > 0) newLine();
+      if(!seg) return;
+      const sp = document.createElement('span'); sp.textContent = seg;
+      if(st.c) sp.style.color = st.c; if(st.b) sp.style.fontWeight = '700'; if(st.i) sp.style.fontStyle = 'italic'; if(st.u) sp.style.textDecoration = 'underline';
+      line.appendChild(sp);
+    });
+  });
+  el.querySelectorAll('.mline').forEach(l => {
+    if(!l.textContent.trim()){ l.remove(); return; }
+    if(mode !== 'wrap'){ const k = l.firstChild.childNodes; if(k.length){ k[0].textContent = k[0].textContent.replace(/^\s+/, ''); k[k.length - 1].textContent = k[k.length - 1].textContent.replace(/\s+$/, ''); } }
+  });
+  el.style.display = el.textContent.trim() ? '' : 'none';
+  layoutMotd();
+}
+function layoutMotd(){
+  const el = $('motd'); if(!el || el.style.display === 'none') return;
+  const mode = D.home.motdMode, spd = { slow: 35, normal: 65, fast: 120 }[D.home.motdSpeed] || 65;
+  el.querySelectorAll('.mline').forEach(l => {
+    const mi = l.firstChild; mi.style.cssText = ''; mi.className = 'mi'; l.style.fontSize = '';
+    const w = l.clientWidth, sw = mi.scrollWidth; if(!w || mode === 'wrap') return;
+    if(sw <= w - 4) return;
+    if(mode === 'slide'){ mi.classList.add('go'); mi.style.setProperty('--dur', ((sw + w) / spd) + 's'); }
+    else if(mode === 'bounce'){ mi.classList.add('bn'); mi.style.setProperty('--ov', -(sw - w + 8) + 'px'); mi.style.setProperty('--dur', ((sw - w) / (spd * .6) + 1.5) + 's'); }
+    else if(mode === 'fit'){
+      const base = parseFloat(getComputedStyle(l).fontSize);
+      l.style.fontSize = (base * Math.max(.6, (w - 4) / sw)) + 'px';
+      const sw2 = mi.scrollWidth;
+      if(sw2 > w - 4){ mi.classList.add('go'); mi.style.setProperty('--dur', ((sw2 + w) / spd) + 's'); }
+    }
+  });
+}
+window.addEventListener('resize', () => { try{ layoutMotd(); }catch(e){} });
+window.addEventListener('hashchange', () => setTimeout(() => { try{ layoutMotd(); }catch(e){} }, 90));
+(function(){
+  $('privacyClose').onclick = () => $('privacyBg').classList.remove('show');
+  $('privacyBg').addEventListener('click', e => { if(e.target === $('privacyBg')) $('privacyBg').classList.remove('show'); });
+  $('siteFoot').addEventListener('click', e => { const a = e.target.closest('a[data-privacy]'); if(a){ e.preventDefault(); $('privacyBg').classList.add('show'); } });
+})();
+async function ytLookup(url){
+  if(!(await SB.ensure())) throw new Error('Log in first');
+  const r = await fetch(CONFIG.SUPABASE_URL + '/functions/v1/ai', { method: 'POST', headers: SB.hdr({ 'Authorization': 'Bearer ' + SB.token }), body: JSON.stringify({ mode: 'yt', url: url }) });
+  const j = await r.json().catch(() => ({}));
+  if(!r.ok || j.ok === false) throw new Error(j.error || ('Error ' + r.status));
+  return j;
+}
+async function ytAuto(kind, i){
+  try{
+    showToast('⏳ Reading YouTube...');
+    if(kind === 'video'){ const v = A.home.videos[i]; const j = await ytLookup(v.url); if(!v.title && j.title) v.title = j.title; showToast('✅ Video title filled in'); }
+    else{
+      const j = await ytLookup(A.home.channelUrl); if(j.kind !== 'channel') throw new Error('That is not a channel link');
+      A.home.channelName = j.name || A.home.channelName; A.home.channelHandle = j.handle || A.home.channelHandle; A.home.channelLogo = j.image || '';
+      showToast('✅ Channel name and picture filled in');
+    }
+    renderAdmin();
+  }catch(e){ showToast('⚠️ ' + (e.message || 'Could not read it') + '. You can type it yourself.'); }
+}
+function tabHome(){
+  const H = A.home;
+  return '<div class="acard"><h3>✨ Site name & background</h3><p class="note">The animated name on the home page, and the faint moving word in the background.</p>' +
+    fld('Animated site name', 'home.siteName', H.siteName) + fld('Background word (empty = none)', 'home.bgWord', H.bgWord) + '</div>' +
+    '<div class="acard"><h3>🎬 Videos section</h3><p class="note">Add as many videos as you like. Paste a YouTube link and the title fills in by itself. More than one video becomes a swipe row. Remove all videos to hide the section.</p>' +
+    fld('Section title', 'home.videoHeading', H.videoHeading) + '</div>' +
+    listCard('🎬 Videos', 'home.videos', [['title', 'Title (fills in from the link)'], ['url', 'YouTube link']], 'Add video', 'Paste the link in the second box, then tap outside it.') +
+    '<div class="acard"><h3>▶ Channel</h3><p class="note">Paste your channel link. The name and picture come from YouTube by themselves. Clear the link and Save to hide the card.</p>' +
+    fld('Channel link', 'home.channelUrl', H.channelUrl) +
+    '<div class="ldprev"><img src="' + esc(H.channelLogo || CONFIG.CHANNEL_LOGO || baseLogo) + '" alt="" style="border-radius:50%"></div>' +
+    '<button class="aadd" data-act="ytChannelGet">🔄 Get name & picture from YouTube</button>' +
+    '<button class="aadd" data-act="chLogoUp">🖼️ Upload my own picture</button><button class="aadd" data-act="chLogoReset">↩️ Use the default picture</button>' +
+    fld('Channel name', 'home.channelName', H.channelName) + fld('Handle (e.g. @HamZaPlayXLive)', 'home.channelHandle', H.channelHandle) + '</div>' +
+    '<div class="acard"><h3>📺 Server MOTD display</h3><p class="note">How the server message shows in the status card. Slide and Bounce move long lines so everything can be read. Fit shrinks it into one line.</p>' +
+    sel('Display', 'home.motdMode', H.motdMode, [['wrap', 'Scroll box, drag to read (default)'], ['slide', 'Slide right to left'], ['bounce', 'Slide left and right'], ['fit', 'Fit in one line']]) +
+    sel('Speed', 'home.motdSpeed', H.motdSpeed, [['slow', 'Slow'], ['normal', 'Normal'], ['fast', 'Fast']]) + '</div>' +
+    listCard('🦶 Bottom of the home page', 'home.footer', [['text', 'Text'], ['url', 'Link (empty = plain text, privacy = opens the Privacy Policy)'], ['color', 'Color', 'color'], ['brk', 'Start a new line before this', 'brk']], 'Add item', 'The small line at the very bottom. Change any text or link, delete items, or add new ones.') +
+    '<div class="acard"><h3>🔒 Privacy Policy text</h3>' + area('One point per line', 'home.privacy', H.privacy.join('\n'), 5, 'lines') + '</div>';
+}
+
+// ===== Payment ট্যাব: নাম্বার + কে কিনেছে (শুধু মালিকরা) =====
+var PH = { rows: null, f: 'all' };
+function tabPay(){
+  setTimeout(loadPayHistory, 0);
+  setTimeout(loadWalletHistory, 0);
+  const P = A.pay;
+  return '<div class="acard"><h3>💳 Payment নাম্বার</h3><p class="note">যে নাম্বারে প্লেয়াররা টাকা পাঠাবে। <b>অন্তত একটা নাম্বার দিয়ে Save করলে</b> Store-এর প্রতিটা Rank-এ "Buy Now" বাটন আসবে। দুটোই ফাঁকা থাকলে বাটন আসবে না।</p>' +
+    fld('bKash নাম্বার (Send Money)', 'pay.bkash', P.bkash) +
+    fld('Nagad নাম্বার (Send Money)', 'pay.nagad', P.nagad) +
+    fld('সফল হলে যে লেখা দেখাবে (ফাঁকা রাখা যাবে)', 'pay.note', P.note) +
+    '<p class="note">নাম্বার বদলে <b>Save</b> চাপতে ভুলো না।</p></div>' +
+    '<div class="acard"><h3>🧾 কে কিনেছে (History)</h3><div id="payHist" class="note">Loading...</div></div>' +
+    '<div class="acard"><h3>👛 ওয়ালেট লেনদেন</h3><div id="walHist" class="note">Loading...</div></div>';
+}
+async function loadWalletHistory(){
+  const box = $('walHist'); if(!box) return;
+  try{
+    if(!(await SB.ensure())) throw new Error('no session');
+    const rows = (await SB.rpc('wallet_history')) || [];
+    const fd = function(s){ return s ? new Date(s).toLocaleString() : '-'; };
+    box.innerHTML = rows.length ? rows.map(function(x){
+      const buy = x.kind === 'buy';
+      return '<div class="icard" style="margin-top:8px"><div class="ahead"><b>' + (buy ? '🛒 কেনা' : '➕ রিচার্জ') + ' ৳' + esc(x.amount) + '</b><span class="ptag ' + (buy ? 'u' : 'n') + '">' + (buy ? 'Rank কিনেছে' : 'টাকা যোগ') + '</span></div>' +
+        (buy ? '<div><b>' + esc(x.player) + '</b> → ' + esc(String(x.rank_name || '').trim()) + (x.plan ? ' <small>(' + esc(x.plan) + ')</small>' : '') + '</div>' : '<div><b>' + esc(x.player) + '</b></div>') +
+        '<small>অ্যাকাউন্ট: ' + esc(x.name_lc) + (x.trx_id ? ' · ' + esc(x.trx_id) : '') + '<br>ব্যালেন্স পরে: ৳' + esc(x.balance_after) + ' · ' + esc(fd(x.created_at)) + '</small></div>';
+    }).join('') : 'এখনো কোনো ওয়ালেট লেনদেন নেই।';
+  }catch(e){ box.textContent = 'লোড হয়নি। আবার লগইন করে দেখো।'; }
+}
+async function loadPayHistory(){
+  const box = $('payHist'); if(!box) return;
+  try{
+    if(!(await SB.ensure())) throw new Error('no session');
+    PH.rows = (await SB.rpc('gw_history')) || [];
+    drawPayHistory();
+  }catch(e){ box.textContent = 'লোড হয়নি। আবার লগইন করে দেখো।'; }
+}
+function drawPayHistory(){
+  const box = $('payHist'); if(!box || !PH.rows) return;
+  const all = PH.rows, used = all.filter(x => x.used), sum = a => a.reduce((t, x) => t + Number(x.amount || 0), 0);
+  const rows = all.filter(x => PH.f === 'all' || (PH.f === 'used') === !!x.used);
+  const fd = s => s ? new Date(s).toLocaleString() : '-';
+  const chip = (k, n) => '<button class="sbtn" data-act="phFilter" data-f="' + k + '"' + (PH.f === k ? ' style="border-color:var(--accent);color:var(--accent)"' : '') + '>' + n + '</button>';
+  box.innerHTML = '<b>মোট ' + all.length + 'টি পেমেন্ট এসেছে (৳' + sum(all) + ')</b><br><small>বিক্রি হয়েছে: ' + used.length + 'টি (৳' + sum(used) + ') · অব্যবহৃত: ' + (all.length - used.length) + 'টি (৳' + sum(all.filter(x => !x.used)) + ')</small>' +
+    '<div class="abtns" style="margin:10px 0">' + chip('all', 'সব') + chip('unused', 'অব্যবহৃত') + chip('used', 'বিক্রি হয়েছে') + '<button class="sbtn" data-act="phReload">🔄 Refresh</button></div>' +
+    (rows.map(x => '<div class="icard" style="margin-top:8px"><div class="ahead"><b>' + (x.provider === 'bkash' ? 'bKash' : 'Nagad') + ' ৳' + esc(x.amount) + '</b><span class="ptag ' + (x.used ? 'u' : 'n') + '">' + (x.used ? 'বিক্রি হয়েছে' : 'অব্যবহৃত') + '</span></div>' +
+      (x.used ? '<div><b>' + esc(x.buyer) + '</b> → ' + esc(String(x.rank_name || '').trim()) + (x.plan ? ' <small>(' + esc(x.plan) + ')</small>' : '') + '</div>' : '') +
+      '<small>' + esc(x.trx_id) + ' · ' + esc(x.sender || '-') + '<br>এসেছে: ' + esc(fd(x.created_at)) + (x.used ? '<br>কিনেছে: ' + esc(fd(x.used_at)) : '') + '</small></div>').join('') || '<p class="note">এখানে কিছু নেই।</p>');
+}
+function tabMembers(){
+  setTimeout(loadMembers, 0);
+  return '<div class="acard"><h3>👥 Members</h3><div id="membersBox" class="note">Loading...</div>' +
+    '<p class="note">Passwords can not be seen by anyone. Reset removes the member\'s password, and they set a new one the next time they log in with their name. Admin accounts can not be reset here.</p></div>';
+}
+async function loadMembers(){
+  const box = $('membersBox'); if(!box) return;
+  try{
+    if(!(await SB.ensure())) throw new Error('no session');
+    const rows = await SB.rpc('members') || [];
+    const fmt = x => x ? new Date(x).toLocaleString() : '-';
+    const day = rows.filter(r => r.last_login && Date.now() - new Date(r.last_login).getTime() < 864e5).length;
+    box.innerHTML = '<b>' + rows.length + ' members</b><br><small>Logged in during the last 24 hours: ' + day + '</small>' + rows.map(r => {
+      const lc = (r.name_lc || '').toLowerCase(), isAd = CONFIG.ADMINS.some(a => a.toLowerCase() === lc), tag = isAd ? ' 👑' : (D.staff.some(x => x.name.toLowerCase() === lc) ? ' 🛠️' : '');
+      return '<p class="note"><b>' + esc(r.name) + '</b>' + tag + '<br>Joined: ' + esc(fmt(r.created_at)) + '<br>Last login: ' + esc(fmt(r.last_login)) +
+        (isAd ? '' : '<br><button class="sbtn danger" data-act="resetMember" data-name="' + esc(r.name) + '">🔄 Reset password</button>') + '</p>';
+    }).join('');
+  }catch(e){ box.textContent = 'Could not load members. Make sure the Supabase SQL step is done.'; }
+}
+function tabLinks(){
+  return listCard('🗳️ Vote Links', 'links.vote', [['name', 'Site name'], ['url', 'Link']], 'Add vote link') +
+    '<div class="acard"><h3>📨 Apply / Report</h3><p class="note">' + SAVED_NOTE + '</p>' +
+    fld('Apply for Staff link', 'links.apply', A.links.apply) + fld('Report Player link', 'links.report', A.links.report) +
+    fld('Ban Appeal link', 'links.appeal', A.links.appeal) + '</div>';
+}
+function tabHelp(){
+  return '<div class="acard"><h3>🎬 How to Join</h3><p class="note">' + SAVED_NOTE + '</p>' +
+    fld('Join video link', 'help.videoUrl', A.help.videoUrl) +
+    area('Join steps (one per line)', 'help.steps', A.help.steps.join('\n'), 5, 'lines') + '</div>' +
+    listCard('⌨️ Commands Guide', 'help.commands', [['cmd', 'Command (e.g. /spawn)'], ['desc', 'What it does']], 'Add command') +
+    listCard('📚 Guides / Tutorials', 'help.guides', [['title', 'Title'], ['text', 'Text', 'area'], ['video', 'Video link (optional)']], 'Add guide') +
+    listCard('❓ FAQ', 'help.faq', [['q', 'Question'], ['a', 'Answer', 'area']], 'Add question');
+}
+function tabSeason(){
+  const sd = A.season;
+  return '<div class="acard"><h3>🎨 Season</h3>' + fld('Season name (empty = hidden)', 'season.name', sd.name) +
+    sel('Color theme', 'season.theme', sd.theme, themeList().map(t => [t[0], t[1]]).concat([['custom', 'Custom colors...']])) +
+    (sd.theme === 'custom' ? colorFld('Main color', 'season.c1', sd.c1) + colorFld('Second color', 'season.c2', sd.c2) : '') +
+    sel('Background shade', 'season.tone', sd.tone, toneList().map(t => [t[0], t[1]])) +
+    sel('Background animation', 'season.anim', sd.anim, animList()) +
+    '<p class="note">Press Save to apply for everyone.</p></div>';
+}
+function tabSiteInfo(){
+  const L = A.site.loader, B = A.site.bg;
+  let h = '<div class="acard"><h3>🖼️ Loading screen</h3><p class="note">The screen people see first when the site opens. It already shows your current picture and name.</p>' +
+    '<div class="ldprev"><img src="' + esc(L.image || baseLogo) + '" alt=""></div>' +
+    '<button class="aadd" data-act="ldImg">🖼️ Upload image</button><button class="aadd" data-act="ldImgReset">↩️ Use the default image</button>' +
+    fld('Name shown', 'site.loader.name', L.name) +
+    sel('Screen style', 'site.loader.style', L.style, loaderStyles()) + sel('Name animation', 'site.loader.anim', L.anim, loaderAnims()) +
+    sel('Time on screen', 'site.loader.seconds', String(L.seconds), [['2', '2 seconds'], ['3', '3 seconds'], ['3.6', '3.6 seconds (default)'], ['5', '5 seconds'], ['6', '6 seconds'], ['8', '8 seconds']]) +
+    '<button class="aadd" data-act="ldPreview">▶ Preview</button></div>';
+  h += '<div class="acard"><h3>🔤 Background texts</h3><p class="note">The faint words moving far behind everything. Change them, delete them, or add new ones.</p>';
+  B.texts.forEach((t, i) => { h += '<div class="acard" style="margin-top:10px"><div class="ahead"><b>#' + (i + 1) + '</b><span class="abtns">' + lb('lUp', 'site.bg.texts', i, '↑') + lb('lDn', 'site.bg.texts', i, '↓') + lb('lDel', 'site.bg.texts', i, '🗑️ Delete', 'danger') + '</span></div>' + fld('Text', 'site.bg.texts.' + i, t) + '</div>'; });
+  h += '<button class="aadd" data-act="bgAdd">➕ Add text</button>' +
+    sel('Animation', 'site.bg.anim', B.anim, [['slide', 'Slide (default)'], ['left', 'Slide left'], ['right', 'Slide right'], ['rise', 'Rise and fade'], ['pulse', 'Glow pulse'], ['wave', 'Wave'], ['zoom', 'Zoom'], ['diag', 'Diagonal'], ['blink', 'Blink']]) +
+    sel('Speed', 'site.bg.speed', B.speed, [['slow', 'Slow'], ['normal', 'Normal'], ['fast', 'Fast']]) +
+    sel('Strength', 'site.bg.strength', B.strength, [['faint', 'Faint (default)'], ['normal', 'Normal'], ['bold', 'Bold']]) +
+    '<p class="note">Press Save to apply for everyone.</p></div>';
+  return h;
+}
+function tabEvents(){
+  return listCard('🎉 Events / Giveaways', 'events.list', [['title', 'Title'], ['date', 'Date'], ['text', 'Details', 'area']], 'Add event') +
+    '<div class="acard"><h3>⏳ Countdown</h3><p class="note">' + SAVED_NOTE + '</p>' +
+    sel('Countdown', 'events.cdOn', A.events.cdOn, ONOFF, 'bool') + fld('Title', 'events.cdTitle', A.events.cdTitle) +
+    fld('Date & time (e.g. 2026-12-01 18:00)', 'events.cdDate', A.events.cdDate) + '</div>' +
+    listCard('📰 Updates / Changelog', 'events.updates', [['date', 'Date'], ['title', 'Title'], ['text', 'Details', 'area']], 'Add update');
+}
+function tabCommunity(){
+  return     listCard('🖼️ Gallery', 'community.gallery', [['url', 'Image link'], ['caption', 'Caption']], 'Add image',
+      'Use an image link (for example from Imgur). Images are not uploaded here, to keep the data small. ' + SAVED_NOTE) +
+    listCard('🏆 Winners / Hall of Fame', 'community.winners', [['name', 'Player name'], ['title', 'Title / Prize'], ['note', 'Note']], 'Add winner');
+}
+function ab(act, i, j, op, text, cls){
+  return '<button class="sbtn' + (cls ? ' ' + cls : '') + '" data-act="' + act + '" data-i="' + i + '" data-j="' + j + '" data-op="' + op + '">' + text + '</button>';
+}
+function tabAnn(){
+  let h = '<div class="acard"><h3>📢 Announcements</h3><p class="note">Every post shows on the Announcements page (a button appears in the side menu once there is at least one post). Turn on "Show as popup" to also show it when the site opens. Posts never expire, delete them yourself.</p>' +
+    '<button class="aadd" data-act="aPost" data-op="add">➕ New announcement</button></div>';
+  A.ann.forEach((p, i) => {
+    h += '<div class="acard"><div class="ahead"><b>#' + (i + 1) + '</b><span class="abtns">' + ab('aPost', i, '', 'up', '↑') + ab('aPost', i, '', 'dn', '↓') + ab('aPost', i, '', 'del', '🗑️ Delete', 'danger') + '</span></div>' +
+      fld('Title', 'ann.' + i + '.title', p.title) + fld('Date (optional)', 'ann.' + i + '.date', p.date) +
+      sel('Show as popup when the site opens', 'ann.' + i + '.popup', p.popup, ONOFF, 'bool') +
+      fld('Popup start (optional, e.g. 2026-11-20 18:00)', 'ann.' + i + '.start', p.start) + fld('Popup end (optional)', 'ann.' + i + '.end', p.end);
+    p.blocks.forEach((b, j) => {
+      h += '<div class="acard" style="margin-top:10px"><div class="ahead"><b>' + (b.type === 'image' ? '🖼️ Image' : '📝 Text') + '</b><span class="abtns">' +
+        ab('aBlk', i, j, 'up', '↑') + ab('aBlk', i, j, 'dn', '↓') + ab('aBlk', i, j, 'del', '🗑️', 'danger') + '</span></div>' +
+        (b.type === 'image' ? (safeImg(b.img) ? '<img src="' + esc(b.img) + '" style="width:100%;border-radius:10px;margin:8px 0">' : '') + ab('aBlk', i, j, 'img', b.img ? '🖼️ Change image' : '🖼️ Upload image')
+          : area('Text', 'ann.' + i + '.blocks.' + j + '.text', b.text, 4)) + '</div>';
+    });
+    h += ab('aBlk', i, '', 'addT', '➕ Add text', 'aadd') + ab('aBlk', i, '', 'addI', '➕ Add image', 'aadd') + '</div>';
+  });
+  return h;
+}
+function logCard(){
+  const rows = (A.log || []).slice(-15).reverse().map(x => '<p class="note">' + esc(x.by) + ' · ' + esc(new Date(x.at).toLocaleString()) + '</p>').join('');
+  return '<div class="acard"><h3>🧾 Edit Log</h3>' + (rows || '<p class="note">No saves yet.</p>') + '</div>';
+}
+function tabBackup(){
+  return '<div class="acard"><h3>💾 Backup</h3><p class="note">Download all site data, or load a backup file (then press Save to apply it).</p>' +
+    '<button class="aadd" data-act="downloadBackup">⬇️ Download backup</button>' +
+    '<button class="aadd" data-act="restoreBackup">⬆️ Load backup file</button></div>' +
+    '<div class="acard"><h3>↩️ Undo</h3><p class="note">Loads the version from before your last Save. Press Save to apply it.</p>' +
+    '<button class="aadd" data-act="undoSave">↩️ Load previous version</button></div>' + logCard();
+}
 function renderAdmin(){
   $('adminHello').textContent = 'লগইন: ' + getUser();
   $('adminTabs').querySelectorAll('.tabbtn').forEach(b => b.classList.toggle('on', b.dataset.tab === adminTab));
-  const map = { rules: tabRules, server: tabServer, ranks: tabRanks, publish: tabPublish };
-  $('adminBody').innerHTML = (map[adminTab] || tabRules)();
+  const map = { members: tabMembers, rules: tabRules, server: tabServer, ranks: tabRanks, pay: tabPay, ann: tabAnn, home: tabHome, season: tabSeason, aimgr: tabAIMgr, reviews: tabReviewsAdmin, chat: tabChat, report: tabReportAdmin, backup: tabBackup, staff: () => menuToggle('staff') + tabStaff(), links: () => menuToggle('links') + tabLinks(), help: () => menuToggle('help') + tabHelp(),
+  siteinfo: () => menuToggle('siteinfo') + tabSiteInfo(), events: () => menuToggle('events') + tabEvents(), community: () => menuToggle('community') + tabCommunity() };
+  if(adminTab && !(isAdmin() || canSection(adminTab))) adminTab = '';
+  document.body.classList.toggle('admin-home', !adminTab || adminTab === 'aimgr');
+  if(!adminTab){
+    $('adminBody').innerHTML = '<div class="alist">' + [...$('adminTabs').querySelectorAll('.tabbtn')].filter(b => isAdmin() || canSection(b.dataset.tab)).map(b => '<button class="aitem" data-go="' + b.dataset.tab + '">' + b.textContent + '</button>').join('') + '</div>';
+    return;
+  }
+  $('adminBody').innerHTML = '<button class="aback" data-go="">← All sections</button>' + (map[adminTab] || tabRules)();
 }
+$('adminBody').addEventListener('click', e => {
+  const g = e.target.closest('[data-go]'); if(!g) return;
+  adminTab = g.dataset.go; renderAdmin(); window.scrollTo(0, 0);
+});
 
 $('adminTabs').addEventListener('click', e => {
   const b = e.target.closest('[data-tab]');
@@ -1390,14 +3202,22 @@ $('adminTabs').addEventListener('click', e => {
   renderAdmin();
 });
 
-$('adminBody').addEventListener('input', e => {
+const onAdminField = e => {
   const t = e.target;
   if(!t.dataset || !t.dataset.path) return;
   let v = t.value;
   if(t.dataset.type === 'lines') v = v.split('\n').map(s => s.trim()).filter(Boolean);
   else if(t.dataset.type === 'csv') v = v.split(',').map(s => s.trim()).filter(Boolean);
+  else if(t.dataset.type === 'bool') v = (v === 'on');
   setPath(A, t.dataset.path, v);
-});
+  if(/^staff\.\d+\.access$/.test(t.dataset.path) || t.dataset.path === 'season.theme') renderAdmin();
+  if(e.type === 'change' && t.value.trim()){
+    const vm = t.dataset.path.match(/^home\.videos\.(\d+)\.url$/);
+    if(vm) ytAuto('video', +vm[1]); else if(t.dataset.path === 'home.channelUrl') ytAuto('channel');
+  }
+};
+$('adminBody').addEventListener('input', onAdminField);
+$('adminBody').addEventListener('change', onAdminField);   // কিছু ফোনে বাছাই-মেনু শুধু 'change' ইভেন্ট দেয়
 
 function swap(arr, i, j){
   if(j < 0 || j >= arr.length) return;
@@ -1433,14 +3253,6 @@ $('imgPick').addEventListener('change', e => {
   processImage(f, data => { A.ranks[idx].image = data; renderAdmin(); showToast('🖼️ ছবি যোগ হয়েছে (Save করতে ভুলো না)'); });
 });
 
-// নতুন index.html বানানো (বর্তমান ডেটা সহ)
-function buildHtml(){
-  const data = clone(A);
-  data.version = Date.now();
-  const json = JSON.stringify(data, null, 2).replace(/<\//g, '<\\/');
-  const block = '/*DATA_' + 'START*/\nconst SITE_DATA = ' + json + ';\n/*DATA_' + 'END*/';
-  return ORIGINAL_HTML.replace(/\/\*DATA_START\*\/[\s\S]*?\/\*DATA_END\*\//, () => block);
-}
 
 $('adminBody').addEventListener('click', e => {
   const b = e.target.closest('[data-act]');
@@ -1450,59 +3262,133 @@ $('adminBody').addEventListener('click', e => {
   else if(act === 'delRule'){ if(confirm('এই Rule মুছে ফেলবে?')){ A.rules.list.splice(i, 1); renderAdmin(); } }
   else if(act === 'upRule'){ swap(A.rules.list, i, i - 1); renderAdmin(); }
   else if(act === 'downRule'){ swap(A.rules.list, i, i + 1); renderAdmin(); }
+  else if(act === 'lAdd' || act === 'lDel' || act === 'lUp' || act === 'lDn'){
+    const arr = getPath(A, b.dataset.key);
+    if(act === 'lAdd'){ const o = {}; b.dataset.fields.split(',').forEach(k => { o[k] = ''; }); arr.push(o); }
+    else if(act === 'lDel'){ if(!confirm('Delete this item?')) return; arr.splice(i, 1); }
+    else{ const j = act === 'lUp' ? i - 1 : i + 1; if(j >= 0 && j < arr.length){ const t = arr[i]; arr[i] = arr[j]; arr[j] = t; } }
+    renderAdmin();
+  }
+  else if(act === 'resetMember'){
+    const nm = b.dataset.name;
+    if(!confirm('Reset the password for ' + nm + '? They will set a new password the next time they log in.')) return;
+    SB.ensure().then(ok => ok ? SB.rpc('reset_member', { p_name: nm }) : Promise.reject({}))
+      .then(() => { showToast('✅ Reset done. ' + nm + ' can now set a new password'); loadMembers(); })
+      .catch(err => showToast('⚠️ Reset failed' + (err && err.detail ? ': ' + err.detail : '')));
+  }
+  else if(act === 'phFilter'){ PH.f = b.dataset.f; drawPayHistory(); }
+  else if(act === 'phReload'){ const hb = $('payHist'); if(hb) hb.textContent = 'Loading...'; loadPayHistory(); }
+  else if(act === 'admMute'){ muteUser(b.dataset.name, +$(b.dataset.sel).value).then(loadPeople); }
+  else if(act === 'admUnmute'){ unmuteUser(b.dataset.name).then(loadPeople); }
+  else if(act === 'admDelReview'){
+    if(!confirm('Delete this review?')) return;
+    SB.ensure().then(ok => ok ? SB.send('DELETE', 'reviews?uid=eq.' + encodeURIComponent(b.dataset.uid)) : Promise.reject())
+      .then(() => { showToast('🗑️ Deleted'); loadReviewsAdmin(); }).catch(() => showToast('⚠️ Could not delete'));
+  }
+  else if(act === 'ldImg'){
+    const inp = document.createElement('input'); inp.type = 'file'; inp.accept = 'image/*';
+    inp.onchange = () => { const f = inp.files[0]; if(f) processLogo(f, d => { A.site.loader.image = d; renderAdmin(); }); };
+    inp.click();
+  }
+  else if(act === 'ldImgReset'){ A.site.loader.image = ''; renderAdmin(); }
+  else if(act === 'ldPreview'){ startLoader(A.site.loader, true); }
+  else if(act === 'bgAdd'){ if(A.site.bg.texts.length >= 12){ showToast('Max 12 texts'); return; } A.site.bg.texts.push(''); renderAdmin(); }
+  else if(act === 'ytChannelGet'){ if(!A.home.channelUrl.trim()){ showToast('Paste the channel link first'); return; } ytAuto('channel'); }
+  else if(act === 'chLogoUp'){
+    const inp = document.createElement('input'); inp.type = 'file'; inp.accept = 'image/*';
+    inp.onchange = () => { const f = inp.files[0]; if(f) processLogo(f, d => { A.home.channelLogo = d; renderAdmin(); }); };
+    inp.click();
+  }
+  else if(act === 'chLogoReset'){ A.home.channelLogo = ''; renderAdmin(); }
+  else if(act === 'aPost'){
+    const op = b.dataset.op;
+    if(op === 'add') A.ann.unshift({ by: getUser(), title: '', date: '', popup: false, start: '', end: '', blocks: [{ type: 'text', text: '', img: '' }] });
+    else if(op === 'del'){ if(!confirm('Delete this announcement?')) return; A.ann.splice(i, 1); }
+    else swap(A.ann, i, op === 'up' ? i - 1 : i + 1);
+    renderAdmin();
+  }
+  else if(act === 'aBlk'){
+    const op = b.dataset.op, p = A.ann[i], j = +b.dataset.j;
+    if(op === 'addT') p.blocks.push({ type: 'text', text: '', img: '' });
+    else if(op === 'addI'){ if(p.blocks.filter(x => x.type === 'image').length >= 4){ showToast('Max 4 images per announcement'); return; } p.blocks.push({ type: 'image', text: '', img: '' }); }
+    else if(op === 'del') p.blocks.splice(j, 1);
+    else if(op === 'up' || op === 'dn') swap(p.blocks, j, op === 'up' ? j - 1 : j + 1);
+    else if(op === 'img'){
+      const inp = document.createElement('input'); inp.type = 'file'; inp.accept = 'image/*';
+      inp.onchange = () => { const f = inp.files[0]; if(f) processImage(f, d => { p.blocks[j].img = d; renderAdmin(); }); };
+      inp.click(); return;
+    }
+    renderAdmin();
+  }
+  else if(act === 'downloadBackup'){
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(new Blob([JSON.stringify(D, null, 2)], {type: 'application/json'}));
+    a.download = 'banglaempire-backup-' + new Date().toISOString().slice(0, 10) + '.json';
+    document.body.appendChild(a); a.click(); a.remove();
+    showToast('✅ Backup downloaded');
+  }
+  else if(act === 'restoreBackup'){
+    const inp = document.createElement('input'); inp.type = 'file'; inp.accept = '.json,application/json';
+    inp.onchange = () => {
+      const f = inp.files[0]; if(!f) return;
+      const rd = new FileReader();
+      rd.onload = () => {
+        try{ const o = JSON.parse(rd.result); if(!o || typeof o !== 'object' || !('ip' in o)) throw 0;
+          A = normalize(o); renderAdmin(); showToast('✅ Backup loaded. Press Save to apply.');
+        }catch(e){ showToast('⚠️ This is not a valid backup file'); }
+      };
+      rd.readAsText(f);
+    };
+    inp.click();
+  }
+  else if(act === 'undoSave'){
+    SB.get('prev').then(p => {
+      if(!p){ showToast('No previous version found yet'); return; }
+      A = normalize(p); renderAdmin(); showToast('✅ Previous version loaded. Press Save to apply.');
+    }).catch(() => showToast('⚠️ Could not load. Check your connection'));
+  }
   else if(act === 'addRank'){ A.ranks.push({name:'New Rank', price:'', image:'', perks:[]}); renderAdmin(); }
   else if(act === 'delRank'){ if(confirm('এই Rank মুছে ফেলবে?')){ A.ranks.splice(i, 1); renderAdmin(); } }
   else if(act === 'upRank'){ swap(A.ranks, i, i - 1); renderAdmin(); }
   else if(act === 'downRank'){ swap(A.ranks, i, i + 1); renderAdmin(); }
   else if(act === 'pickImg'){ pendingImg = i; $('imgPick').click(); }
   else if(act === 'delImg'){ A.ranks[i].image = ''; renderAdmin(); }
-  else if(act === 'reloadRemote'){
-    showToast('⏳ লোড হচ্ছে...');
-    loadRemote().then(ok => {
-      A = clone(D); renderAdmin();
-      showToast(ok ? '🔄 সার্ভার থেকে নতুন ডেটা এসেছে' : '⚠️ লোড হয়নি, আবার চেষ্টা করো');
-    });
-  }
-  else if(act === 'dlFile'){
-    askPassword(() => {
-      const html = buildHtml();
-      const a = document.createElement('a');
-      a.href = URL.createObjectURL(new Blob([html], {type:'text/html;charset=utf-8'}));
-      a.download = 'index.html';
-      document.body.appendChild(a); a.click(); a.remove();
-      setTimeout(() => URL.revokeObjectURL(a.href), 3000);
-      showToast('⬇️ নতুন index.html ডাউনলোড হচ্ছে');
-    });
-  }
-  else if(act === 'copyCode'){
-    askPassword(async () => {
-      const ok = await copyText(buildHtml());
-      showToast(ok ? '✅ পুরো কোড কপি হয়েছে' : '⚠️ কপি হয়নি, ডাউনলোড বাটন ব্যবহার করো');
-    });
-  }
 });
 
-$('adminSave').onclick = () => {
-  askPassword(async () => {
-    const nd = normalize(clone(A));
-    const btn = $('adminSave');
-    btn.disabled = true;
-    showToast('⏳ সেভ হচ্ছে...');
-    try{
-      await SB.save(nd);
-      D = nd;
-      renderAll();
-      updateStatus();
-      A = clone(D);
-      renderAdmin();
-      showToast('✅ সেভ হয়েছে। এখন সবাই নতুন ডেটা দেখবে');
-    }catch(err){
-      if(err.status === 401 || err.status === 403) showToast('⚠️ অনুমতি নেই। আবার পাসওয়ার্ড দিয়ে চেষ্টা করো');
-      else if(err.status === 413) showToast('⚠️ ডেটা বেশি বড়। ছবি কম বা ছোট করো');
-      else showToast('⚠️ সেভ হয়নি। ইন্টারনেট চেক করে আবার চেষ্টা করো');
-    }
+$('adminSave').onclick = async () => {
+  if(!isAdmin()){ return staffAdminSave(); }
+  const btn = $('adminSave');
+  btn.disabled = true;
+  const ok = await SB.ensure();
+  if(!ok){
     btn.disabled = false;
-  });
+    if(!SB.hasSession()){
+      try{ localStorage.removeItem('mcUser'); }catch(e){}
+      renderUser();
+      location.hash = '#home';
+      showToast('🔒 সেশন শেষ। আবার লগইন করো');
+      setTimeout(openLogin, 400);
+    }else showToast('⚠️ সংযোগে সমস্যা। আবার চেষ্টা করো');
+    return;
+  }
+  const nd = normalize(clone(A));
+  nd.log = (nd.log || []).concat([{by: getUser(), at: new Date().toISOString()}]).slice(-30);
+  showToast('⏳ সেভ হচ্ছে...');
+  try{
+    try{ await SB.write('prev', clone(D)); }catch(e){}   // Undo-র জন্য আগের ভার্সন রাখা
+    await SB.save(nd);
+    D = nd;
+    renderAll();
+    updateStatus();
+    A = clone(D);
+    renderAdmin();
+    showToast('✅ সেভ হয়েছে। এখন সবাই নতুন ডেটা দেখবে');
+  }catch(err){
+    if(err.status === 401 || err.status === 403) showToast('⚠️ অনুমতি নেই। লগআউট করে আবার লগইন করো');
+    else if(err.status === 413) showToast('⚠️ ডেটা বেশি বড়। ছবি কম বা ছোট করো');
+    else showToast('⚠️ সেভ হয়নি। ইন্টারনেট চেক করে আবার চেষ্টা করো');
+  }
+  btn.disabled = false;
 };
 $('adminReset').onclick = () => {
   A = clone(D);
@@ -1515,21 +3401,54 @@ const cv = $('c'), ctx = cv.getContext('2d');
 let W, H, blocks = [];
 function resize(){ W = cv.width = innerWidth; H = cv.height = innerHeight; }
 resize(); addEventListener('resize', resize);
-for(let i = 0; i < 28; i++){
-  blocks.push({x:Math.random()*innerWidth, y:Math.random()*innerHeight,
-    s:8+Math.random()*22, v:.15+Math.random()*.4, r:Math.random()*6,
-    c:Math.random()>.5 ? '250,204,21' : '245,158,11'});
+var MATRIX_CH = 'অআইউএওকখগঘচছজটডণতথদধনপফবভমযরলশষসহ0123456789'.split('');
+function seedParticles(){
+  const m = animMode || 'blocks', T = siteTheme || siteThemes().gold;
+  const N = { blocks: 28, snow: 70, embers: 45, stars: 60, rain: 90, matrix: Math.ceil(W / 18), bubbles: 35, fireflies: 40, leaves: 30, confetti: 60, hearts: 25, meteors: 7, sparkles: 45, pixels: 60 }[m] || 28;
+  blocks = [];
+  for(let i = 0; i < N; i++){
+    const p = { x: Math.random() * W, y: Math.random() * H, v: .15 + Math.random() * .4, r: Math.random() * 6.28, t: Math.random() * 6.28, c: Math.random() > .5 ? T.c1 : T.c2, s: 1 + Math.random() * 2.5 };
+    if(m === 'blocks') p.s = 8 + Math.random() * 22;
+    else if(m === 'matrix'){ p.x = i * 18 + 9; p.v = 1 + Math.random() * 2.5; p.ch = ''; }
+    else if(m === 'bubbles') p.s = 4 + Math.random() * 14;
+    else if(m === 'leaves') p.s = 6 + Math.random() * 8;
+    else if(m === 'confetti'){ p.s = 5 + Math.random() * 5; p.hue = Math.floor(Math.random() * 360); }
+    else if(m === 'hearts') p.s = 10 + Math.random() * 14;
+    else if(m === 'sparkles') p.s = 8 + Math.random() * 12;
+    else if(m === 'pixels'){ p.s = 4 + Math.floor(Math.random() * 3) * 4; p.x = Math.floor(p.x / 8) * 8; p.y = Math.floor(p.y / 8) * 8; }
+    else if(m === 'meteors'){ p.y = -Math.random() * H; p.v = 6 + Math.random() * 6; }
+    blocks.push(p);
+  }
 }
-function draw(){
-  ctx.clearRect(0, 0, W, H);
-  blocks.forEach(b => {
+canvasReady = true; seedParticles();
+function dot2(x, y, r, col){ ctx.beginPath(); ctx.arc(x, y, r, 0, 6.2832); ctx.fillStyle = col; ctx.fill(); }
+function stepParticle(m, b){
+  if(m === 'snow'){ b.y += b.v * 2 + .4; b.x += Math.sin(b.t += .01) * .4; if(b.y > H + 10){ b.y = -10; b.x = Math.random() * W; } dot2(b.x, b.y, b.s, 'rgba(255,255,255,.75)'); }
+  else if(m === 'embers'){ b.y -= b.v * 3 + .5; b.x += Math.sin(b.t += .02) * .5; if(b.y < -10){ b.y = H + 10; b.x = Math.random() * W; } dot2(b.x, b.y, b.s, 'rgba(' + b.c + ',.8)'); }
+  else if(m === 'stars'){ b.t += .03; dot2(b.x, b.y, b.s * .7, 'rgba(255,255,255,' + (.25 + .75 * Math.abs(Math.sin(b.t))) + ')'); }
+  else if(m === 'rain'){ b.y += 10 + b.v * 14; b.x -= 1.5; if(b.y > H){ b.y = -20; b.x = Math.random() * W + 40; } ctx.strokeStyle = 'rgba(' + b.c + ',.45)'; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(b.x, b.y); ctx.lineTo(b.x + 3, b.y - 14); ctx.stroke(); }
+  else if(m === 'matrix'){ b.y += b.v * 2; if(b.y > H + 20) b.y = -20; if(!b.ch || Math.random() < .08) b.ch = MATRIX_CH[Math.floor(Math.random() * MATRIX_CH.length)]; ctx.fillStyle = 'rgba(' + b.c + ',.65)'; ctx.font = '15px monospace'; ctx.fillText(b.ch, b.x, b.y); }
+  else if(m === 'bubbles'){ b.y -= b.v * 1.2; b.x += Math.sin(b.t += .02) * .5; if(b.y < -20){ b.y = H + 20; b.x = Math.random() * W; } ctx.strokeStyle = 'rgba(' + b.c + ',.5)'; ctx.fillStyle = 'rgba(' + b.c + ',.08)'; ctx.lineWidth = 1.2; ctx.beginPath(); ctx.arc(b.x, b.y, b.s, 0, 6.2832); ctx.fill(); ctx.stroke(); }
+  else if(m === 'fireflies'){ b.x += Math.sin(b.t += .01) * .6; b.y += Math.cos(b.r += .013) * .5; if(b.x < 0) b.x = W; if(b.x > W) b.x = 0; if(b.y < 0) b.y = H; if(b.y > H) b.y = 0; const a = .3 + .7 * Math.abs(Math.sin(b.t * 2)); dot2(b.x, b.y, b.s * 2.2, 'rgba(' + b.c + ',' + (a * .15) + ')'); dot2(b.x, b.y, b.s * .9, 'rgba(' + b.c + ',' + a + ')'); }
+  else if(m === 'leaves'){ b.y += b.v * 1.4 + .4; b.x += Math.sin(b.t += .015) * .9; b.r += .02; if(b.y > H + 20){ b.y = -20; b.x = Math.random() * W; } ctx.save(); ctx.translate(b.x, b.y); ctx.rotate(b.r); ctx.fillStyle = 'rgba(' + b.c + ',.5)'; ctx.beginPath(); ctx.ellipse(0, 0, b.s, b.s * .5, 0, 0, 6.2832); ctx.fill(); ctx.restore(); }
+  else if(m === 'confetti'){ b.y += b.v * 3 + 1; b.x += Math.sin(b.t += .03); b.r += .1; if(b.y > H + 20){ b.y = -20; b.x = Math.random() * W; } ctx.save(); ctx.translate(b.x, b.y); ctx.rotate(b.r); ctx.fillStyle = 'hsla(' + b.hue + ',85%,60%,.7)'; ctx.fillRect(-b.s / 2, -b.s / 4, b.s, b.s / 2); ctx.restore(); }
+  else if(m === 'hearts'){ b.y -= b.v * 1.5 + .3; b.x += Math.sin(b.t += .02) * .6; if(b.y < -30){ b.y = H + 30; b.x = Math.random() * W; } ctx.fillStyle = 'rgba(' + b.c + ',.5)'; ctx.font = b.s + 'px serif'; ctx.fillText('♥', b.x, b.y); }
+  else if(m === 'meteors'){ b.x -= b.v; b.y += b.v * .7; if(b.y > H + 40 || b.x < -80){ b.x = Math.random() * W + W * .3; b.y = -40 - Math.random() * 200; b.v = 6 + Math.random() * 6; } ctx.strokeStyle = 'rgba(255,255,255,.6)'; ctx.lineWidth = 1.5; ctx.beginPath(); ctx.moveTo(b.x, b.y); ctx.lineTo(b.x + 60, b.y - 42); ctx.stroke(); dot2(b.x, b.y, 2, 'rgba(' + b.c + ',.9)'); }
+  else if(m === 'sparkles'){ b.t += .04; const a = Math.abs(Math.sin(b.t)); ctx.fillStyle = 'rgba(' + b.c + ',' + (a * .8) + ')'; ctx.font = (b.s * (.6 + a * .6)) + 'px serif'; ctx.fillText('✦', b.x, b.y); }
+  else if(m === 'pixels'){ b.t += .02; const a = Math.max(0, Math.sin(b.t)); if(a < .01 && Math.random() < .02){ b.x = Math.floor(Math.random() * W / 8) * 8; b.y = Math.floor(Math.random() * H / 8) * 8; } ctx.fillStyle = 'rgba(' + b.c + ',' + (a * .35) + ')'; ctx.fillRect(b.x, b.y, b.s, b.s); }
+  else{
     b.y -= b.v; b.r += .004;
     if(b.y < -40){ b.y = H + 40; b.x = Math.random() * W; }
     ctx.save(); ctx.translate(b.x, b.y); ctx.rotate(b.r);
-    ctx.strokeStyle = `rgba(${b.c},.5)`; ctx.fillStyle = `rgba(${b.c},.08)`;
-    ctx.lineWidth = 1.2; ctx.fillRect(-b.s/2, -b.s/2, b.s, b.s); ctx.strokeRect(-b.s/2, -b.s/2, b.s, b.s);
+    ctx.strokeStyle = 'rgba(' + b.c + ',.5)'; ctx.fillStyle = 'rgba(' + b.c + ',.08)';
+    ctx.lineWidth = 1.2; ctx.fillRect(-b.s / 2, -b.s / 2, b.s, b.s); ctx.strokeRect(-b.s / 2, -b.s / 2, b.s, b.s);
     ctx.restore();
-  });
+  }
+}
+function draw(){
+  ctx.clearRect(0, 0, W, H);
+  const m = animMode || 'blocks';
+  if(m !== 'none') blocks.forEach(b => stepParticle(m, b));
   requestAnimationFrame(draw);
 }
 draw();
@@ -1540,14 +3459,17 @@ const pages = {
   rules: $('rulesPage'),
   store: $('storePage'),
   vote:  $('votePage'),
+  info:  $('infoPage'),
   admin: $('adminPage')
 };
 function route(){
   const key = location.hash.replace('#','');
-  let active = pages[key] ? key : 'home';
+  const ik = key.indexOf('p-') === 0 ? key.slice(2) : '';
+  let active = (pages[key] && key !== 'info') ? key : 'home';
+  if(ik && infoPages()[ik] && (pageOn(ik) || isAdmin())){ active = 'info'; renderInfo(ik); }
   if(active === 'admin'){
-    if(!isAdmin()){ location.hash = '#home'; active = 'home'; }
-    else { A = clone(D); adminTab = 'rules'; renderAdmin(); }
+    if(!canPanel()){ location.hash = '#home'; active = 'home'; }
+    else { A = clone(D); adminTab = ''; renderAdmin(); }
   }
   Object.keys(pages).forEach(k => { pages[k].style.display = (k === active) ? 'flex' : 'none'; });
   document.body.classList.toggle('on-admin', active === 'admin');
@@ -1559,10 +3481,12 @@ route();
 
 // সার্ভার থেকে সবার জন্য সেভ করা ডেটা আনা
 loadRemote().then(() => {
-  if(location.hash === '#admin' && isAdmin()){ A = clone(D); renderAdmin(); }
+  remoteDone = true;
+  if(location.hash === '#admin' && canPanel()){ A = clone(D); renderAdmin(); }
 });
 
-setTimeout(() => { const s = $('splash'); if(s) s.remove(); }, 4500);
+$('annPop').addEventListener('click', e => { if(e.target.id === 'annPop' || e.target.id === 'annX') $('annPop').classList.remove('show'); });
+const popT = setInterval(() => { if(remoteDone && !$('splash')){ clearInterval(popT); tryPopup(); } }, 400);
 </script>
 </body>
 </html>
