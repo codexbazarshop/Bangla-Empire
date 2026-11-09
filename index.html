@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
 <title>Lavamc | Minecraft Server</title>
 <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
 <style>
@@ -398,7 +399,7 @@
     background:linear-gradient(90deg,var(--accent),var(--accent2));color:#1a1200;
   }
   .ptag{font-size:.75rem;padding:3px 10px;border-radius:999px;color:#fff;font-weight:700;white-space:nowrap}
-  .ptag.u{background:#1a8f5a}.ptag.n{background:#b7791f}
+  .ptag.u{background:#1a8f5a}.ptag.n{background:#b7791f}.ptag.f{background:#b91c1c}
   .light-bg{
     position:fixed;inset:0;z-index:70;display:none;align-items:center;justify-content:center;padding:16px;
     background:rgba(0,0,0,.85);cursor:zoom-out;
@@ -421,11 +422,11 @@
   }
   .acard h3{color:var(--accent);font-size:1.1rem}
   .acard label{display:flex;flex-direction:column;gap:6px;font-size:.85rem;color:var(--muted);font-weight:600}
-  .acard input[type=text],.acard textarea{
+  .acard input[type=text],.acard input[type=number],.acard textarea{
     width:100%;padding:11px 14px;border-radius:12px;font-family:inherit;font-size:.98rem;
     border:1px solid var(--border);background:rgba(0,0,0,.45);color:var(--text);outline:none;resize:vertical;
   }
-  .acard input[type=text]:focus,.acard textarea:focus{border-color:var(--accent)}
+  .acard input[type=text]:focus,.acard input[type=number]:focus,.acard textarea:focus{border-color:var(--accent)}
   .ahead{display:flex;align-items:center;justify-content:space-between;gap:10px}
   .ahead b{color:var(--text)}
   .abtns{display:flex;gap:6px;flex-wrap:wrap}
@@ -639,6 +640,48 @@
     .yt-btn{display:none}
   }
 
+
+  /* ===== হেডার: লোগো সরানো, ওয়ালেট → নাম → নোটিফিকেশন → মেনু ===== */
+  header .logo{display:none}
+  header{padding:10px 12px;gap:8px}
+  header .hleft{gap:8px;min-width:0;flex:1}
+  header .hdr-right{flex:none;gap:8px}
+  header .userbox{min-width:0}
+  header .userchip{min-width:0}
+  header .userchip span{max-width:90px}
+  header .wallet-btn{flex:none;padding:6px 12px;gap:7px;background:linear-gradient(135deg,#1c1c1c,#050505);border:1px solid rgba(255,255,255,.55);color:#fff}
+  header .wallet-btn:hover{background:linear-gradient(135deg,#2a2a2a,#0a0a0a);border-color:#fff}
+  .wallet-btn .wallet-icon{display:inline-flex;filter:drop-shadow(0 2px 3px rgba(0,0,0,.6))}
+  .bell{flex:none}
+
+  /* ===== মেসেঞ্জারের মতো চ্যাট: ইনপুট নিচে স্থির, কিবোর্ড উঠলে উপরে উঠবে ===== */
+  body.in-chat{overflow:hidden}
+  body.in-chat .discord{display:none}
+  #infoPage.chatroom{
+    position:fixed;left:0;right:0;top:66px;height:calc(100vh - 66px);z-index:5;
+    min-height:0;padding:6px 12px 8px;gap:6px;overflow:hidden;justify-content:flex-start;
+  }
+  #infoPage.chatroom .title{gap:2px}
+  #infoPage.chatroom .title .badge,#infoPage.chatroom .title p{display:none}
+  #infoPage.chatroom .title h1{font-size:1.25rem;line-height:1.3}
+  #infoPage.chatroom .ibody{flex:1;min-height:0;gap:6px}
+  #infoPage.chatroom .msglist{flex:1;max-height:none;min-height:0;overscroll-behavior:contain}
+  #infoPage.chatroom .hint{font-size:.72rem;opacity:.7;text-align:center}
+  #infoPage.chatroom #msgBar{flex:none;padding-bottom:env(safe-area-inset-bottom,0)}
+
+
+  /* ===== আমার অর্ডার ===== */
+  .ordersbox{max-width:440px !important;text-align:left !important;max-height:85vh;overflow-y:auto}
+  .ordersbox h3{text-align:center;margin-bottom:4px}
+  .ordersbox .osub{text-align:center;color:var(--muted);font-size:.82rem;margin-bottom:12px}
+  .oitem{padding:12px 14px;border-radius:14px;background:rgba(255,255,255,.05);border:1px solid var(--border);margin-bottom:8px}
+  .oitem .ot{display:flex;justify-content:space-between;align-items:center;gap:8px;font-weight:700}
+  .oitem small{display:block;color:var(--muted);margin-top:4px;line-height:1.5}
+  .otag{font-size:.75rem;padding:3px 10px;border-radius:999px;color:#fff;font-weight:700;white-space:nowrap}
+  .otag.done{background:#1a8f5a}.otag.pending{background:#b7791f}.otag.success{background:#1a8f5a}
+  .ordersbox .oclose{width:100%;margin-top:6px;padding:12px;border-radius:12px;cursor:pointer;font-family:inherit;font-weight:700;font-size:1rem;background:transparent;color:var(--accent);border:1.5px solid var(--accent)}
+  .mcnote{margin:10px 0 4px;padding:9px 12px;border-radius:12px;font-size:.82rem;line-height:1.6;text-align:left;color:#fde68a;background:rgba(250,204,21,.1);border:1px solid rgba(250,204,21,.35)}
+
   /* ===== ওয়ালেট স্টাইলিং ও এমওটিডি স্ক্রলিং ===== */
   .net-banner {
     position: fixed; top: 0; left: 0; right: 0; z-index: 9999;
@@ -766,7 +809,7 @@
   <div class="hleft">
     <a class="logo" href="#home"><img class="beLogo" id="headLogo" alt="logo"><span class="eng">Lavamc</span></a>
     <button class="wallet-btn" id="headerWalletBtn" type="button" title="ওয়ালেট ব্যালেন্স">
-      <span class="wallet-icon">👛</span>
+      <span class="wallet-icon"><svg class="wsvg" viewBox="0 0 64 64" width="26" height="26" aria-hidden="true"><defs><linearGradient id="wgBody" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset=".45" stop-color="#b9b9b9"/><stop offset="1" stop-color="#4a4a4a"/></linearGradient><linearGradient id="wgFlap" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3a3a3a"/><stop offset="1" stop-color="#0a0a0a"/></linearGradient><linearGradient id="wgClasp" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#8d8d8d"/></linearGradient></defs><ellipse cx="32" cy="57" rx="22" ry="3.5" fill="#000" opacity=".45"/><path d="M10 20 L46 12 Q50 11 50 15 L50 20 Z" fill="url(#wgFlap)" stroke="#fff" stroke-width="1.6" stroke-linejoin="round"/><rect x="7" y="20" width="50" height="34" rx="7" fill="url(#wgBody)" stroke="#fff" stroke-width="1.8"/><path d="M10 25 Q10 22.5 13 22.5 L50 22.5" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" opacity=".85"/><path d="M9 50 Q9 53 12 53 L52 53" fill="none" stroke="#000" stroke-width="2.4" stroke-linecap="round" opacity=".45"/><rect x="38" y="30" width="22" height="14" rx="5" fill="url(#wgFlap)" stroke="#fff" stroke-width="1.8"/><circle cx="46" cy="37" r="3.4" fill="url(#wgClasp)" stroke="#000" stroke-width=".8"/><circle cx="45.2" cy="36.2" r="1" fill="#fff"/></svg></span>
       <span>৳<span id="headerWalletBal">0</span></span>
     </button>
     <div class="userbox">
@@ -782,12 +825,13 @@
 <nav class="drawer" id="drawer">
   <h3>মেনু</h3>
   <a href="javascript:void(0)" id="drawerWalletLink" style="border-color:rgba(var(--acr),.4);background:rgba(var(--acr),.08);margin-bottom:12px">
-    <span style="font-size:1.25rem">👛</span>
+    <span style="display:inline-flex;background:#111;border-radius:10px;padding:5px"><svg class="wsvg" viewBox="0 0 64 64" width="28" height="28" aria-hidden="true"><defs><linearGradient id="wgBody2" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset=".45" stop-color="#b9b9b9"/><stop offset="1" stop-color="#4a4a4a"/></linearGradient><linearGradient id="wgFlap2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3a3a3a"/><stop offset="1" stop-color="#0a0a0a"/></linearGradient><linearGradient id="wgClasp2" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#8d8d8d"/></linearGradient></defs><ellipse cx="32" cy="57" rx="22" ry="3.5" fill="#000" opacity=".45"/><path d="M10 20 L46 12 Q50 11 50 15 L50 20 Z" fill="url(#wgFlap2)" stroke="#fff" stroke-width="1.6" stroke-linejoin="round"/><rect x="7" y="20" width="50" height="34" rx="7" fill="url(#wgBody2)" stroke="#fff" stroke-width="1.8"/><path d="M10 25 Q10 22.5 13 22.5 L50 22.5" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" opacity=".85"/><path d="M9 50 Q9 53 12 53 L52 53" fill="none" stroke="#000" stroke-width="2.4" stroke-linecap="round" opacity=".45"/><rect x="38" y="30" width="22" height="14" rx="5" fill="url(#wgFlap2)" stroke="#fff" stroke-width="1.8"/><circle cx="46" cy="37" r="3.4" fill="url(#wgClasp2)" stroke="#000" stroke-width=".8"/><circle cx="45.2" cy="36.2" r="1" fill="#fff"/></svg></span>
     <div>
       <b style="color:var(--accent)">ওয়ালেট রিচার্জ (Wallet)</b>
       <div style="font-size:.8rem;color:var(--muted)">ব্যালেন্স: ৳<span id="drawerWalletBal">0</span></div>
     </div>
   </a>
+  <a href="javascript:void(0)" id="drawerOrdersLink" style="display:none;border-color:rgba(var(--acr),.4);margin-bottom:12px">🧾 <div><b style="color:var(--accent)">আমার অর্ডার ও হিস্টোরি</b><div style="font-size:.8rem;color:var(--muted)">কী কিনেছ, Rank এসেছে কিনা</div></div></a>
   <a href="#home">🏠 হোম</a>
   <a href="#rules">🛡️ Server Rules</a>
   <a href="#store">🛒 Store</a>
@@ -908,6 +952,8 @@
     <button class="tabbtn" data-tab="server">🌐 Server IP</button>
     <button class="tabbtn" data-tab="ranks">🛒 Rank (Store)</button>
     <button class="tabbtn" data-tab="pay">💳 Payment</button>
+    <button class="tabbtn" data-tab="cmds">⌨️ Rank কমান্ড</button>
+    <button class="tabbtn" data-tab="wallets">👛 ওয়ালেট ম্যানেজার</button>
     <button class="tabbtn" data-tab="ann">📢 Announcements</button>
     <button class="tabbtn" data-tab="home">🏠 Home</button>
     <button class="tabbtn" data-tab="season">🎨 Season</button>
@@ -957,6 +1003,8 @@
 <div class="light-bg" id="lightBg"><img id="lightImg" alt=""></div>
 
 <!-- ===== ওয়ালেট রিচার্জ মডাল ===== -->
+<div class="modal-bg" id="ordersBg"><div class="modal ordersbox" id="ordersBox"></div></div>
+
 <div class="modal-bg" id="walletBg">
   <div class="modal walletbox" id="walletBox"></div>
 </div>
@@ -1208,6 +1256,11 @@ function normalize(d){
 }
 function loadData(){
   try{ localStorage.removeItem('bsDraft'); }catch(e){}   // পুরনো ড্রাফট মুছে ফেলা
+  // শেষবার সার্ভার থেকে আনা ডেটা আগে দেখাও, যাতে ফাইলের ভেতরের পুরনো ডেটা ঝলক দিয়ে না আসে
+  try{
+    const c = JSON.parse(localStorage.getItem('bsSiteCache') || 'null');
+    if(c && typeof c === 'object') return normalize(c);
+  }catch(e){}
   return normalize(clone(SITE_DATA));
 }
 let D = loadData();
@@ -1326,6 +1379,7 @@ function nameColor(n){
 }
 function imgUrl(p){ return CONFIG.SUPABASE_URL + '/storage/v1/object/public/chat-images/' + encodeURI(p); }
 async function renderRoom(room){
+  $('infoPage').classList.add('chatroom'); document.body.classList.add('in-chat'); try{ chatLayout(); }catch(e){}
   loadMentionNames();
   const P = infoPages()[room];
   ROOM = { name: room, rows: [], muted: [], myMuted: false, sig: '', img: null }; barKey = '';
@@ -1662,18 +1716,42 @@ const SB = {
     return r.json().catch(() => null);
   }
 };
+var lastRemoteSig = '';
 async function loadRemote(){
   try{
     const remote = await SB.load();
     if(remote){
-      D = normalize(remote);
-      renderAll();
-      updateStatus();
+      const sig = JSON.stringify(remote);
+      try{ localStorage.setItem('bsSiteCache', sig); }catch(e){}
+      if(sig !== lastRemoteSig){
+        lastRemoteSig = sig;
+        D = normalize(remote);
+        renderAll();
+        updateStatus();
+      }
       return true;
     }
     return true;   // এখনো কিছু সেভ হয়নি, ফাইলের ডেটাই চলবে
   }catch(e){ return false; }
 }
+// ব্যর্থ হলে আবার চেষ্টা (ধীর নেট বা সাময়িক সমস্যায় পুরনো ডেটা আটকে থাকবে না)
+async function loadRemoteRetry(){
+  for(let i = 0; i < 4; i++){
+    if(await loadRemote()) return true;
+    await new Promise(function(r){ setTimeout(r, 1500 * (i + 1)); });
+  }
+  return false;
+}
+// অ্যাডমিন প্যানেলে বদল করলে সবার সাইটে (অ্যাপসহ) কয়েক সেকেন্ডে দেখা যাবে
+function syncRemoteQuiet(){
+  if(document.hidden) return;
+  if(location.hash === '#admin') return;                         // অ্যাডমিন সম্পাদনার মাঝে নয়
+  if(document.body.classList.contains('in-chat')) return;        // চ্যাটের মাঝে নয়
+  loadRemote();
+}
+setInterval(syncRemoteQuiet, 45000);
+document.addEventListener('visibilitychange', function(){ if(!document.hidden) syncRemoteQuiet(); });
+window.addEventListener('online', syncRemoteQuiet);
 
 // ===== IP দেখানো =====
 function renderIps(){
@@ -1949,8 +2027,14 @@ async function doWalletVerify(){
 
 // ===== Buy Now: Rank কেনা ও ভেরিফাই =====
 var BUY = { i: -1, plans: [], plan: 0, method: 'bkash', name: '', trx: '', busy: false };
+var STORE = { online: null, block: false };
+async function loadStoreState(){
+  try{ const j = await fetchStoreState(); STORE.online = j.online; STORE.block = !!j.block; }catch(e){}
+  return STORE;
+}
 function openBuy(i){
   const r = D.ranks[i]; if(!r || !payOn()) return;
+  try{ loadStoreState().then(function(){ if($('buyBg').classList.contains('show') && D.ranks[BUY.i]) drawBuy(); }); }catch(e){}
   try{ refreshWallet().then(function(){ if($('buyBg').classList.contains('show') && D.ranks[BUY.i]) drawBuy(); }); }catch(e){}
   const keep = BUY.i === i;
   BUY = {
@@ -1978,6 +2062,13 @@ function drawBuy(){
   if(!nums.some(function(x){ return x[0] === BUY.method; })) BUY.method = nums[0][0];
   const num = nums.find(function(x){ return x[0] === BUY.method; }) || nums[0];
   let h = '<h3>🛒 ' + esc(r.name.trim()) + '</h3>';
+  if(STORE.online === false){
+    if(STORE.block){
+      h += '<div class="mcnote" style="color:#fecaca;background:rgba(239,68,68,.12);border-color:rgba(239,68,68,.4)">🔴 সার্ভার এখন অফলাইন, তাই এখন Rank কেনা বন্ধ আছে। সার্ভার চালু হলে আবার চেষ্টা করো।</div><div class="row"><button class="cancel" data-b="close">বন্ধ</button></div>';
+      $('buyBox').innerHTML = h; return;
+    }
+    h += '<div class="mcnote">🔴 সার্ভার এখন অফলাইন। কিনলেও Rank সার্ভার চালু হলে নিজে থেকে চলে আসবে (মেনু → আমার অর্ডার-এ Pending দেখাবে)।</div>';
+  }
   if(!pl.length){
     h += '<p>এই Rank-এর দাম এখনো ঠিকভাবে সেট করা নেই। Discord-এ যোগাযোগ করো।</p><div class="row"><button class="cancel" data-b="close">বন্ধ</button></div>';
     $('buyBox').innerHTML = h; return;
@@ -1996,7 +2087,7 @@ function drawBuy(){
       '<div style="display:flex;justify-content:space-between;align-items:center"><span>প্যাকেজের মূল্য:</span><b style="font-size:1.1rem">৳' + cur.amount + '</b></div>' +
     '</div>';
     
-    h += '<label>৩) তোমার Minecraft নাম (পরিবর্তন করতে পারো)</label><input type="text" id="buyName" maxlength="24" placeholder="Minecraft username" autocomplete="off" spellcheck="false" value="' + esc(BUY.name) + '">';
+    h += '<div class="mcnote">⚠️ আগে Minecraft সার্ভারে জয়েন করো, তারপর ঠিক সেই একই নাম এখানে দাও। নাম না মিললে Rank যাবে না।</div>' + '<label>৩) তোমার Minecraft নাম (পরিবর্তন করতে পারো)</label><input type="text" id="buyName" maxlength="24" placeholder="Minecraft username" autocomplete="off" spellcheck="false" value="' + esc(BUY.name) + '">';
     
     if(hasEnough){
       h += '<div class="err" id="buyErr"></div><div class="row"><button class="cancel" data-b="close">বাতিল</button><button class="ok" data-b="walletPay">💳 ওয়ালেট দিয়ে কিনুন (৳' + cur.amount + ')</button></div>';
@@ -2007,7 +2098,7 @@ function drawBuy(){
   } else {
     // বিকাশ বা নগদ পেমেন্ট বক্স
     h += '<div class="paybox">এই ' + num[1] + ' নাম্বারে <b>Send Money</b> করো:<div class="paynum"><b>' + esc(num[2]) + '</b><button type="button" class="copy" data-b="copy">Copy</button></div>ঠিক <b>৳' + cur.amount + '</b> পাঠাবে। কম বা বেশি হলে ভেরিফাই হবে না।</div>';
-    h += '<label>৩) তোমার Minecraft নাম</label><input type="text" id="buyName" maxlength="24" placeholder="Minecraft username" autocomplete="off" spellcheck="false" value="' + esc(BUY.name) + '">';
+    h += '<div class="mcnote">⚠️ আগে Minecraft সার্ভারে জয়েন করো, তারপর ঠিক সেই একই নাম এখানে দাও। নাম না মিললে Rank যাবে না।</div>' + '<label>৩) তোমার Minecraft নাম</label><input type="text" id="buyName" maxlength="24" placeholder="Minecraft username" autocomplete="off" spellcheck="false" value="' + esc(BUY.name) + '">';
     h += '<label>৪) Transaction ID (TrxID)</label><input type="text" id="buyTrx" maxlength="14" placeholder="যেমন 69875G5965" autocomplete="off" spellcheck="false" style="text-transform:uppercase" value="' + esc(BUY.trx) + '">';
     h += '<div class="err" id="buyErr"></div><div class="row"><button class="cancel" data-b="close">বাতিল</button><button class="ok" data-b="verify">✅ Verify</button></div>';
   }
@@ -2077,7 +2168,7 @@ function vfyShow(st){
     box.innerHTML = '<div class="spin"></div><h4>ভেরিফাই হচ্ছে...</h4><p>একটু অপেক্ষা করো</p>';
   }else if(st.ok){
     const note = (D.pay.note || '').trim();
-    box.innerHTML = '<div class="vicon ok">✓</div><h4>সফল হয়েছে!</h4><p><b>' + esc(String(st.rank || '').trim()) + '</b>' + (st.plan ? '<br>' + esc(st.plan) : '') + (st.topup ? '' : '<br>Minecraft নাম: <b>' + esc(BUY.name.trim()) + '</b>' + (note ? '<br>' + esc(note) : '')) + '</p><button data-v="done">ঠিক আছে</button>';
+    box.innerHTML = '<div class="vicon ok">✓</div><h4>সফল হয়েছে!</h4><p><b>' + esc(String(st.rank || '').trim()) + '</b>' + (st.plan ? '<br>' + esc(st.plan) : '') + (st.topup ? '' : '<br>Minecraft নাম: <b>' + esc(BUY.name.trim()) + '</b>' + (note ? '<br>' + esc(note) : '') + '<br><small>Rank আসতে দেরি হলে মেনু → "আমার অর্ডার"-এ <b>Pending</b> দেখাবে, এলে <b>দেওয়া হয়েছে</b> হবে।</small>') + '</p><button data-v="done">ঠিক আছে</button>';
   }else{
     const M = {
       player: 'Minecraft নাম ঠিক নেই (৩-২৪ অক্ষর, ইংরেজি অক্ষর/সংখ্যা/_ চলবে)।',
@@ -2087,12 +2178,14 @@ function vfyShow(st){
       amount: 'তুমি যত টাকা পাঠিয়েছ আর যে প্যাকেজ বেছেছ তা মেলেনি। যত টাকা পাঠিয়েছ ঠিক সেই প্যাকেজটা বাছো।',
       login: 'আগে লগইন করো, তারপর আবার চেষ্টা করো।',
       balance: 'ওয়ালেটে পর্যাপ্ত ব্যালেন্স নেই। আগে রিচার্জ করো।',
+      offline: 'সার্ভার এখন অফলাইন, তাই এখন কেনা বন্ধ। সার্ভার চালু হলে আবার চেষ্টা করো।',
       server: 'সার্ভারে সমস্যা হচ্ছে। একটু পরে আবার চেষ্টা করো।',
       net: 'ইন্টারনেট সংযোগে সমস্যা। আবার চেষ্টা করো।'
     };
     box.innerHTML = '<div class="vicon no">✕</div><h4>ব্যর্থ হয়েছে</h4><p>' + esc(M[st.err] || 'ভেরিফাই হয়নি। আবার চেষ্টা করো।') + '</p><button data-v="retry">আবার চেষ্টা করো</button>';
   }
   $('vfy').classList.add('show');
+  if(st && st.ok){ try{ setTimeout(refreshOrders, 1500); }catch(e){} }
 }
 $('vfyBox').addEventListener('click', function(e){
   const b = e.target.closest('[data-v]'); if(!b) return;
@@ -2138,6 +2231,49 @@ if($('headerWalletBtn')) $('headerWalletBtn').onclick = function(){ openWallet()
 if($('drawerWalletLink')) $('drawerWalletLink').onclick = function(){ toggleMenu(false); openWallet(); };
 updateWalletUi();
 setInterval(refreshWallet, 60000);
+
+
+// ===== আমার অর্ডার ও হিস্টোরি (শুধু নিজেরটা, সার্ভার থেকে) =====
+var ORD = { rows: [], timer: 0 };
+function ordFmtDate(s){ try{ return new Date(s).toLocaleString([], { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' }); }catch(e){ return ''; } }
+function drawOrders(){
+  const box = $('ordersBox'); if(!box) return;
+  let h = '<h3>🧾 আমার অর্ডার</h3><div class="osub">তুমি যা কিনেছ আর যত টাকা ওয়ালেটে যোগ করেছ</div>';
+  h += ORD.rows.map(function(o){
+    if(o.kind === 'topup'){
+      return '<div class="oitem"><div class="ot"><span>➕ ওয়ালেটে ৳' + esc(fmtMoney(o.amount)) + ' যোগ</span><span class="otag success">সফল</span></div><small>' + esc(ordFmtDate(o.created_at)) + '</small></div>';
+    }
+    if(o.kind === 'admin'){ const a = Number(o.amount); return '<div class="oitem"><div class="ot"><span>' + (a < 0 ? '➖ অ্যাডমিন ৳' + esc(fmtMoney(-a)) + ' কেটেছে' : '➕ অ্যাডমিন ৳' + esc(fmtMoney(a)) + ' যোগ করেছে') + '</span><span class="otag success">ওয়ালেট</span></div><small>' + (o.note ? 'কারণ: ' + esc(o.note) + '<br>' : '') + esc(ordFmtDate(o.created_at)) + '</small></div>'; }
+    const done = o.status === 'done';
+    return '<div class="oitem"><div class="ot"><span>🛒 ' + esc(String(o.rank_name || '')) + '</span><span class="otag ' + (done ? 'done' : 'pending') + '">' + (done ? '✅ দেওয়া হয়েছে' : '⏳ Pending') + '</span></div>' +
+      '<small>' + (o.plan ? esc(o.plan) + ' · ' : '') + '৳' + esc(fmtMoney(o.amount)) + '<br>Minecraft নাম: ' + esc(o.player) + ' · ' + esc(ordFmtDate(o.created_at)) + '</small>' +
+      (done ? '' : '<small style="color:#fde68a">Rank দিতে কিছুটা সময় লাগছে। আগে সার্ভারে জয়েন করে থাকো, নাম ঠিক থাকলে নিজে থেকে চলে আসবে। অনেক দেরি হলে Discord-এ জানাও।</small>') + '</div>';
+  }).join('');
+  h += '<button class="oclose" id="ordersClose">বন্ধ করো</button>';
+  box.innerHTML = h;
+}
+async function refreshOrders(){
+  const link = $('drawerOrdersLink');
+  if(!getUser() || !SB.hasSession()){ ORD.rows = []; if(link) link.style.display = 'none'; return; }
+  try{
+    if(!(await SB.ensure())) return;
+    const rows = await SB.rpc('my_orders');
+    ORD.rows = Array.isArray(rows) ? rows : [];
+    if(link) link.style.display = ORD.rows.length ? '' : 'none';   // কিছু না থাকলে কিছুই দেখাবে না
+    if($('ordersBg').classList.contains('show')) drawOrders();
+  }catch(e){}
+}
+function openOrders(){
+  if(!ORD.rows.length) return;
+  drawOrders();
+  $('ordersBg').classList.add('show');
+  clearInterval(ORD.timer);
+  ORD.timer = setInterval(function(){ if($('ordersBg').classList.contains('show')) refreshOrders(); else clearInterval(ORD.timer); }, 8000);
+}
+function closeOrders(){ $('ordersBg').classList.remove('show'); clearInterval(ORD.timer); }
+if($('drawerOrdersLink')) $('drawerOrdersLink').onclick = function(){ toggleMenu(false); openOrders(); };
+$('ordersBg').addEventListener('click', function(e){ if(e.target === $('ordersBg') || e.target.id === 'ordersClose') closeOrders(); });
+setInterval(refreshOrders, 60000);
 
 // ইন্টারনেট সংযোগ মনিটর
 function updateNetStatus(){
@@ -2415,6 +2551,7 @@ function renderUser(){
   try{ applySite(); }catch(e){}
   try{ pollNotifs(); }catch(e){}
   try{ refreshWallet(); }catch(e){}
+  try{ refreshOrders(); }catch(e){}
   const n = getUser();
   if(n){
     loginBtn.style.display = 'none';
@@ -2648,10 +2785,17 @@ function secs(){ return {
   ann: ['📢 Announcements', ['ann']], home: ['🏠 Home', ['home']], season: ['🎨 Season', ['season']],
   reviews: ['⭐ Reviews', ['menu']], chat: ['💬 Chat', ['menu']], report: ['🚩 Report', ['menu']],
   links: ['🔗 Links', ['links']], help: ['📖 Help', ['help']], siteinfo: ['⚙️ Site Settings', ['site']],
-  events: ['📅 Events', ['events']], community: ['🌍 Community', ['community']]
+  events: ['📅 Events', ['events']], community: ['🌍 Community', ['community']],
+  cmds: ['⌨️ Rank কমান্ড', []], wallets: ['👛 ওয়ালেট ম্যানেজার', []]
 }; }
+var SENSITIVE_SECS = ['cmds', 'wallets'];   // এই দুটো Admin-access স্টাফও স্পষ্ট টিক ছাড়া পাবে না
 function myStaff(){ const u = getUser().toLowerCase(); return (u && SB.hasSession() && !isAdmin()) ? (D.staff.find(x => x.name.toLowerCase() === u) || null) : null; }
-function canSection(id){ if(isAdmin()) return true; const m = myStaff(); return !!(m && secs()[id] && (m.access === 'admin' || (m.perms || []).indexOf(id) >= 0)); }
+function canSection(id){
+  if(isAdmin()) return true;
+  const m = myStaff(); if(!m || !secs()[id]) return false;
+  if(SENSITIVE_SECS.indexOf(id) >= 0) return (m.perms || []).indexOf(id) >= 0;
+  return m.access === 'admin' || (m.perms || []).indexOf(id) >= 0;
+}
 function canPanel(){ return isAdmin() || Object.keys(secs()).some(canSection); }
 async function staffAdminSave(){
   const btn = $('adminSave'); btn.disabled = true;
@@ -2676,7 +2820,7 @@ function tabStaff(){
     h += '<div class="acard"><div class="ahead"><b>#' + (i + 1) + '</b><span class="abtns">' + lb('lUp', 'staff', i, '↑') + lb('lDn', 'staff', i, '↓') + lb('lDel', 'staff', i, '🗑️ Delete', 'danger') + '</span></div>' +
       fld('Minecraft name', 'staff.' + i + '.name', x.name) + fld('Title (e.g. Moderator)', 'staff.' + i + '.role', x.role) +
       sel('Access', 'staff.' + i + '.access', x.access === 'admin' ? 'admin' : 'mod', [['mod', 'Moderator (only ticked sections)'], ['admin', 'Admin (all sections)']]);
-    if(x.access !== 'admin') h += '<div class="perms">' + Object.keys(S).map(id => '<label class="pchk"><input type="checkbox" data-perm="' + i + ':' + id + '"' + ((x.perms || []).indexOf(id) >= 0 ? ' checked' : '') + '> ' + S[id][0] + '</label>').join('') + '</div>';
+    h += '<div class="perms">' + (x.access === 'admin' ? SENSITIVE_SECS : Object.keys(S)).map(id => '<label class="pchk"><input type="checkbox" data-perm="' + i + ':' + id + '"' + ((x.perms || []).indexOf(id) >= 0 ? ' checked' : '') + '> ' + S[id][0] + '</label>').join('') + '</div>';
     h += '</div>';
   });
   return h;
@@ -2687,6 +2831,155 @@ $('adminBody').addEventListener('change', e => {
   const at = st.perms.indexOf(p[1]);
   if(t.checked && at < 0) st.perms.push(p[1]); if(!t.checked && at >= 0) st.perms.splice(at, 1);
 });
+
+
+// ===== Rank কমান্ড (অ্যাডমিন / অনুমতিপ্রাপ্ত স্টাফ) =====
+function normRank(s){ return String(s || '').replace(/^[\s‎‏]+|[\s‎‏]+$/g, '').toLowerCase(); }
+var CM = { rows: [], player: '' };
+async function fetchStoreState(){
+  const r = await fetch(CONFIG.SUPABASE_URL + '/rest/v1/rpc/store_state', { method: 'POST', headers: SB.hdr(), body: '{}', cache: 'no-store' });
+  if(!r.ok) throw new Error('state');
+  return r.json();
+}
+function cmBlock(ri, amount, title){
+  return '<div class="icard" style="margin-top:8px;white-space:normal"><b>' + esc(title) + '</b>' +
+    '<label>কমান্ড (প্রতি লাইনে একটা)<textarea rows="3" id="cm_' + ri + '_' + amount + '" placeholder="lp user {player} parent set knight"></textarea></label>' +
+    '<div class="ibtns" style="margin-top:6px"><button class="aadd" style="margin:0" data-cm="save" data-ri="' + ri + '" data-amt="' + amount + '">💾 সেভ</button>' +
+    '<button class="aadd" style="margin:0" data-cm="test" data-ri="' + ri + '" data-amt="' + amount + '">🧪 টেস্ট পাঠাও</button></div></div>';
+}
+function tabCmds(){
+  setTimeout(loadCmds, 0);
+  let h = '<div class="acard"><h3>⌨️ Rank কমান্ড</h3><p class="note">কেউ Rank কিনলে সার্ভারে যে কমান্ড চলবে সেটা এখানে লেখো। <b>{player}</b> লিখলে ক্রেতার Minecraft নাম বসে যাবে। প্রতি লাইনে একটা কমান্ড, শুরুতে <b>/</b> লাগবে না। যেমন: <b>lp user {player} parent set knight</b><br>' +
+    'প্যাকেজের (যেমন ১ মাস বা পুরো সিজন) নিজস্ব কমান্ড না থাকলে নিচের "সব প্যাকেজের ডিফল্ট" কমান্ড চলবে। নতুন Rank বা দাম বদলালে আগে Rank ট্যাবে Save করো, তারপর এখানে এসো।<br>' +
+    'কমান্ড বসালে আগে "কমান্ড নেই" বলে আটকে থাকা (৩ দিনের মধ্যের) অর্ডারও নিজে থেকে চলে যাবে।</p>' +
+    '<label>টেস্টের জন্য Minecraft নাম (সার্ভারে ঢুকে থাকা তোমার নাম)<input type="text" id="cmTestName" maxlength="16" value="' + esc(CM.player || getUser()) + '"></label></div>';
+  (D.ranks || []).forEach(function(r, ri){
+    const plans = rankPlans(r.price);
+    h += '<div class="acard"><h3>' + esc(String(r.name).trim()) + '</h3>';
+    plans.forEach(function(p){ h += cmBlock(ri, p.amount, '📦 ' + p.label + ' (৳' + p.amount + ')'); });
+    h += cmBlock(ri, 0, '🌐 সব প্যাকেজের ডিফল্ট (প্যাকেজের নিজস্ব না থাকলে এটা চলবে)') + '</div>';
+  });
+  h += '<div class="acard"><h3>🖥️ সার্ভারের অবস্থা</h3><div id="cmState" class="note">Loading...</div>' +
+    '<label>সার্ভার অফলাইন থাকলে ওয়ালেট দিয়ে Rank কেনা বন্ধ থাকুক?<select id="cmBlock"><option value="off">না, কিনতে দাও (সার্ভার চালু হলে নিজে থেকে Rank যাবে)</option><option value="on">হ্যাঁ, বন্ধ রাখো (বিকাশ/নগদের সময়ও সতর্কতা দেখাবে)</option></select></label>' +
+    '<button class="aadd" data-cm="blocksave">💾 সেটিং সেভ</button></div>' +
+    '<div class="acard"><h3>📦 ডেলিভারির তালিকা</h3><p class="note">ব্যর্থ হলে সিস্টেম প্রতি মিনিটে নিজে আবার চেষ্টা করে (সর্বোচ্চ ৪০ বার)। চাইলে "আবার পাঠাও" দিয়ে এখনই চালাতে পারো।</p><button class="aadd" data-cm="refresh">🔄 তালিকা নতুন করো</button><div id="cmDel" class="note">Loading...</div></div>';
+  return h;
+}
+async function loadCmds(){
+  try{
+    if(!(await SB.ensure())) throw new Error('x');
+    CM.rows = (await SB.rpc('cmds_get')) || [];
+    (D.ranks || []).forEach(function(r, ri){
+      rankPlans(r.price).map(function(p){ return p.amount; }).concat([0]).forEach(function(a){
+        const el = $('cm_' + ri + '_' + a); if(!el) return;
+        const row = CM.rows.find(function(x){ return normRank(x.rank_name) === normRank(r.name) && Number(x.amount) === Number(a); });
+        el.value = row ? row.commands : '';
+      });
+    });
+  }catch(e){ showToast('⚠️ কমান্ড লোড হয়নি। আবার লগইন করে দেখো'); }
+  loadCmState(); loadDeliveries();
+}
+async function loadCmState(){
+  const box = $('cmState'); if(!box) return;
+  try{
+    const st = await fetchStoreState();
+    box.innerHTML = st.online === true ? '🟢 সার্ভার অনলাইন, কমান্ড পাঠানোর সংযোগ ঠিক আছে' : st.online === false ? '🔴 সার্ভার অফলাইন, অথবা RCON সংযোগ হচ্ছে না' : '⚪ এখনো জানা নেই (১ মিনিট পর আবার দেখো)';
+    $('cmBlock').value = st.block ? 'on' : 'off';
+  }catch(e){ box.textContent = 'অবস্থা জানা যায়নি'; }
+}
+async function loadDeliveries(){
+  const box = $('cmDel'); if(!box) return;
+  try{
+    if(!(await SB.ensure())) throw new Error('x');
+    const rows = (await SB.rpc('deliveries_list')) || [];
+    const fd = function(s){ return s ? new Date(s).toLocaleString() : '-'; };
+    box.innerHTML = rows.length ? rows.map(function(x){
+      const st = x.status, tag = st === 'done' ? ['u', '✅ দেওয়া হয়েছে'] : st === 'failed' ? ['f', '❌ ব্যর্থ'] : st === 'skipped' ? ['n', '⚠️ কমান্ড নেই'] : ['n', '⏳ চলছে'];
+      const canRetry = st === 'failed' || st === 'skipped' || st === 'sending';
+      return '<div class="icard" style="margin-top:8px;white-space:normal"><div class="ahead"><b>' + esc(x.player) + ' → ' + esc(String(x.rank_name || '').trim()) + '</b><span class="ptag ' + tag[0] + '">' + tag[1] + '</span></div>' +
+        '<small>' + (x.plan ? esc(x.plan) + ' · ' : '') + esc(fd(x.created_at)) + (x.source === 'test' ? ' · টেস্ট' : '') + (x.attempts ? ' · চেষ্টা: ' + x.attempts : '') +
+        (x.command ? '<br>কমান্ড: ' + esc(String(x.command).replace(/\n/g, '  //  ')) : '') + (x.error ? '<br>কারণ: ' + esc(x.error) : '') + '</small>' +
+        (canRetry ? '<div class="ibtns" style="margin-top:6px"><button class="aadd" style="margin:0" data-cm="retry" data-id="' + x.id + '">🔁 আবার পাঠাও</button></div>' : '') + '</div>';
+    }).join('') : 'এখনো কোনো ডেলিভারি নেই।';
+  }catch(e){ box.textContent = 'লোড হয়নি।'; }
+}
+$('adminBody').addEventListener('click', async function(e){
+  const b = e.target.closest('[data-cm]'); if(!b) return;
+  const op = b.dataset.cm;
+  try{
+    if(!(await SB.ensure())){ showToast('🔒 সেশন শেষ। আবার লগইন করো'); return; }
+    if(op === 'refresh'){ loadCmState(); loadDeliveries(); return; }
+    if(op === 'blocksave'){ await SB.rpc('store_settings_set', { p_block: $('cmBlock').value === 'on' }); showToast('✅ সেভ হয়েছে'); return; }
+    if(op === 'retry'){ await SB.rpc('deliveries_retry', { p_id: +b.dataset.id }); showToast('🔁 আবার পাঠানো হচ্ছে...'); setTimeout(loadDeliveries, 6000); return; }
+    if(op === 'save' || op === 'test'){
+      const ri = +b.dataset.ri, amt = Number(b.dataset.amt), r = D.ranks[ri]; if(!r) return;
+      const el = $('cm_' + ri + '_' + b.dataset.amt), title = String(b.closest('.icard').querySelector('b').textContent).slice(0, 80);
+      let player = '';
+      if(op === 'test'){
+        player = ($('cmTestName').value || '').trim(); CM.player = player;
+        if(!/^[A-Za-z0-9_]{3,16}$/.test(player)){ showToast('⚠️ উপরে টেস্টের জন্য ঠিক Minecraft নাম লেখো'); return; }
+        if(!el.value.trim()){ showToast('⚠️ আগে কমান্ড লেখো'); return; }
+        if(!confirm('এই কমান্ড এখনই সার্ভারে চলবে (' + player + ' এর জন্য)। চালাবো?')) return;
+      }
+      const res = await SB.rpc('cmds_set', { p_rank: r.name, p_amount: amt, p_label: title, p_commands: el.value });
+      if(op === 'save'){
+        showToast(res && res.deleted ? '🗑️ কমান্ড মুছে গেছে' : '✅ সেভ হয়েছে' + (res && res.requeued ? ' · আটকে থাকা ' + res.requeued + 'টা অর্ডার পাঠানো হচ্ছে' : ''));
+        loadDeliveries(); return;
+      }
+      const t = await SB.rpc('cmds_test', { p_rank: r.name, p_amount: amt, p_player: player });
+      if(t && t.ok){ showToast('🧪 পাঠানো হয়েছে, নিচের ডেলিভারি তালিকায় দেখো'); setTimeout(loadDeliveries, 5000); }
+      else showToast('⚠️ ' + (t && t.err === 'player' ? 'Minecraft নাম ঠিক নেই' : 'পাঠানো যায়নি'));
+    }
+  }catch(err){ showToast('⚠️ ' + (err && err.detail ? err.detail : 'অনুমতি নেই বা সমস্যা হয়েছে')); }
+});
+
+// ===== ওয়ালেট ম্যানেজার (অ্যাডমিন / অনুমতিপ্রাপ্ত স্টাফ) =====
+function tabWallets(){
+  setTimeout(function(){ loadWallets(''); loadWalletHistory(); }, 0);
+  return '<div class="acard"><h3>👛 ওয়ালেট ম্যানেজার</h3><p class="note">সবার ওয়ালেটের টাকা দেখো, কাউকে টাকা যোগ করো বা কেটে নাও। প্রতিটা পরিবর্তনের কারণ লিখতে হয়, আর ইউজার নিজের "আমার অর্ডার"-এ সেটা দেখতে পায়।<br>সবার মোট ব্যালেন্স: <b id="wmTotal">...</b></p>' +
+    '<label>নাম খোঁজো<input type="text" id="wmQ" placeholder="যেমন obs"></label><button class="aadd" data-wm="search">🔍 খোঁজো</button><div id="wmList" class="note">Loading...</div></div>' +
+    '<div class="acard"><h3>✏️ টাকা যোগ / কাটা</h3><label>ইউজারের নাম (উপরের তালিকায় চাপলেও বসে যাবে)<input type="text" id="wmName" maxlength="24" autocomplete="off"></label>' +
+    '<label>টাকা (সংখ্যা)<input type="number" id="wmAmt" min="1" step="1" inputmode="decimal"></label>' +
+    '<label>কারণ (ইউজার এটা দেখতে পাবে)<input type="text" id="wmNote" maxlength="100" placeholder="যেমন: ভুল কেনার ফেরত"></label>' +
+    '<div class="ibtns"><button class="aadd" data-wm="add">➕ যোগ করো</button><button class="aadd" data-wm="sub" style="border-color:#ef4444;color:#fca5a5">➖ কেটে নাও</button></div></div>' +
+    '<div class="acard"><h3>📜 ওয়ালেট লেনদেন</h3><div id="walHist" class="note">Loading...</div></div>';
+}
+async function loadWallets(q){
+  const box = $('wmList'); if(!box) return;
+  try{
+    if(!(await SB.ensure())) throw new Error('x');
+    const rows = (await SB.rpc('wallets_list', { p_q: q || '' })) || [];
+    if($('wmTotal')) $('wmTotal').textContent = '৳' + fmtMoney(rows.length ? rows[0].total_all : 0);
+    box.innerHTML = rows.length ? rows.map(function(x){
+      return '<div class="icard" data-wm="pick" data-name="' + esc(x.name) + '" style="cursor:pointer;margin-top:6px;white-space:normal"><div class="ahead"><b>' + esc(x.name) + '</b><span class="ptag ' + (Number(x.balance) > 0 ? 'u' : 'n') + '">৳' + esc(fmtMoney(x.balance)) + '</span></div></div>';
+    }).join('') : 'কোনো ইউজার পাওয়া যায়নি।';
+  }catch(e){ box.textContent = 'লোড হয়নি। আবার লগইন করে দেখো।'; }
+}
+$('adminBody').addEventListener('click', async function(e){
+  const b = e.target.closest('[data-wm]'); if(!b) return;
+  const op = b.dataset.wm;
+  if(op === 'pick'){ $('wmName').value = b.dataset.name; $('wmAmt').focus(); return; }
+  if(op === 'search'){ loadWallets($('wmQ').value); return; }
+  if(op !== 'add' && op !== 'sub') return;
+  const name = ($('wmName').value || '').trim(), amt = Number($('wmAmt').value), note = ($('wmNote').value || '').trim();
+  if(!name){ showToast('⚠️ ইউজারের নাম লেখো'); return; }
+  if(!(amt >= 1) || amt > 100000){ showToast('⚠️ টাকা ১ থেকে ১,০০,০০০-এর মধ্যে দাও'); return; }
+  if(!note){ showToast('⚠️ কারণ লিখতে হবে'); return; }
+  if(!confirm((op === 'add' ? 'যোগ করবে' : 'কেটে নেবে') + ': ' + name + ' → ৳' + amt + '\nকারণ: ' + note + '\nনিশ্চিত?')) return;
+  try{
+    if(!(await SB.ensure())){ showToast('🔒 সেশন শেষ। আবার লগইন করো'); return; }
+    const res = await SB.rpc('wallet_adjust', { p_name: name, p_delta: op === 'add' ? amt : -amt, p_note: note });
+    if(res && res.ok){
+      showToast('✅ হয়েছে। এখন ব্যালেন্স ৳' + fmtMoney(res.balance));
+      $('wmAmt').value = ''; $('wmNote').value = '';
+      loadWallets($('wmQ').value); loadWalletHistory();
+    }else{
+      const M = { amount: 'টাকার অঙ্ক ঠিক নেই', note: 'কারণ লিখতে হবে', nouser: 'এই নামে কোনো ইউজার নেই', insufficient: 'ইউজারের ব্যালেন্সে এত টাকা নেই (আছে ৳' + fmtMoney(res && res.balance) + ')' };
+      showToast('⚠️ ' + (M[res && res.err] || 'হয়নি'));
+    }
+  }catch(err){ showToast('⚠️ অনুমতি নেই বা সমস্যা হয়েছে'); }
+});
+$('adminBody').addEventListener('keydown', function(e){ if(e.target && e.target.id === 'wmQ' && e.key === 'Enter'){ e.preventDefault(); loadWallets(e.target.value); } });
 
 // ===== Reviews / Chat / Report: আলাদা অ্যাডমিন পেজ =====
 function switchCard(title, key, note){
@@ -2778,6 +3071,7 @@ async function pollNotifs(){
   if(typeof NT === 'undefined' || !NT) return;
   const bell = $('bellBtn');
   if(!SB.hasSession() || !getUser()){ bell.style.display = 'none'; NT.rows = []; return; }
+  bell.style.display = '';
   try{
     if(!(await SB.ensure())) return;
     const rows = await SB.rows('notifications?select=id,from_name,room,body,created_at&read=eq.false&order=created_at.desc&limit=30', true);
@@ -3046,10 +3340,14 @@ async function loadWalletHistory(){
     const rows = (await SB.rpc('wallet_history')) || [];
     const fd = function(s){ return s ? new Date(s).toLocaleString() : '-'; };
     box.innerHTML = rows.length ? rows.map(function(x){
-      const buy = x.kind === 'buy';
-      return '<div class="icard" style="margin-top:8px"><div class="ahead"><b>' + (buy ? '🛒 কেনা' : '➕ রিচার্জ') + ' ৳' + esc(x.amount) + '</b><span class="ptag ' + (buy ? 'u' : 'n') + '">' + (buy ? 'Rank কিনেছে' : 'টাকা যোগ') + '</span></div>' +
-        (buy ? '<div><b>' + esc(x.player) + '</b> → ' + esc(String(x.rank_name || '').trim()) + (x.plan ? ' <small>(' + esc(x.plan) + ')</small>' : '') + '</div>' : '<div><b>' + esc(x.player) + '</b></div>') +
-        '<small>অ্যাকাউন্ট: ' + esc(x.name_lc) + (x.trx_id ? ' · ' + esc(x.trx_id) : '') + '<br>ব্যালেন্স পরে: ৳' + esc(x.balance_after) + ' · ' + esc(fd(x.created_at)) + '</small></div>';
+      const k = x.kind, amt = Number(x.amount);
+      const label = k === 'buy' ? '🛒 কেনা' : (k === 'admin' ? (amt < 0 ? '➖ অ্যাডমিন কেটেছে' : '➕ অ্যাডমিন যোগ করেছে') : '➕ রিচার্জ');
+      const tag = k === 'buy' ? ['u', 'Rank কিনেছে'] : (k === 'admin' ? ['n', 'অ্যাডমিন'] : ['u', 'টাকা যোগ']);
+      return '<div class="icard" style="margin-top:8px"><div class="ahead"><b>' + label + ' ৳' + esc(fmtMoney(Math.abs(amt))) + '</b><span class="ptag ' + tag[0] + '">' + tag[1] + '</span></div>' +
+        (k === 'buy' ? '<div><b>' + esc(x.player) + '</b> → ' + esc(String(x.rank_name || '').trim()) + (x.plan ? ' <small>(' + esc(x.plan) + ')</small>' : '') + '</div>'
+                     : '<div><b>' + esc(x.player) + '</b>' + (k === 'admin' && x.note ? ' <small>— ' + esc(x.note) + '</small>' : '') + '</div>') +
+        '<small>অ্যাকাউন্ট: ' + esc(x.name_lc) + (x.trx_id ? ' · ' + esc(x.trx_id) : '') + (k === 'admin' && x.by_name ? ' · করেছে: ' + esc(x.by_name) : '') +
+        '<br>ব্যালেন্স পরে: ৳' + esc(x.balance_after) + ' · ' + esc(fd(x.created_at)) + '</small></div>';
     }).join('') : 'এখনো কোনো ওয়ালেট লেনদেন নেই।';
   }catch(e){ box.textContent = 'লোড হয়নি। আবার লগইন করে দেখো।'; }
 }
@@ -3180,10 +3478,10 @@ function tabBackup(){
 function renderAdmin(){
   $('adminHello').textContent = 'লগইন: ' + getUser();
   $('adminTabs').querySelectorAll('.tabbtn').forEach(b => b.classList.toggle('on', b.dataset.tab === adminTab));
-  const map = { members: tabMembers, rules: tabRules, server: tabServer, ranks: tabRanks, pay: tabPay, ann: tabAnn, home: tabHome, season: tabSeason, aimgr: tabAIMgr, reviews: tabReviewsAdmin, chat: tabChat, report: tabReportAdmin, backup: tabBackup, staff: () => menuToggle('staff') + tabStaff(), links: () => menuToggle('links') + tabLinks(), help: () => menuToggle('help') + tabHelp(),
+  const map = { cmds: tabCmds, wallets: tabWallets, members: tabMembers, rules: tabRules, server: tabServer, ranks: tabRanks, pay: tabPay, ann: tabAnn, home: tabHome, season: tabSeason, aimgr: tabAIMgr, reviews: tabReviewsAdmin, chat: tabChat, report: tabReportAdmin, backup: tabBackup, staff: () => menuToggle('staff') + tabStaff(), links: () => menuToggle('links') + tabLinks(), help: () => menuToggle('help') + tabHelp(),
   siteinfo: () => menuToggle('siteinfo') + tabSiteInfo(), events: () => menuToggle('events') + tabEvents(), community: () => menuToggle('community') + tabCommunity() };
   if(adminTab && !(isAdmin() || canSection(adminTab))) adminTab = '';
-  document.body.classList.toggle('admin-home', !adminTab || adminTab === 'aimgr');
+  document.body.classList.toggle('admin-home', !adminTab || adminTab === 'aimgr' || adminTab === 'cmds' || adminTab === 'wallets');
   if(!adminTab){
     $('adminBody').innerHTML = '<div class="alist">' + [...$('adminTabs').querySelectorAll('.tabbtn')].filter(b => isAdmin() || canSection(b.dataset.tab)).map(b => '<button class="aitem" data-go="' + b.dataset.tab + '">' + b.textContent + '</button>').join('') + '</div>';
     return;
@@ -3463,6 +3761,8 @@ const pages = {
   admin: $('adminPage')
 };
 function route(){
+  $('infoPage').classList.remove('chatroom'); document.body.classList.remove('in-chat');
+  $('infoPage').style.top = ''; $('infoPage').style.height = '';
   const key = location.hash.replace('#','');
   const ik = key.indexOf('p-') === 0 ? key.slice(2) : '';
   let active = (pages[key] && key !== 'info') ? key : 'home';
@@ -3476,11 +3776,28 @@ function route(){
   toggleMenu(false);
   window.scrollTo(0, 0);
 }
+
+// ===== চ্যাট লেআউট: কিবোর্ড খুললে ইনপুট বার কিবোর্ডের ঠিক উপরে থাকে =====
+function chatLayout(){
+  const pg = $('infoPage'); if(!pg || !pg.classList.contains('chatroom')) return;
+  const hd = document.querySelector('header'), h = hd ? hd.offsetHeight : 66;
+  const vv = window.visualViewport, vh = vv ? vv.height : window.innerHeight;
+  pg.style.top = h + 'px';
+  pg.style.height = Math.max(160, vh - h) + 'px';
+  if(vv && vv.offsetTop > 0) window.scrollTo(0, 0);
+  const l = $('msgList'); if(l && document.activeElement && document.activeElement.id === 'msgText') l.scrollTop = l.scrollHeight;
+}
+if(window.visualViewport){ window.visualViewport.addEventListener('resize', chatLayout); window.visualViewport.addEventListener('scroll', chatLayout); }
+window.addEventListener('resize', chatLayout);
+document.addEventListener('focusin', function(e){
+  if(e.target && e.target.id === 'msgText'){ setTimeout(chatLayout, 120); setTimeout(chatLayout, 350); }
+});
+
 window.addEventListener('hashchange', route);
 route();
 
 // সার্ভার থেকে সবার জন্য সেভ করা ডেটা আনা
-loadRemote().then(() => {
+loadRemoteRetry().then(() => {
   remoteDone = true;
   if(location.hash === '#admin' && canPanel()){ A = clone(D); renderAdmin(); }
 });
